@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next pisces use-motion" lang="cn">
+<html class="theme-next pisces use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="心得," />
 
 
 
@@ -87,15 +87,16 @@
 
 
 <meta name="description" content="为什么选EasyARAR的广泛应用 AR（Augmented Reality）即增强现实，是一种实时地计算摄影机影像的位置及角度并加上相应图像、视频、3D模型的技术，这种技术的目标是在屏幕上把虚拟世界套在现实世界并进行互动。  近几年AR的应用越来越广泛，样式繁多的AR应用场景给app的效果提供了更多的可能，AR的互动性体验也逐渐被广泛接受，成为用户十分喜爱并乐于尝试的功能。 主流SDK ARTo">
+<meta name="keywords" content="心得">
 <meta property="og:type" content="article">
-<meta property="og:title" content="AR扫卡应用之ARKit实现 ">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;04&#x2F;22&#x2F;AR%E6%89%AB%E5%8D%A1%E5%BA%94%E7%94%A8%E4%B9%8BARKit%E5%AE%9E%E7%8E%B0%20&#x2F;index.html">
-<meta property="og:site_name" content="胡杨树的博客">
+<meta property="og:title" content="ARKit的实现以及延伸">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;08&#x2F;ARKit%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%8F%8A%E5%BB%B6%E4%BC%B8&#x2F;index.html">
+<meta property="og:site_name" content="Populus euphratica Blog">
 <meta property="og:description" content="为什么选EasyARAR的广泛应用 AR（Augmented Reality）即增强现实，是一种实时地计算摄影机影像的位置及角度并加上相应图像、视频、3D模型的技术，这种技术的目标是在屏幕上把虚拟世界套在现实世界并进行互动。  近几年AR的应用越来越广泛，样式繁多的AR应用场景给app的效果提供了更多的可能，AR的互动性体验也逐渐被广泛接受，成为用户十分喜爱并乐于尝试的功能。 主流SDK ARTo">
-<meta property="og:locale" content="cn">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2251123-84ed3b8b738430b7.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2251123-f289aed7aac1fc6f.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240">
-<meta property="og:updated_time" content="2019-05-09T08:21:30.393Z">
+<meta property="og:updated_time" content="2019-11-08T04:30:43.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2251123-84ed3b8b738430b7.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;1240">
 
@@ -113,7 +114,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -127,25 +128,35 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/04/22/AR扫卡应用之ARKit实现 /"/>
+  <link rel="canonical" href="http://yoursite.com/2019/11/08/ARKit的实现以及延伸/"/>
 
 
 
 
 
-  <title>AR扫卡应用之ARKit实现  | 胡杨树的博客</title>
+  <title>ARKit的实现以及延伸 | Populus euphratica Blog</title>
   
 
 
 
 
 
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
 
 
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="cn">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -163,7 +174,7 @@
     <div class="custom-logo-site-title">
       <a href="/zhy.github.io/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">胡杨树的博客</span>
+        <span class="site-title">Populus euphratica Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -189,51 +200,33 @@
       
         
         <li class="menu-item menu-item-home">
-          <a href="/zhy.github.io/%20" rel="section">
+          <a href="/zhy.github.io/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
-            
-            Home
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-about">
-          <a href="/zhy.github.io/about/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
-            
-            About
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-tags">
-          <a href="/zhy.github.io/tags/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
-            
-            Tags
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-categories">
-          <a href="/zhy.github.io/categories/%20" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
-            
-            Categories
+            首页
           </a>
         </li>
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/zhy.github.io/archives/%20" rel="section">
+          <a href="/zhy.github.io/archives" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
             
-            Archives
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
           </a>
         </li>
       
@@ -270,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/zhy.github.io/2019/04/22/AR%E6%89%AB%E5%8D%A1%E5%BA%94%E7%94%A8%E4%B9%8BARKit%E5%AE%9E%E7%8E%B0%20/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/zhy.github.io/2019/11/08/ARKit%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%8F%8A%E5%BB%B6%E4%BC%B8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张湖扬">
@@ -279,7 +272,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="胡杨树的博客">
+      <meta itemprop="name" content="Populus euphratica Blog">
     </span>
 
     
@@ -287,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">AR扫卡应用之ARKit实现 </h1>
+          <h1 class="post-title" itemprop="name headline">ARKit的实现以及延伸</h1>
         
 
         <div class="post-meta">
@@ -297,10 +290,10 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-04-22T12:18:39+08:00">
-                2019-04-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-08T12:14:41+08:00">
+                2019-11-08
               </time>
             
 
@@ -309,6 +302,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -377,8 +392,9 @@
 
 <p><strong><a href="https://github.com/fusugz/easyarVideo" target="_blank" rel="noopener">Demo</a>已上传至GitHub</strong></p>
 <blockquote>
-<p>BTW: 由于EasyAR的文档不尽完善，且对iOS的支持不是很好，可尝试苹果官方系统库ARKit的实现<a href="https://www.jianshu.com/p/6fe091af77a0" target="_blank" rel="noopener">ARKit应用之识别图像播放视频</a><br>/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/</p>
+<p>BTW: 由于EasyAR的文档不尽完善，且对iOS的支持不是很好，可尝试苹果官方系统库ARKit的实现<a href="https://www.jianshu.com/p/6fe091af77a0" target="_blank" rel="noopener">ARKit应用之识别图像播放视频</a></p>
 </blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/usr/lib/</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -394,11 +410,33 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
 
       
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/11/08/%E6%88%91%E7%9A%84Git%E7%AC%94%E8%AE%B0/" rel="next" title="我的Git笔记">
+                <i class="fa fa-chevron-left"></i> 我的Git笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
       
 
       
@@ -449,10 +487,10 @@
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            Table of Contents
+            文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            Overview
+            站点概览
           </li>
         </ul>
       
@@ -474,16 +512,34 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/zhy.github.io/archives/%20%7C%7C%20archive">
+                <a href="/zhy.github.io/archives">
               
-                  <span class="site-state-item-count">1</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
             
 
           </nav>
@@ -498,7 +554,11 @@
           
           
 
-          
+          <div id="music163player">
+  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1355757694&auto=1&height=66">
+  </iframe>
+</div>
+
 
         </div>
       </section>
@@ -540,15 +600,16 @@
   </span>
   <span class="author" itemprop="copyrightHolder">张湖扬</span>
 <div class="powered-by">
-<i class="fa fa-user-md"></i><span id="busuanzi_container_site_uv">
-  本站访客数:<span id="busuanzi_value_site_uv"></span>
-</span>
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
 </div>
   
 </div>
 
 
-  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
 
 
 
@@ -556,7 +617,7 @@
 
 
 
-  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
 
 
 
