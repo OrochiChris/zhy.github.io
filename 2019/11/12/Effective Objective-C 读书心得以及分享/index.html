@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="书籍," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Effective Objective-C的读书心得了解Objective-C语言的起源 Objective-C从Smalltalk语言是从Smalltalk语言演化而来，Smalltalk是消息语言的鼻祖。  Objective-C是C语言的超集，在C语言基础上添加了面向对象等特性，可能一开始接触时你会觉得语法有点奇怪，那是因为Objective-C使用了动态绑定的消息结构，而Java，C++等">
+<meta name="keywords" content="书籍">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Effective Objective-C">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;12&#x2F;Effective%20Objective-C%20%E8%AF%BB%E4%B9%A6%E5%BF%83%E5%BE%97%E4%BB%A5%E5%8F%8A%E5%88%86%E4%BA%AB&#x2F;index.html">
+<meta property="og:site_name" content="Populus euphratica Blog">
+<meta property="og:description" content="Effective Objective-C的读书心得了解Objective-C语言的起源 Objective-C从Smalltalk语言是从Smalltalk语言演化而来，Smalltalk是消息语言的鼻祖。  Objective-C是C语言的超集，在C语言基础上添加了面向对象等特性，可能一开始接触时你会觉得语法有点奇怪，那是因为Objective-C使用了动态绑定的消息结构，而Java，C++等">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-11-12T08:35:15.989Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/Effective Objective-C 读书心得以及分享/"/>
+
+
+
+
+
+  <title>Effective Objective-C | Populus euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/zhy.github.io/2019/11/12/Effective%20Objective-C%20%E8%AF%BB%E4%B9%A6%E5%BF%83%E5%BE%97%E4%BB%A5%E5%8F%8A%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Effective Objective-C</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T15:59:31+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Effective-Objective-C的读书心得"><a href="#Effective-Objective-C的读书心得" class="headerlink" title="Effective Objective-C的读书心得"></a>Effective Objective-C的读书心得</h1><h2 id="了解Objective-C语言的起源"><a href="#了解Objective-C语言的起源" class="headerlink" title="了解Objective-C语言的起源"></a>了解Objective-C语言的起源</h2><ul>
+<li><p>Objective-C从Smalltalk语言是从Smalltalk语言演化而来，<br>Smalltalk是消息语言的鼻祖。</p>
+</li>
+<li><p>Objective-C是C语言的超集，在C语言基础上添加了面向对象等特性，可能一开始接触时你会觉得语法有点奇怪，那是因为Objective-C使用了动态绑定的消息结构，而Java，C++等等语言使用的是函数调用。</p>
+</li>
+<li><p>消息结构与函数调用的关键区别在于：函数调用的语言，在编译阶段由编译器生成一些虚方法表，在运行时从这个表找到所要执行的方法去执行。而使用了动态绑定的消息结构在运行时接到一条消息，接下来要执行什么代码是运行期决定的，而不是编译器。</p>
+</li>
+</ul>
+<h2 id="在类的文件中尽量少引用其他头文件"><a href="#在类的文件中尽量少引用其他头文件" class="headerlink" title="在类的文件中尽量少引用其他头文件"></a>在类的文件中尽量少引用其他头文件</h2><ul>
+<li>如果需要引用一个类文件时，只是需要使用类名，不需要知道其中细节，可以用@class xx.h，这样做的好处会减少一定的编译时间。如果是用的#import全部导入的话，会出现a.h import了b.h,当c.h 又import a.h时，把b.h也都导入了，如果只是用到类名，真的比较浪费，也不够优雅</li>
+</ul>
+<ul>
+<li>有时候无法使用@class向前声明，比如某个类要遵循一项协议，这个协议在另外一个类中声明的，可以将协议这部分单独放在一个头文件，或者放在分类当中，以降低引用成本。</li>
+</ul>
+<h2 id="多用字面量语法，少用与之等价的方法"><a href="#多用字面量语法，少用与之等价的方法" class="headerlink" title="多用字面量语法，少用与之等价的方法"></a>多用字面量语法，少用与之等价的方法</h2><ul>
+<li>传统创建数组方法:<figure class="highlight plain"><figcaption><span>*languages </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *Swift = [languages objectAtIndex:2];</span><br><span class="line">NSDictionary *dict = [NSDictionary dictionaryWithObjectsAndKeys:@&quot;key&quot;, @&quot;value&quot;, nil];</span><br><span class="line">NSString *value = [languages objectForKey:@&quot;key&quot;];</span><br></pre></td></tr></table></figure></li>
+<li>字面量:<figure class="highlight plain"><figcaption><span>*languages </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NSString *Swift = languages[2];</span><br><span class="line">NSDictionary *dict = @&#123;@&quot;key&quot; : @&quot;value&quot;&#125;;</span><br><span class="line">NSString *value = languages[@&quot;key&quot;];</span><br></pre></td></tr></table></figure>
+<h3 id="这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中-someObject-如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是-”PHP”-”Objective-C”-因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。"><a href="#这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中-someObject-如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是-”PHP”-”Objective-C”-因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。" class="headerlink" title="这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中 someObject 如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是@[@”PHP”, @”Objective-C”];因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。"></a>这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中 someObject 如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是@[@”PHP”, @”Objective-C”];因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。</h3>不过字面量语法有一个小缺点就是创建的数组，字符串等等对象都是不可变的，如果想要可变的对象需要自己多执行一步mutableCopy，例如</li>
+</ul>
+<figure class="highlight plain"><figcaption><span>*languages </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">```</span><br><span class="line"></span><br><span class="line">## 多用类型常量，少用#define预处理指令</span><br><span class="line">![参考](https://www.jianshu.com/p/064b5b82a3a2)</span><br><span class="line"></span><br><span class="line">## 多用枚举表示状态、选项、状态码</span><br><span class="line"></span><br><span class="line">![参考](https://www.jianshu.com/p/064b5b82a3a2)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 对象、消息、运行期</span><br><span class="line"></span><br><span class="line">## 理解“属性”这一概念</span><br><span class="line"></span><br><span class="line">* 定义对外开放的属性时候尽量做到暴露权限最小化，不希望被修改的属性要加上readonly。</span><br><span class="line"> * atomic 并不能保证多线程安全，例如一个线程连续多次读取某个属性的值，而同时还有别的线程在修改这个属性值得时候，也还是一样会读到不同的值。atomic 的原理只是在 setter and getter 方法中加了一个@synchronized(self)，所以iOS开发中属性都要声明为nonatomic,因为atomic严重影响了性能，但是在Mac OSX上开发却通常不存在这个性能问题</span><br><span class="line"></span><br><span class="line">## 在对象内部尽量直接访问实例变量</span><br><span class="line"></span><br><span class="line">* 在类内读取属性的数据时，应该通过直接实例变量来读，这样不经过Objecit-C的方法派发，编译器编译后的代码结果是直接访问存实例变量的那块内存中的值，而不会生成走方法派发的代码，这样的速度会更快。</span><br><span class="line">* 给属性写入数据时，应该通过属性的方式来写入，这样会调用setter 方法。但是在某种情况下初始化方法以及dealloc方法中，总是应该直接通过实例变量来读写数据，这样做是为了避免子类复写了setter方法造成的异常。</span><br><span class="line">* 使用了懒加载的属性，应该一直保持用属性的方式来读取写入数据。</span><br><span class="line"></span><br><span class="line">## 理解“对象等同性”这一概念</span><br><span class="line">### 思考下面输出什么？</span><br><span class="line">```NSString *aString = @&quot;iphone 8&quot;;</span><br><span class="line">NSString *bString = [NSString stringWithFormat:@&quot;iphone %i&quot;, 8];</span><br><span class="line">NSLog(@&quot;%d&quot;, [aString isEqual:bString]);</span><br><span class="line">NSLog(@&quot;%d&quot;, [aString isEqualToString:bString]);</span><br><span class="line">NSLog(@&quot;%d&quot;, aString == bString);</span><br></pre></td></tr></table></figure>
+<p>输出 110<br>==操作符只是比较了两个指针，而不是指针所指的对象</p>
+<h2 id="以“类族模式”隐藏实现细节"><a href="#以“类族模式”隐藏实现细节" class="headerlink" title="以“类族模式”隐藏实现细节"></a>以“类族模式”隐藏实现细节</h2><p>为什么下面这段if 永远为false</p>
+<figure class="highlight plain"><figcaption><span>maybeAnArray </span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ([maybeAnArray class] == [NSArray class]) &#123;</span><br><span class="line">     //Code will never be executed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>因为[maybeAnArray class] 的返回永远不会是NSArray，NSArray是一个类族，返回的值一直都是NSArray的实体子类。大部分collection类都是某个类族中的’抽象基类’<br>所以上面的if想要有机会执行的话要改成</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">id maybeAnArray = @[];</span><br><span class="line">if ([maybeAnArray isKindOfClass [NSArray class]) &#123;</span><br><span class="line">     //Code probably be executed</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样判断的意思是，maybeAnArray这个对象是否是NSArray类族中的一员<br>** 使用类族的好处：可以把实现细节隐藏再一套简单的公共接口后面 **</p>
+<h2 id="既有类中使用关联对象存放自定义数据"><a href="#既有类中使用关联对象存放自定义数据" class="headerlink" title="既有类中使用关联对象存放自定义数据"></a>既有类中使用关联对象存放自定义数据</h2><p>这条讲的是objc_setAssociatedObject和objc_getAssociatedObject,如何使用在这里就不多说了。值得强调的一点是，用关联对象可能会引入难于查找的bug，毕竟是在runtime阶段，所以可能要看情况谨慎选择</p>
+<h1 id="书籍原文档"><a href="#书籍原文档" class="headerlink" title="书籍原文档"></a>书籍原文档</h1><br>
+
+
+
+
+	<div class="row">
+    <embed src="/zhy.github.io/file/Effective" width="100%" height="550" type="application/pdf">
+	</div>
+
+
+
+
+
+<br>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E4%B9%A6%E7%B1%8D/" rel="tag"># 书籍</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/11/08/ARKit%E7%9A%84%E5%AE%9E%E7%8E%B0%E4%BB%A5%E5%8F%8A%E5%BB%B6%E4%BC%B8/" rel="next" title="ARKit的实现以及延伸">
+                <i class="fa fa-chevron-left"></i> ARKit的实现以及延伸
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/zhy.github.io/2019/11/12/Objective-C%E5%BC%80%E5%8F%91%E8%8C%83%E4%BE%8B%E4%BB%A3%E7%A0%81/" rel="prev" title="Objective-C开发范例代码">
+                Objective-C开发范例代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+  <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=1355757694&auto=1&height=66">
+  </iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Effective-Objective-C的读书心得"><span class="nav-number">1.</span> <span class="nav-text">Effective Objective-C的读书心得</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#了解Objective-C语言的起源"><span class="nav-number">1.1.</span> <span class="nav-text">了解Objective-C语言的起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在类的文件中尽量少引用其他头文件"><span class="nav-number">1.2.</span> <span class="nav-text">在类的文件中尽量少引用其他头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多用字面量语法，少用与之等价的方法"><span class="nav-number">1.3.</span> <span class="nav-text">多用字面量语法，少用与之等价的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中-someObject-如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是-”PHP”-”Objective-C”-因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。"><span class="nav-number">1.3.1.</span> <span class="nav-text">这样做的好处：使代码更简洁，易读，也会避免nil问题。比如languages数据中 someObject 如果为nil时，字面量语法就会抛出异常，而使用传统方法创建的languages数组值确是@[@”PHP”, @”Objective-C”];因为字面量语法其实是一种语法糖，效果是先创建了一个数组，然后再把括号中的对象都加到数组中来。</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以“类族模式”隐藏实现细节"><span class="nav-number">1.4.</span> <span class="nav-text">以“类族模式”隐藏实现细节</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#既有类中使用关联对象存放自定义数据"><span class="nav-number">1.5.</span> <span class="nav-text">既有类中使用关联对象存放自定义数据</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#书籍原文档"><span class="nav-number">2.</span> <span class="nav-text">书籍原文档</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
