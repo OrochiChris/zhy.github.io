@@ -96,7 +96,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;smooth.png">
-<meta property="og:updated_time" content="2019-12-05T03:20:32.287Z">
+<meta property="og:updated_time" content="2019-12-05T04:36:38.956Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
 
@@ -364,16 +364,8 @@
 <p>看一下 UIView 中关于弹簧动画的 API (animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)，你会注意到速率是个 CGFloat。所以当我们给一个移动 view 的动画在其运动的方向上加一个初始的速率时，你没法告知动画这个 view 现在的运动状态，比如我们不知道要添加的动画的方向是不是和原来的 view 的速度方向垂直。为了使其成为可能，这个速度需要用向量来表示。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>因此，让我们看一下如何正确实现交互式和可中断动画。为此，我们将构建类似于“控制中心”面板的内容：</p>
 <p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
-<div style="position: relative; width: 100%; height: 100%; padding-bottom: 75%;">
-  <iframe src="https://www.objc.io/images/issue-12/interactive-animation.mov" 
-          scrolling="no" 
-          border="0" 
-          frameborder="no" 
-          framespacing="0" 
-          allowfullscreen="true" 
-          style="position: absolute; width: 100%; height: 100%; left: 0; top: 0;"> </iframe>
-</div>
-
+<video src="https://github.com/OrochiChris/zhy.github.io/blob/master/interactive-animation%20(6).mov?raw=true" controls="controls">
+</video>
 
 <p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
 <h2 id="UIKit-力学"><a href="#UIKit-力学" class="headerlink" title="UIKit 力学"></a>UIKit 力学</h2><p>随着 iOS7 的发布，苹果向我们展示了一个叫 UIKit 力学的动画框架 (可以参见 WWDC 2013 sessions 206 和 221)。UIKit 力学是一个基于模拟物理引擎的框架，只要你添加指定的行为到动画对象上来实现 UIDynamicItem 协议就能实现很多动画。这个框架非常强大，并且它能够在多个物体间启用像是附着和碰撞这样的复杂行为。请看一下 UIKit Dynamics Catalog，确认一下什么是可用的。</p>
