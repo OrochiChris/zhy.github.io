@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="学习心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="谈谈交互式动画历史由来在2007年，乔布斯在第一次介绍 iPhone 的时候，iPhone 的触摸屏交互简直就像是一种魔法。最好的例子就是在他第一次滑动 TableView 的展示上。你可以感受到当时观众的反应是多么惊讶，但是对于现在的我们来说早已习以为常。在展示的后面一部分，他特别指出当他给别人看了这个滑动例子，别人说的一句话: “当这个界面滑动的时候我就已经被征服了”. 是什么样的滑动能让人有">
+<meta name="keywords" content="学习心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Interactive Animations">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;04&#x2F;Core-Animation&#x2F;index.html">
+<meta property="og:site_name" content="Populus euphratica Blog">
+<meta property="og:description" content="谈谈交互式动画历史由来在2007年，乔布斯在第一次介绍 iPhone 的时候，iPhone 的触摸屏交互简直就像是一种魔法。最好的例子就是在他第一次滑动 TableView 的展示上。你可以感受到当时观众的反应是多么惊讶，但是对于现在的我们来说早已习以为常。在展示的后面一部分，他特别指出当他给别人看了这个滑动例子，别人说的一句话: “当这个界面滑动的时候我就已经被征服了”. 是什么样的滑动能让人有">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;smooth.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.objc.io&#x2F;images&#x2F;issue-12&#x2F;interactive-animation.mov">
+<meta property="og:updated_time" content="2019-12-05T02:38:49.681Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/04/Core-Animation/"/>
+
+
+
+
+
+  <title>Interactive Animations | Populus euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/04/Core-Animation/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Interactive Animations</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-04T18:09:58+08:00">
+                2019-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="谈谈交互式动画"><a href="#谈谈交互式动画" class="headerlink" title="谈谈交互式动画"></a>谈谈交互式动画</h1><h2 id="历史由来"><a href="#历史由来" class="headerlink" title="历史由来"></a>历史由来</h2><p>在2007年，乔布斯在第一次介绍 iPhone 的时候，iPhone 的触摸屏交互简直就像是一种魔法。最好的例子就是在他<a href="https://www.youtube.com/watch?v=t4OEsI0Sc_s&t=16m9s" target="_blank" rel="noopener">第一次滑动 TableView</a> 的展示上。你可以感受到当时观众的反应是多么惊讶，但是对于现在的我们来说早已习以为常。在展示的后面一部分，他特别指出当他给别人看了这个滑动例子，别人说的一句话: “当这个界面滑动的时候我就已经被征服了”.</p>
+<h2 id="是什么样的滑动能让人有‘哇哦’的效果呢？"><a href="#是什么样的滑动能让人有‘哇哦’的效果呢？" class="headerlink" title="是什么样的滑动能让人有‘哇哦’的效果呢？"></a>是什么样的滑动能让人有‘哇哦’的效果呢？</h2><p>滑动是最完美地展示了通过触摸屏直接操作的例子。滚动视图遵从于你的手指，当你的手指离开屏幕的时，视图会自然地继续滑动直到该停止的时候停止。它用自然的方式减速，甚至在快到界限的时候也能表现出细腻的弹力效果。滑动在任何时候都保持相应，并且看上去非常真实。</p>
+<h2 id="动画的状态"><a href="#动画的状态" class="headerlink" title="动画的状态"></a>动画的状态</h2><p>在 iOS 中的大部分动画仍然没有按照最初 iPhone 指定的滑动标准实现。这里有很多动画一旦它们运行就不能交互（比如说解锁动画，主界面中打开文件夹和关闭文件夹的动画，和导航栏切换的动画，还有很多）。</p>
+<p>然而现在有一些应用给我一种始终在控制动画的体验，我们可以直接操作那些我在用的动画。当我们将这些应用和其他的应用相比较之后，我们就能感觉到明显的区别。这些应用中最优秀的有最初的 Twitter iPad app， 和现在的 Facebook Paper。但目前，使用直接操作为主并且可以中断动画的应用仍然很少。这就给我们做出更好的应用提供了机会，让我们的应用有更不同的，更高质量的体验。</p>
+<h2 id="真实交互式动画的挑战"><a href="#真实交互式动画的挑战" class="headerlink" title="真实交互式动画的挑战"></a>真实交互式动画的挑战</h2><p>当我们用 UIView 或者 CAAnimation 来实现交互式动画时会有两个大问题: 这些动画会将你在屏幕上的内容和 layer 上的实际的空间属性分离开来，并且他们直接操作这些空间属性。</p>
+<h2 id="模型-Model-和显示-Presentation-的分离"><a href="#模型-Model-和显示-Presentation-的分离" class="headerlink" title="模型 (Model) 和显示 (Presentation) 的分离"></a>模型 (Model) 和显示 (Presentation) 的分离</h2><p>Core Animation 是通过分离 layer 的模型属性和你在屏幕上看到的界面 (显示层) 的方式来设计的，这就导致我们很难去创建一个可以在任何时候能交互的动画，因为在动画时，模型和界面已经不能匹配了。这时，我们不得不通过手动的方式来同步这两个的状态，来达到改变动画的效果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view.layer.center = view.layer.presentationLayer.center;</span><br><span class="line">[view.layer removeAnimationForKey:@&quot;animation&quot;];</span><br><span class="line">// 添加新动画</span><br></pre></td></tr></table></figure>
+<h2 id="直接控制-vs-间接控制"><a href="#直接控制-vs-间接控制" class="headerlink" title="直接控制 vs 间接控制"></a>直接控制 vs 间接控制</h2><p>CAAnimation 动画的更大的问题是它们是直接在 layer 上对属性进行操作的。这意味着什么呢？比如我们想指定一个 layer 从坐标为 (100, 100) 的位置运动到 (300, 300) 的位置，但是在它运动到中间的时候，我们想它停下来并且让它回到它原来的位置，事情就变得非常复杂了。如果你只是简单地删除当前的动画然后再添加一个新的，那么这个 layer 的速率就会不连续。<br><img src="https://objccn.io/images/issues/issue-12/abrupt.png" alt="图标"><br>然而，我们想要的是一个漂亮的，流畅地减速和加速的动画。<br><img src="https://objccn.io/images/issues/issue-12/smooth.png" alt="图标"></p>
+<p>只有通过间接操作动画才能达到上面的效果，比如通过模拟力在界面上的表现。新的动画需要用 layer 的当前速度矢量作为参数传入来达到流畅的效果。</p>
+<p>看一下 UIView 中关于弹簧动画的 API (animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)，你会注意到速率是个 CGFloat。所以当我们给一个移动 view 的动画在其运动的方向上加一个初始的速率时，你没法告知动画这个 view 现在的运动状态，比如我们不知道要添加的动画的方向是不是和原来的 view 的速度方向垂直。为了使其成为可能，这个速度需要用向量来表示。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>因此，让我们看一下如何正确实现交互式和可中断动画。为此，我们将构建类似于“控制中心”面板的内容：</p>
+<p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
+<p><img src="https://www.objc.io/images/issue-12/interactive-animation.mov" alt="图标"></p>
+<p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
+<h2 id="UIKit-力学"><a href="#UIKit-力学" class="headerlink" title="UIKit 力学"></a>UIKit 力学</h2><p>随着 iOS7 的发布，苹果向我们展示了一个叫 UIKit 力学的动画框架 (可以参见 WWDC 2013 sessions 206 和 221)。UIKit 力学是一个基于模拟物理引擎的框架，只要你添加指定的行为到动画对象上来实现 UIDynamicItem 协议就能实现很多动画。这个框架非常强大，并且它能够在多个物体间启用像是附着和碰撞这样的复杂行为。请看一下 UIKit Dynamics Catalog，确认一下什么是可用的。</p>
+<p>因为 UIKit 力学中的的动画是被间接驱动的，就像我在上面提到的，这使我们实现真实的交互式动画成为可能，它能在任何时候被中断并且拥有连续的加速度。同时，UIKit 力学在物理层的抽象上能完全胜任我们一般情况下在用户界面中的所需要的所有动画。其实在大部分情况下，我们只会用到其中的一小部分功能。</p>
+<h2 id="定义行为"><a href="#定义行为" class="headerlink" title="定义行为"></a>定义行为</h2><p>为了实现我们的控制板的行为，我们将使用 UIkit 力学中的两个不同行为：UIAttachmentBehavior 和 UIDynamicItemBehavior。附着行为用来扮演弹簧的角色，它将界面向目标点拉动。另一方面，我们用动态 item behvaior 定义了比如摩擦系数这样的界面的内置属性。</p>
+<p>我创建了一个我们自己的行为子类，以将这两个行为封装到我们的控制板上:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@interface PaneBehavior : UIDynamicBehavior</span><br><span class="line"></span><br><span class="line">@property (nonatomic) CGPoint targetPoint;</span><br><span class="line">@property (nonatomic) CGPoint velocity;</span><br><span class="line"></span><br><span class="line">- (instancetype)initWithItem:(id &lt;UIDynamicItem&gt;)item;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+
+<p>我们通过一个 dynamic item 来初始化这个行为，然后就可以设置它的目标点和我们想要的任何速度。在内部，我们创建了附着行为和 dynamic item 行为，并且将这些行为添加到我们自定义的行为中:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">- (void)setup</span><br><span class="line">&#123;</span><br><span class="line">    UIAttachmentBehavior *attachmentBehavior = [[UIAttachmentBehavior alloc] initWithItem:self.item attachedToAnchor:CGPointZero];</span><br><span class="line">    attachmentBehavior.frequency = 3.5;</span><br><span class="line">    attachmentBehavior.damping = .4;</span><br><span class="line">    attachmentBehavior.length = 0;</span><br><span class="line">    [self addChildBehavior:attachmentBehavior];</span><br><span class="line">    self.attachmentBehavior = attachmentBehavior;</span><br><span class="line"></span><br><span class="line">    UIDynamicItemBehavior *itemBehavior = [[UIDynamicItemBehavior alloc] initWithItems:@[self.item]];</span><br><span class="line">    itemBehavior.density = 100;</span><br><span class="line">    itemBehavior.resistance = 10;</span><br><span class="line">    [self addChildBehavior:itemBehavior];</span><br><span class="line">    self.itemBehavior = itemBehavior;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了用 targetPoint 和 velocity 属性来影响 item 的 behavior，我们需要重写它们的 setter 方法，并且分别修改在附着行为和 item behaviors 中的对应的属性。我们对目标点的 setter 方法来说，这个改动很简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)setTargetPoint:(CGPoint)targetPoint</span><br><span class="line">&#123;</span><br><span class="line">    _targetPoint = targetPoint;</span><br><span class="line">    self.attachmentBehavior.anchorPoint = targetPoint;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于 velocity 属性，我们需要多做一些工作，因为 dynamic item behavior 只允许相对地改变速度。这就意味如果我们要将 velocity 设置为绝对值，首先我们就需要得到当前的速度，然后再加上速度差才能得到我们的目标速度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)setVelocity:(CGPoint)velocity</span><br><span class="line">&#123;</span><br><span class="line">    _velocity = velocity;</span><br><span class="line">    CGPoint currentVelocity = [self.itemBehavior linearVelocityForItem:self.item];</span><br><span class="line">    CGPoint velocityDelta = CGPointMake(velocity.x - currentVelocity.x, velocity.y - currentVelocity.y);</span><br><span class="line">    [self.itemBehavior addLinearVelocity:velocityDelta forItem:self.item];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="将Behavior投入使用"><a href="#将Behavior投入使用" class="headerlink" title="将Behavior投入使用"></a>将Behavior投入使用</h2><p>我们的控制板有三个不同状态：在开始或结束位置的静止状态，正在被用户拖动的状态，以及在没有用户控制时运动到结束位置的动画状态。</p>
+<p>为了将从直接操作状态 (用户拖动这个滑动板) 过渡到动画状态这个过程做的流畅，我们还有很多其他的事要做。当用户停止拖动控制板时，它会发送一个消息到它的 delegate。根据这个方法，我们可以知道这个板应该朝哪个方向运动，然后在我们自定义的 PaneBehavior 上设置结束点，以及初始速度 (这非常重要)，并将行为添加到动画器中去，以此确保从拖动操作到动画状态这个过程能够非常流畅。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (void)draggableView:(DraggableView *)view draggingEndedWithVelocity:(CGPoint)velocity</span><br><span class="line">&#123;</span><br><span class="line">    PaneState targetState = velocity.y &gt;= 0 ? PaneStateClosed : PaneStateOpen;</span><br><span class="line">    [self animatePaneToState:targetState initialVelocity:velocity];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)animatePaneToState:(PaneState)targetState initialVelocity:(CGPoint)velocity</span><br><span class="line">&#123;</span><br><span class="line">    if (!self.paneBehavior) &#123;</span><br><span class="line">        PaneBehavior *behavior = [[PaneBehavior alloc] initWithItem:self.pane];</span><br><span class="line">        self.paneBehavior = behavior;</span><br><span class="line">    &#125;</span><br><span class="line">    self.paneBehavior.targetPoint = [self targetPointForState:targetState];</span><br><span class="line">    if (!CGPointEqualToPoint(velocity, CGPointZero)) &#123;</span><br><span class="line">        self.paneBehavior.velocity = velocity;</span><br><span class="line">    &#125;</span><br><span class="line">    [self.animator addBehavior:self.paneBehavior];</span><br><span class="line">    self.paneState = targetState;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦用户用他的手指再次触动控制板时，我必须要将所有的 dynamic behavior 从 animator 删除，这样才不会影响控制板对拖动手势的响应：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)draggableViewBeganDragging:(DraggableView *)view</span><br><span class="line">&#123;</span><br><span class="line">    [self.animator removeAllBehaviors];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们不仅仅允许控制板可以被拖动，还要允许它可以被点击，让它可以从一个位置跳转到另一个位置以达到开关的效果。一旦点击事件发生，我们就会立即调整这个滑动板的目标位置。因为我们不能直接控制动画，但是通过弹力和摩擦力，我们的动画可以非常流畅地执行这个动作：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">- (void)didTap:(UITapGestureRecognizer *)tapRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    PaneState targetState = self.paneState == PaneStateOpen ? PaneStateClosed : PaneStateOpen;</span><br><span class="line">    [self animatePaneToState:targetState initialVelocity:CGPointZero];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>重申一点：UIKit 力学可以通过在界面上模拟力来间接地驱动动画（我们的例子中，使用的是弹力和摩擦力）。这间接地使我们在任何时候都能以连续的速度曲线来与界面进行交互。</p>
+<p>现在我们已经通过 UIKit 力学实现了整个交互，让我们回顾一下这个场景。这个例子的动画中我们只用了 UIKit 力学中一小部分功能，并且它的实现方式也非常简单。对于我们来说这是一个去理解它其中的过程的很好的例子，但是如果我们使用的环境中没有 UIKit 力学 (比如说在 Mac 上)，或者你的使用场景中不能很好的适用 UIKit 力学呢。</p>
+<h2 id="自己操作动画"><a href="#自己操作动画" class="headerlink" title="自己操作动画"></a>自己操作动画</h2><p>至于在你的应用中大部分时间会用的动画，比如简单的弹力动画，我们控制它真的不难。我们可以做一个练习，来看看如何抛弃 UIKit 力学这个巨大的黑盒子，看要如何“手动”来实现一个简单的交互。想法非常简单：我们只要每秒修改这个 view 的 frame 60 次。每一帧我们都基于当前速度和作用在 view 上的力来调整 view 的 frame 就可以了。</p>
+<h2 id="物理原理"><a href="#物理原理" class="headerlink" title="物理原理"></a>物理原理</h2><p>首先让我们看一下我们需要知道的基础物理知识，这样我们才能实现出刚才使用 UIKit 力学实现的那种弹簧动画效果。为了简化问题，虽然引入第二个维度也是很直接的，但我们在这里只关注一维的情况 (在我们的例子中就是这样的情况)。</p>
+<p>我们的目标是依据控制面板当前的位置和上一次动画后到现在为止经过的时间，来计算它的新位置。我们可以把它表示成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">y = y0 + Δy</span><br></pre></td></tr></table></figure>
+<p>位置的偏移量可以通过速度和时间的函数来表达：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Δy = v ⋅ Δt</span><br></pre></td></tr></table></figure>
+<p>这个速度可以通过前一次的速度加上速度偏移量算出来，这个速度偏移量是由力在 view 上的作用引起的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v = v0 + Δv</span><br></pre></td></tr></table></figure>
+<p>速度的变化可以通过作用在这个 view 上的冲量计算出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Δv = (F ⋅ Δt) / m</span><br></pre></td></tr></table></figure>
+<p>现在，让我们看一下作用在这个界面上的力。为了得到弹簧效果，我们必须要将摩擦力和弹力结合起来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F = F_spring + F_friction</span><br></pre></td></tr></table></figure>
+<p>弹力的计算方法我们可以从任何一本教科书中得到 (编者注：简单的胡克定律)：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F_spring = k ⋅ x</span><br></pre></td></tr></table></figure>
+<p>k 是弹簧的劲度系数，x 是 view 到目标结束位置的距离 (也就是弹簧的长度)。因此，我们可以把它写成这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F_spring = k ⋅ abs(y_target - y0)</span><br></pre></td></tr></table></figure>
+<p>摩擦力和 view 的速度成正比：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F_friction = μ ⋅ v</span><br></pre></td></tr></table></figure>
+<p>μ 是一个简单的摩擦系数。你可以通过别的方式来计算摩擦力，但是这个方法能很好地做出我们想要的动画效果。</p>
+<p>将上面的表达式放在一起，我们就可以算出作用在界面上的力：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F = k ⋅ abs(y_target - y0) + μ ⋅ v</span><br></pre></td></tr></table></figure>
+<p>为了实现起来更简单点些，我们将 view 的质量设为 1，这样我们就能计算在位置上的变化：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Δy = (v0 + (k ⋅ abs(y_target - y0) + μ ⋅ v) ⋅ Δt) ⋅ Δt</span><br></pre></td></tr></table></figure>
+<h2 id="实现动画"><a href="#实现动画" class="headerlink" title="实现动画"></a>实现动画</h2><p>为了实现这个动画，我们首先需要创建我们自己的 Animator 类，它将扮演驱动动画的角色。这个类使用了 CADisplayLink，CADisplayLink 是专门用来将绘图与屏幕刷新频率相同步的定时器。换句话说，如果你的动画是流畅的，这个定时器就会每秒调用你的方法60次。接下来，我们需要实现 Animation 协议来和我们的 Animator 一起工作。这个协议只有一个方法，animationTick:finished:。屏幕每次被刷新时都会调用这个方法，并且在方法中会得到两个参数：第一个参数是前一个 frame 的持续时间，第二个参数是一个指向 BOOL 的指针。当我们设置这个指针的值为 YES 时，我们就可以与 Animator 取得通讯并汇报动画完成；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@protocol Animation &lt;NSObject&gt;</span><br><span class="line">- (void)animationTick:(CFTimeInterval)dt finished:(BOOL *)finished;</span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>我们会在下面实现这个方法。首先，根据时间间隔我们来计算由弹力和摩擦力的合力。然后根据这个力来更新速度，并调整 view 的中心位置。最后，当这个速度降低并且 view 到达结束位置时，我们就停止这个动画：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">- (void)animationTick:(CFTimeInterval)dt finished:(BOOL *)finished</span><br><span class="line">&#123;</span><br><span class="line">    static const float frictionConstant = 20;</span><br><span class="line">    static const float springConstant = 300;</span><br><span class="line">    CGFloat time = (CGFloat) dt;</span><br><span class="line"></span><br><span class="line">    //摩擦力 = 速度 * 摩擦系数</span><br><span class="line">    CGPoint frictionForce = CGPointMultiply(self.velocity, frictionConstant);</span><br><span class="line">    //弹力 = (目标位置 - 当前位置) * 弹簧劲度系数</span><br><span class="line">    CGPoint springForce = CGPointMultiply(CGPointSubtract(self.targetPoint, self.view.center), springConstant);</span><br><span class="line">    //力 = 弹力 - 摩擦力</span><br><span class="line">    CGPoint force = CGPointSubtract(springForce, frictionForce);</span><br><span class="line"></span><br><span class="line">    //速度 = 当前速度 + 力 * 时间 / 质量</span><br><span class="line">    self.velocity = CGPointAdd(self.velocity, CGPointMultiply(force, time));</span><br><span class="line">    //位置 = 当前位置 + 速度 * 时间</span><br><span class="line">    self.view.center = CGPointAdd(self.view.center, CGPointMultiply(self.velocity, time));</span><br><span class="line"></span><br><span class="line">    CGFloat speed = CGPointLength(self.velocity);</span><br><span class="line">    CGFloat distanceToGoal = CGPointLength(CGPointSubtract(self.targetPoint, self.view.center));</span><br><span class="line">    if (speed &lt; 0.05 &amp;&amp; distanceToGoal &lt; 1) &#123;</span><br><span class="line">        self.view.center = self.targetPoint;</span><br><span class="line">        *finished = YES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这就是这个方法里的全部内容。我们把这个方法封装到一个 SpringAnimation 对象中。除了这个方法之外，这个对象中还有一个初始化方法，它指定了 view 中心的目标位置 (在我们的例子中，就是打开状态时界面的中心位置，或者关闭状态时界面的中心位置) 和初始的速度。</p>
+<h2 id="将动画添加到-view-上"><a href="#将动画添加到-view-上" class="headerlink" title="将动画添加到 view 上"></a>将动画添加到 view 上</h2><p>我们的 view 类刚好和使用 UIDynamic 的例子一样：它有一个拖动手势，并且根据拖动手势来更新中心位置。它也有两个同样的 delegate 方法，这两个方法会实现动画的初始化。首先，一旦用户开始拖动控制板时，我们就取消所有动画：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)draggableViewBeganDragging:(DraggableView *)view</span><br><span class="line">&#123;</span><br><span class="line">    [self cancelSpringAnimation];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦停止拖动，我们就根据从拖动手势中得到的最后一个速率值来开始我们的动画。我们根据拖动状态 paneState 计算出动画的结束位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (void)draggableView:(DraggableView *)view draggingEndedWithVelocity:(CGPoint)velocity</span><br><span class="line">&#123;</span><br><span class="line">    PaneState targetState = velocity.y &gt;= 0 ? PaneStateClosed : PaneStateOpen;</span><br><span class="line">    self.paneState = targetState;</span><br><span class="line">    [self startAnimatingView:view initialVelocity:velocity];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)startAnimatingView:(DraggableView *)view initialVelocity:(CGPoint)velocity</span><br><span class="line">&#123;</span><br><span class="line">    [self cancelSpringAnimation];</span><br><span class="line">    self.springAnimation = [UINTSpringAnimation animationWithView:view target:self.targetPoint velocity:velocity];</span><br><span class="line">    [view.animator addAnimation:self.springAnimation];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>剩下来要做的就是添加点击动画了，这很简单。一旦我们触发这个状态，就开始动画。如果这里正在进行弹簧动画，我们就用当时的速度作为开始。如果这个弹簧动画是 nil，那么这个开始速度就是 CGPointZero。想要知道为什么依然可以进行动画，可以看看 animationTick:finished: 里的代码。当这个起始速度为 0 的时候，弹力就会使速度缓慢地增长，直到面板到达目标位置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)didTap:(UITapGestureRecognizer *)tapRecognizer</span><br><span class="line">&#123;</span><br><span class="line">    PaneState targetState = self.paneState == PaneStateOpen ? PaneStateClosed : PaneStateOpen;</span><br><span class="line">    self.paneState = targetState;</span><br><span class="line">    [self startAnimatingView:self.pane initialVelocity:self.springAnimation.velocity];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="动画驱动"><a href="#动画驱动" class="headerlink" title="动画驱动"></a>动画驱动</h2><p>最后，我们需要一个 Animator，也就是动画的驱动者。Animator 封装了 display link。因为每个 display link 都链接一个指定的 UIScreen，所以我们根据这个指定的 UIScreen 来初始化我们的 animator。我们初始化一个 display link，并且将它加入到 run loop 中。因为现在还没有动画，所以我们是从暂停状态开始的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype)initWithScreen:(UIScreen *)screen</span><br><span class="line">&#123;</span><br><span class="line">    self = [super init];</span><br><span class="line">    if (self) &#123;</span><br><span class="line">        self.displayLink = [screen displayLinkWithTarget:self selector:@selector(animationTick:)];</span><br><span class="line">        self.displayLink.paused = YES;</span><br><span class="line">        [self.displayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];</span><br><span class="line">        self.animations = [NSMutableSet new];</span><br><span class="line">    &#125;</span><br><span class="line">    return self;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦我们添加了这个动画，我们要确保这个 display link 不再是停止状态：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)addAnimation:(id&lt;Animation&gt;)animation</span><br><span class="line">&#123;</span><br><span class="line">    [self.animations addObject:animation];</span><br><span class="line">    if (self.animations.count == 1) &#123;</span><br><span class="line">        self.displayLink.paused = NO;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我们设置这个 display link 来调用 animationTick: 方法，在每个 Tick 中，我们都遍历它的动画数组，并且给这些动画数组中的每个动画发送一个消息。如果这个动画数组中已经没有动画了，我们就暂停这个 display link。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">- (void)animationTick:(CADisplayLink *)displayLink</span><br><span class="line">&#123;</span><br><span class="line">    CFTimeInterval dt = displayLink.duration;</span><br><span class="line">    for (id&lt;Animation&gt; a in [self.animations copy]) &#123;</span><br><span class="line">        BOOL finished = NO;</span><br><span class="line">        [a animationTick:dt finished:&amp;finished];</span><br><span class="line">        if (finished) &#123;</span><br><span class="line">            [self.animations removeObject:a];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (self.animations.count == 0) &#123;</span><br><span class="line">        self.displayLink.paused = YES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="权衡"><a href="#权衡" class="headerlink" title="权衡"></a>权衡</h2><p>我们必须记住，通过 display link 来驱动动画 (就像我们刚才演示的例子，或者我们使用UIkit力学来做的例子，又或者是使用 Facebook 的 Pop 框架) 是有代价需要进行权衡的。就像 Andy Matuschar 指出的那样，UIView 和 CAAnimation 动画比其他任务更少受系统的影响，因为比起你的应用来说，渲染处于更高的优先级。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>真实的交互式动画通向未来的大道变得越来越明显。它们也是将初代 iPhone 中滑动行为的魔力延续到交互的各个方面的一条康庄大道。为了让这些魔力成为现实，我们就不能在开发过程中才想到这些动画，而是应该在设计时就要考虑这些交互，这一点非常重要。</p>
+<h1 id="心得来源"><a href="#心得来源" class="headerlink" title="心得来源"></a><a href="https://www.objc.io/issues/12-animations/interactive-animations/" target="_blank" rel="noopener">心得来源</a></h1>
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" rel="tag"># 学习心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/11/29/iOS%E5%BC%80%E5%8F%91%E6%B6%89%E5%8F%8A%E7%9A%84%E8%8B%B1%E8%AF%AD%E8%AF%8D%E6%B1%87%E4%BB%A5%E5%8F%8A%E5%8E%86%E5%8F%B2%E6%BC%94%E5%8F%98/" rel="next" title="iOS开发涉及的英语词汇以及学习历程">
+                <i class="fa fa-chevron-left"></i> iOS开发涉及的英语词汇以及学习历程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#谈谈交互式动画"><span class="nav-number">1.</span> <span class="nav-text">谈谈交互式动画</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#历史由来"><span class="nav-number">1.1.</span> <span class="nav-text">历史由来</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么样的滑动能让人有‘哇哦’的效果呢？"><span class="nav-number">1.2.</span> <span class="nav-text">是什么样的滑动能让人有‘哇哦’的效果呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画的状态"><span class="nav-number">1.3.</span> <span class="nav-text">动画的状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#真实交互式动画的挑战"><span class="nav-number">1.4.</span> <span class="nav-text">真实交互式动画的挑战</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型-Model-和显示-Presentation-的分离"><span class="nav-number">1.5.</span> <span class="nav-text">模型 (Model) 和显示 (Presentation) 的分离</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接控制-vs-间接控制"><span class="nav-number">1.6.</span> <span class="nav-text">直接控制 vs 间接控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决方案"><span class="nav-number">1.7.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIKit-力学"><span class="nav-number">1.8.</span> <span class="nav-text">UIKit 力学</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义行为"><span class="nav-number">1.9.</span> <span class="nav-text">定义行为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将Behavior投入使用"><span class="nav-number">1.10.</span> <span class="nav-text">将Behavior投入使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自己操作动画"><span class="nav-number">1.11.</span> <span class="nav-text">自己操作动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#物理原理"><span class="nav-number">1.12.</span> <span class="nav-text">物理原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现动画"><span class="nav-number">1.13.</span> <span class="nav-text">实现动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#将动画添加到-view-上"><span class="nav-number">1.14.</span> <span class="nav-text">将动画添加到 view 上</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画驱动"><span class="nav-number">1.15.</span> <span class="nav-text">动画驱动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#权衡"><span class="nav-number">1.16.</span> <span class="nav-text">权衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.17.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#心得来源"><span class="nav-number">2.</span> <span class="nav-text">心得来源</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
