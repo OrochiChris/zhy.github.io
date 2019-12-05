@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="学习心得," />
+  <meta name="keywords" content="心得," />
 
 
 
@@ -87,16 +87,16 @@
 
 
 <meta name="description" content="谈谈交互式动画历史由来在2007年，乔布斯在第一次介绍 iPhone 的时候，iPhone 的触摸屏交互简直就像是一种魔法。最好的例子就是在他第一次滑动 TableView 的展示上。你可以感受到当时观众的反应是多么惊讶，但是对于现在的我们来说早已习以为常。在展示的后面一部分，他特别指出当他给别人看了这个滑动例子，别人说的一句话: “当这个界面滑动的时候我就已经被征服了”. 是什么样的滑动能让人有">
-<meta name="keywords" content="学习心得">
+<meta name="keywords" content="心得">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Interactive Animations">
-<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;04&#x2F;Core-Animation&#x2F;index.html">
-<meta property="og:site_name" content="Populus euphratica Blog">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;04&#x2F;Interactive-Animations&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
 <meta property="og:description" content="谈谈交互式动画历史由来在2007年，乔布斯在第一次介绍 iPhone 的时候，iPhone 的触摸屏交互简直就像是一种魔法。最好的例子就是在他第一次滑动 TableView 的展示上。你可以感受到当时观众的反应是多么惊讶，但是对于现在的我们来说早已习以为常。在展示的后面一部分，他特别指出当他给别人看了这个滑动例子，别人说的一句话: “当这个界面滑动的时候我就已经被征服了”. 是什么样的滑动能让人有">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;smooth.png">
-<meta property="og:updated_time" content="2019-12-05T06:46:18.283Z">
+<meta property="og:updated_time" content="2019-12-05T07:31:44.241Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;objccn.io&#x2F;images&#x2F;issues&#x2F;issue-12&#x2F;abrupt.png">
 
@@ -128,13 +128,13 @@
 
 
 
-  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/04/Core-Animation/"/>
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/04/Interactive-Animations/"/>
 
 
 
 
 
-  <title>Interactive Animations | Populus euphratica Blog</title>
+  <title>Interactive Animations | Populus Euphratica Blog</title>
   
 
 
@@ -174,7 +174,7 @@
     <div class="custom-logo-site-title">
       <a href="/zhy.github.io/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Populus euphratica Blog</span>
+        <span class="site-title">Populus Euphratica Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/04/Core-Animation/">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/04/Interactive-Animations/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="张湖扬">
@@ -272,7 +272,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Populus euphratica Blog">
+      <meta itemprop="name" content="Populus Euphratica Blog">
     </span>
 
     
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/zhy.github.io/categories/%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
-                    <span itemprop="name">心得</span>
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
                   </a>
                 </span>
 
@@ -364,7 +364,7 @@
 <p>看一下 UIView 中关于弹簧动画的 API (animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:)，你会注意到速率是个 CGFloat。所以当我们给一个移动 view 的动画在其运动的方向上加一个初始的速率时，你没法告知动画这个 view 现在的运动状态，比如我们不知道要添加的动画的方向是不是和原来的 view 的速度方向垂直。为了使其成为可能，这个速度需要用向量来表示。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>因此，让我们看一下如何正确实现交互式和可中断动画。为此，我们将构建类似于“控制中心”面板的内容：</p>
 <p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
-<video src="https://github.com/OrochiChris/zhy.github.io/blob/master/2019/12/04/Core-Animation/animation.mov?raw=true" controls="controls">
+<video src="https://github.com/OrochiChris/video.io/blob/master/Core-Animation/animation.mov?raw=true" controls="controls">
 </video>
 
 <p>面板有两种状态：打开和关闭。您可以通过点击或上下拖动来切换状态。面临的挑战是使所有内容都具有交互性，即使是在设置动画时也是如此。例如，如果在动画设置为打开状态时点按该面板，则它应该从其当前位置动画回到关闭状态。在许多使用默认动画API的应用程序中，您必须等到动画完成后才能执行任何操作。或者，如果您不必等待，则动画显示不连续的速度曲线。我们想解决这个问题。</p>
@@ -448,7 +448,7 @@
       
         <div class="post-tags">
           
-            <a href="/zhy.github.io/tags/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" rel="tag"># 学习心得</a>
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
           
         </div>
       
@@ -561,7 +561,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/zhy.github.io/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -572,7 +572,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/zhy.github.io/tags/index.html">
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
