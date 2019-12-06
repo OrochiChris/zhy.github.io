@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。一、封装（Encapsulation）封装是指利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体，数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，只保留一些对外接口使之与外部发生联系。即对类中的一些字段、方法进行保护，不被外界访问到，有一种权限的控">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C基础——三大特性">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;06&#x2F;Objective-C%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。一、封装（Encapsulation）封装是指利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体，数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，只保留一些对外接口使之与外部发生联系。即对类中的一些字段、方法进行保护，不被外界访问到，有一种权限的控">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-06T06:30:43.571Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/06/Objective-C基础——三大特性/"/>
+
+
+
+
+
+  <title>Objective-C基础——三大特性 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/06/Objective-C%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%B8%89%E5%A4%A7%E7%89%B9%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Objective-C基础——三大特性</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-06T14:02:16+08:00">
+                2019-12-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。"><a href="#面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。" class="headerlink" title="面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。"></a>面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。</h1><h2 id="一、封装（Encapsulation）"><a href="#一、封装（Encapsulation）" class="headerlink" title="一、封装（Encapsulation）"></a>一、封装（Encapsulation）</h2><p>封装是指利用抽象数据类型将数据和基于数据的操作封装在一起，使其构成一个不可分割的独立实体，数据被保护在抽象数据类型的内部，尽可能地隐藏内部的细节，只保留一些对外接口使之与外部发生联系。即对类中的一些字段、方法进行保护，不被外界访问到，有一种权限的控制能力，Java中有四种访问权限修饰符：public、default、protected、private，它们的访问权限依次递减，这样我们在定义类的时候，哪些字段和方法不想暴露出去，哪些字段和方法可以暴露，可以通过不同修饰符来区分，这就是封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#import   </span><br><span class="line"></span><br><span class="line">@interface Car : NSObject &#123;  </span><br><span class="line"></span><br><span class="line">// 这个属性就是对外进行保密的相当于private，所以我们需要在外部访问的话，必须定义get/set方法  </span><br><span class="line"></span><br><span class="line">// 默认的是private的，但是我们可以使用@public设置为public属性的,那么在外部可以直接访问：</span><br><span class="line"></span><br><span class="line">person-&gt;capcity = 2.8;  </span><br><span class="line"></span><br><span class="line"> // 当然我们一般不这么使用，因为这会破坏封装性，这种用法相当于C中的结构体中权限  </span><br><span class="line"></span><br><span class="line"> // 一共四种：@public,@protected,@private,@package,权限依次递减，这个和Java中是相同的  </span><br><span class="line"></span><br><span class="line">@public  </span><br><span class="line"></span><br><span class="line">    float _capcity; //油量属性  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">- (void)run;  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里我们可以看到，OC中也有四种权限修饰符：@public、@protected、@private、@package</p>
+<p>其中默认的修饰符是@private。</p>
+<p>但是这里要注意的是，OC中的方法是没有修饰符的概念的，这与其它语言有所区别，一般都是公开访问的，即public的。在OC中，若需要做到让一个方法不能被外界访问，只需要在.m文件中实现这个方法，不要在图文件中进行定义，简言之，就是该方法有实现而没有定义，这样外界在倒入头文件的时候，是没有这个方法的，这个方法只可以在自己的.m文件中使用。</p>
+<h2 id="二、继承"><a href="#二、继承" class="headerlink" title="二、继承"></a>二、继承</h2><p>继承是使用已存在的类的定义作为基础建立新类的技术，新类的定义可以增加新的数据或新的功能，也可以用父类的功能，但不能选择性地继承父类。 即子类继承父类的一种方式，子类可对父类进行扩展，父类变了，子类也跟着变。继承是类中的一个重要特性，其作用在于避免写重复的代码，可重用性很高，继承的目的是为了减少代码的冗余，还是DRY原则（don`t repeat yourself)。</p>
+<p>在Car.h中，在Car类中定义了两个属性，以及一些方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import   </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@interface Car : NSObject&#123;  </span><br><span class="line"></span><br><span class="line">    NSString *_brand;  </span><br><span class="line"></span><br><span class="line">    NSString *_color;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)setBrand:(NSString *)brand;  </span><br><span class="line"></span><br><span class="line">- (void)setColor:(NSString *)color;  </span><br><span class="line"></span><br><span class="line">- (void)brake;  </span><br><span class="line"></span><br><span class="line">- (void)quicken;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>在Car.m方法中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Car.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation Car  </span><br><span class="line"></span><br><span class="line">- (void)setBrand:(NSString *)brand&#123;  </span><br><span class="line"></span><br><span class="line">    _brand = brand;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">- (void)setColor:(NSString *)color&#123;  </span><br><span class="line"></span><br><span class="line">    _color = color;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">- (void)brake&#123;  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;刹车&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">- (void)quicken&#123;  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;加速&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>在其子类Taxi中，我们可以对Car的方法进行继承。<br>Taxi.h文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Car.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@interface Taxi : Car&#123;  </span><br><span class="line"></span><br><span class="line">    NSString *_company;//所属公司  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">//打印发票  </span><br><span class="line"></span><br><span class="line">- (void)printTick;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>Taxi类继承了父类Car,这里需要导入父类的头文件，然后在Taxi类中多了一个属性和方法，与父类一致的方法则继承或改写。</p>
+<p>Taxi.m文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Taxi.h&quot;  </span><br><span class="line"></span><br><span class="line">@implementation Taxi  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (void)printTick&#123;  </span><br><span class="line"></span><br><span class="line">    [super brake];  </span><br><span class="line"></span><br><span class="line">    [self brake];  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;%@出租车打印了发票，公司为:%@,颜色为:%@&quot;,_brand,_company,_color);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>对方法的实现，这里我们看到实现文件中是不需要导入父类Car的头文件的，因为可以认为，Taxi.h头文件中已经包含了Car的头文件了。而且，这里可以使用super关键字来调用父类的方法，同时这里我们也是可以用self关键字来调用，这里看到其实这两种方式调用的效果是一样的，当我们在子类重新实现brake方法的时候(Java中的重写概念)，那么这时候super关键字调用的还是父类的方法，而self调用的就是重写之后的brake方法了。同样，我们也是可以使用父类中的属性。</p>
+<h3 id="再看一下另外一个子类Truck"><a href="#再看一下另外一个子类Truck" class="headerlink" title="再看一下另外一个子类Truck:"></a>再看一下另外一个子类Truck:</h3><p>在Truck.h中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Car.h&quot;  </span><br><span class="line"></span><br><span class="line">//卡车类继承Car  </span><br><span class="line"></span><br><span class="line">@interface Truck : Car&#123;  </span><br><span class="line"></span><br><span class="line">    float _maxWeight;//最大载货量  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">//覆盖父类的方法brake  </span><br><span class="line"></span><br><span class="line">//优先调用子类的方法  </span><br><span class="line"></span><br><span class="line">- (void)brake;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)unload;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里就自己定义了一个brake方法，这时候就会覆盖父类中的brake方法了。</p>
+<p>在Truck.m中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#import &quot;Truck.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation Truck  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)brake&#123;  </span><br><span class="line"></span><br><span class="line">    [super brake];  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;Truck类中的brake方法&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)unload&#123;  </span><br><span class="line"></span><br><span class="line">    [super brake];//调用父类的方法  </span><br><span class="line"></span><br><span class="line">    [self brake];//也是可以的  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;%@的卡车卸货了，载货量:%.2f,汽车的颜色:%@&quot;,_brand,_maxWeight,_color);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里就可以看到，我们会在brake方法中调用一下父类的brake方法，然后在实现我们自己的逻辑代码。</p>
+<h2 id="三、多态"><a href="#三、多态" class="headerlink" title="三、多态"></a>三、多态</h2><p>多态是指程序中定义的引用变量所指向的具体类型和通过该引用变量发出的方法调用在编程时并不确定，而是在程序运行期间才确定，即一个引用变量倒底会指向哪个类的实例对象，该引用变量发出的方法调用到底是哪个类中实现的方法，必须在由程序运行期间才能决定。多态对于面向对象来说，个人感觉真的很重要，其对于编写代码的优雅方式也起到了很重要的作用。在很多设计模式中大部分都是用到了多态的特性，Java中的多态特性用起来很是方便的，但是C++中就很难用了，其实多态说白了就是：定义类型和实际类型，一般是基于接口的形式实现的。</p>
+<p>以打印机为例：</p>
+<p>写一个抽象的打印机类Printer，</p>
+<p>Printer.h:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import   </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@interface Printer : NSObject  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void) print;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>Printer.m:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#import &quot;Printer.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation Printer  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)print&#123;  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;打印机打印纸张&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>实现也是很简单的,下面来看一下具体的子类ColorPrinter:</p>
+<p>ColorPrinter.h:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">#import &quot;Printer.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">//修改父类的打印行为  </span><br><span class="line"></span><br><span class="line">@interface ColorPrinter : Printer  </span><br><span class="line"></span><br><span class="line">- (void)print;  </span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">ColorPrinter.m</span><br></pre></td></tr></table></figure>
+<p>ColorPrinter.m:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;ColorPrinter.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation ColorPrinter  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)print&#123;  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;彩色打印机&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>再看一下另一个子类：</p>
+<p>BlackPrinter.m:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;BlackPrinter.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation BlackPrinter  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void)print&#123;  </span><br><span class="line"></span><br><span class="line">    NSLog(@&quot;黑白打印机&quot;);  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这里我们在定义一个Person类，用来操作具体的打印机。</p>
+<p>Person.m:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Person.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation Person  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">/* </span><br><span class="line"></span><br><span class="line">- (void) printWithColor:(ColorPrinter *)colorPrint&#123; </span><br><span class="line"></span><br><span class="line">    [colorPrint print]; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">- (void) printWithBlack:(BlackPrinter *)blackPrint&#123; </span><br><span class="line"></span><br><span class="line">    [blackPrint print]; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> */  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void) doPrint:(Printer *)printer&#123;  </span><br><span class="line"></span><br><span class="line">    [printer print];  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>再来看一下测试代码：</p>
+<p>Person.h:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Person.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@implementation Person  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">/* </span><br><span class="line"></span><br><span class="line">- (void) printWithColor:(ColorPrinter *)colorPrint&#123; </span><br><span class="line"></span><br><span class="line">    [colorPrint print]; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">- (void) printWithBlack:(BlackPrinter *)blackPrint&#123; </span><br><span class="line"></span><br><span class="line">    [blackPrint print]; </span><br><span class="line"></span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"> */  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">- (void) doPrint:(Printer *)printer&#123;  </span><br><span class="line"></span><br><span class="line">    [printer print];  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>Person.m:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;Person.h&quot;  </span><br><span class="line"></span><br><span class="line">#import &quot;BlackPrinter.h&quot;  </span><br><span class="line"></span><br><span class="line">#import &quot;ColorPrinter.h&quot;  </span><br><span class="line"></span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">int main(int argc, const charchar * argv[]) &#123;  </span><br><span class="line"></span><br><span class="line">    @autoreleasepool &#123;  </span><br><span class="line"></span><br><span class="line">        Person *person =[[Person alloc] init];  </span><br><span class="line"></span><br><span class="line">        ColorPrinter *colorPrint = [[ColorPrinter alloc] init];  </span><br><span class="line"></span><br><span class="line">        BlackPrinter *blackPrint = [[BlackPrinter alloc] init];  </span><br><span class="line"></span><br><span class="line">        //多态的定义  </span><br><span class="line"></span><br><span class="line">        /* </span><br><span class="line"></span><br><span class="line">        Printer *p1 = [[ColorPrinter alloc] init]; </span><br><span class="line"></span><br><span class="line">        Printer *p2 = [[BlackPrinter alloc] init]; </span><br><span class="line"></span><br><span class="line">        [person doPrint:p1]; </span><br><span class="line"></span><br><span class="line">        [person doPrint:p2]; </span><br><span class="line"></span><br><span class="line">         */  </span><br><span class="line"></span><br><span class="line">        //通过控制台输入的命令来控制使用哪个打印机  </span><br><span class="line"></span><br><span class="line">        int cmd;  </span><br><span class="line"></span><br><span class="line">        do&#123;  </span><br><span class="line"></span><br><span class="line">            scanf(&quot;%d&quot;,&amp;cmd);  </span><br><span class="line"></span><br><span class="line">            if(cmd == 1)&#123;  </span><br><span class="line"></span><br><span class="line">                [person doPrint:colorPrint];  </span><br><span class="line"></span><br><span class="line">            &#125;else if(cmd == 2)&#123;  </span><br><span class="line"></span><br><span class="line">                [person doPrint:blackPrint];  </span><br><span class="line"></span><br><span class="line">            &#125;  </span><br><span class="line"></span><br><span class="line">        &#125;while (1);           </span><br><span class="line"></span><br><span class="line">    &#125;  </span><br><span class="line"></span><br><span class="line">    return 0;  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面就来详细讨论一下多态的好处，以上例子中一个彩色打印机和黑白打印机，Person类中有一个操作打印的方法，当然这个方法是需要打印机对象的，如果不用多态机制实现的话（Person.h中注释的代码部分），就是给两种打印机单独定义个操作的方法，然后在Person.m（代码注释的部分）中用具体的打印机对象进行操作，在main.m文件中，我们看到，当person需要使用哪个打印机的时候，就去调用指定的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[person printWithBlack:blackPrint];//调用黑白打印机  </span><br><span class="line"></span><br><span class="line">[person printWithColor:colorPrint];//调用彩色打印机</span><br></pre></td></tr></table></figure>
+<p>假如现在又需要另一种打印机 ，那么我们还需要在Person.h中定义一种操作这种打印机的方法，那么后续如果添加新的打印机呢？还要继续添加方法吗？那么Person.h文件就会变得臃肿。所以此时多态就体现了优势，使用父类类型，在Person.h中定义一个方法- (void) doPrint:(Printer *)printer;就可以了。这里可以看出，这个方法的参数类型就是父类类型，实际类型为子类类型,其方法体为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void) doPrint:(Printer *)printer&#123;  </span><br><span class="line"></span><br><span class="line">    [printer print];  </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里调用print方法，就是传递进来的实际类型的print方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Printer *p1 = [[ColorPrinter alloc] init];  </span><br><span class="line"></span><br><span class="line">Printer *p2 = [[BlackPrinter alloc] init];  </span><br><span class="line"></span><br><span class="line">          </span><br><span class="line"></span><br><span class="line">[person doPrint:p1];  </span><br><span class="line"></span><br><span class="line">[person doPrint:p2];</span><br></pre></td></tr></table></figure>
+<p>这里的p1，p2表面上的类型是printer，但实际类型是子类类型，所以调用他们自己对应的print方法。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/04/Interactive-Animations/" rel="next" title="Interactive Animations">
+                <i class="fa fa-chevron-left"></i> Interactive Animations
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/06/Objective-C-%E7%BC%96%E7%A0%81%E8%A7%84%E8%8C%83/" rel="prev" title="Objective-C 编码规范">
+                Objective-C 编码规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。"><span class="nav-number">1.</span> <span class="nav-text">面向对象程序设计中的类有三大特性：继承，封装，多态，这三大特性是学习类的时候，必须理解的问题，既是基础，也是重点。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、封装（Encapsulation）"><span class="nav-number">1.1.</span> <span class="nav-text">一、封装（Encapsulation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、继承"><span class="nav-number">1.2.</span> <span class="nav-text">二、继承</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#再看一下另外一个子类Truck"><span class="nav-number">1.2.1.</span> <span class="nav-text">再看一下另外一个子类Truck:</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、多态"><span class="nav-number">1.3.</span> <span class="nav-text">三、多态</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
