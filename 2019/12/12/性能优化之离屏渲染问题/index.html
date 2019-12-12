@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="离屏渲染离屏渲染往往会带来界面卡顿的问题，这里将会讨论 当前屏幕渲染、离屏渲染 以及 CPU 渲染在 OpenGL 中，GPU 屏幕渲染有以下两种方式：  On-Screen Rendering即当前屏幕渲染，在用于显示的屏幕缓冲区中进行，不需要额外创建新的缓存，也不需要开启新的上下文，所以性能较好，但是受到缓存大小限制等因素，一些复杂的操作无法完成。 Off-Screen Rendering">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="性能优化——离屏渲染问题">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;12&#x2F;%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="离屏渲染离屏渲染往往会带来界面卡顿的问题，这里将会讨论 当前屏幕渲染、离屏渲染 以及 CPU 渲染在 OpenGL 中，GPU 屏幕渲染有以下两种方式：  On-Screen Rendering即当前屏幕渲染，在用于显示的屏幕缓冲区中进行，不需要额外创建新的缓存，也不需要开启新的上下文，所以性能较好，但是受到缓存大小限制等因素，一些复杂的操作无法完成。 Off-Screen Rendering">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-12T08:13:17.496Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/12/性能优化之离屏渲染问题/"/>
+
+
+
+
+
+  <title>性能优化——离屏渲染问题 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/12/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">性能优化——离屏渲染问题</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-12T15:12:27+08:00">
+                2019-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="离屏渲染"><a href="#离屏渲染" class="headerlink" title="离屏渲染"></a>离屏渲染</h1><h2 id="离屏渲染往往会带来界面卡顿的问题，这里将会讨论-当前屏幕渲染、离屏渲染-以及-CPU-渲染"><a href="#离屏渲染往往会带来界面卡顿的问题，这里将会讨论-当前屏幕渲染、离屏渲染-以及-CPU-渲染" class="headerlink" title="离屏渲染往往会带来界面卡顿的问题，这里将会讨论 当前屏幕渲染、离屏渲染 以及 CPU 渲染"></a>离屏渲染往往会带来界面卡顿的问题，这里将会讨论 当前屏幕渲染、离屏渲染 以及 CPU 渲染</h2><p>在 OpenGL 中，GPU 屏幕渲染有以下两种方式：</p>
+<ul>
+<li>On-Screen Rendering<br>即当前屏幕渲染，在用于显示的屏幕缓冲区中进行，不需要额外创建新的缓存，也不需要开启新的上下文，所以性能较好，但是受到缓存大小限制等因素，一些复杂的操作无法完成。</li>
+<li>Off-Screen Rendering</li>
+</ul>
+<p>即离屏渲染，指的是在 GPU 的当前屏幕缓冲区外开辟新的缓冲区进行操作。<br>相比于当前屏幕渲染，离屏渲染的代价是很高的，主要体现在如下两个方面：</p>
+<ul>
+<li><p>创建新的缓冲区</p>
+</li>
+<li><p>上下文切换。离屏渲染的整个过程，需要多次切换上下文环境：先从当前屏幕切换到离屏，等待离屏渲染结束后，将离屏缓冲区的渲染结果显示到到屏幕上，这又需要将上下文环境从离屏切换到当前屏幕。<br>当设置了以下属性时，会触发离屏渲染：</p>
+</li>
+<li><p>shouldRasterize（光栅化）</p>
+</li>
+<li><p>masks（遮罩）</p>
+</li>
+<li><p>shadows（阴影）</p>
+</li>
+<li><p>edge antialiasing（抗锯齿）</p>
+</li>
+<li><p>group opacity（不透明）</p>
+</li>
+</ul>
+<p>为了避免卡顿问题，应当尽可能使用当前屏幕渲染，可以不使用离屏渲染则尽量不用，应当尽量避免使用 layer 的 border、corner、shadow、mask 等技术。必须离屏渲染时，相对简单的视图应该使用 CPU 渲染，相对复杂的视图则使用一般的离屏渲染。</p>
+<p>如下是 CPU 渲染和离屏渲染的区别：</p>
+<p>由于GPU的浮点运算能力比CPU强，CPU渲染的效率可能不如离屏渲染。但如果仅仅是实现一个简单的效果，直接使用 CPU 渲染的效率又可能比离屏渲染好，毕竟普通的离屏渲染要涉及到缓冲区创建和上下文切换等耗时操作。对一些简单的绘制过程来说，这个过程有可能用CoreGraphics，全部用CPU来完成反而会比GPU做得更好。一个常见的 CPU 渲染的例子是：重写 drawRect 方法，并且使用任何 Core Graphics 的技术进行了绘制操作，就涉及到了 CPU 渲染。整个渲染过程由 CPU 在 App 内同步地完成，渲染得到的bitmap最后再交由GPU用于显示。总之，具体使用 CPU 渲染还是使用 GPU 离屏渲染更多的时候需要进行性能上的具体比较才可以。</p>
+<p>一个常见的性能优化的例子就是如何给 UIView/UIImageView 加圆角。</p>
+<p>如下是三种加圆角的方式：</p>
+<ul>
+<li>设置 cornerRadius</li>
+<li>UIBezierPath</li>
+<li>Core Graphics(为 UIView 加圆角)与直接截取图片(为 UIImageView 加圆角)</li>
+</ul>
+<h2 id="cornerRadius"><a href="#cornerRadius" class="headerlink" title="cornerRadius"></a>cornerRadius</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">view.layer.masksToBounds = YES;</span><br></pre></td></tr></table></figure>
+<p>这种方式会触发两次离屏渲染，如果在滚动页面中这么做的话就会遇到性能问题。当然我们可以进行缓存以优化性能，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">view.layer.shouldRasterize = YES;</span><br><span class="line">view.layer.rasterizationScale = [UIScreen mainScreen].scale;</span><br><span class="line">shouldRasterize = YES</span><br></pre></td></tr></table></figure>
+<p>会使视图渲染内容被缓存起来，下次绘制的时候可以直接显示缓存，当然要在视图内容不改变的情况下。</p>
+<p>注意：png 图片 在 UIImageView 这样处理圆角是不会产生离屏渲染的。<br>（ios9.0之后不会离屏渲染，ios9.0之前还是会离屏渲染）。</p>
+<h2 id="UIBezierPath"><a href="#UIBezierPath" class="headerlink" title="UIBezierPath"></a>UIBezierPath</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)drawRect:(CGRect)rect &#123;</span><br><span class="line">  CGRect bounds = self.bounds;</span><br><span class="line">  [[UIBezierPath bezierPathWithRoundedRect:rect cornerRadius:8.0] addClip];</span><br><span class="line"></span><br><span class="line">  [self.image drawInRect:bounds];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方法会触发一次离屏渲染，很多资料推崇这种写法，但是这种方式会导致内存暴增，并且同样会触发离屏渲染。</p>
+<h2 id="Core-Graphics-为-UIView-加圆角-与直接截取图片-为-UIImageView-加圆角"><a href="#Core-Graphics-为-UIView-加圆角-与直接截取图片-为-UIImageView-加圆角" class="headerlink" title="Core Graphics(为 UIView 加圆角)与直接截取图片(为 UIImageView 加圆角)"></a>Core Graphics(为 UIView 加圆角)与直接截取图片(为 UIImageView 加圆角)</h2><p>正如你所期待的那样，这种方法应该是极具效率的正确的姿势。这里将为 UIView 添加圆角与为 UIImageView 添加圆角进行区分。</p>
+<p>使用 Core Graphics 为 UIView 加圆角<br>这种做法的原理是利用 Core Graphics 自己画出了一个圆角矩形。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">func kt_drawRectWithRoundedCorner(radius radius: CGFloat,  </span><br><span class="line">                                  borderWidth: CGFloat,</span><br><span class="line">                                  backgroundColor: UIColor,</span><br><span class="line">                                  borderColor: UIColor) -&gt; UIImage &#123;    </span><br><span class="line">    UIGraphicsBeginImageContextWithOptions(sizeToFit, false, UIScreen.mainScreen().scale)</span><br><span class="line">    let context = UIGraphicsGetCurrentContext()</span><br><span class="line"></span><br><span class="line">    CGContextMoveToPoint(context, 开始位置);  // 开始坐标右边开始</span><br><span class="line">    CGContextAddArcToPoint(context, x1, y1, x2, y2, radius);  // 这种类型的代码重复四次</span><br><span class="line"></span><br><span class="line">    CGContextDrawPath(UIGraphicsGetCurrentContext(), .FillStroke)</span><br><span class="line">    let output = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">    UIGraphicsEndImageContext();</span><br><span class="line">    return output</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法返回的是 UIImage，有了这个图片后，就可以创建一个 UIImageView 并插入到视图层级的底部：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">extension UIView &#123;  </span><br><span class="line">    func kt_addCorner(radius radius: CGFloat,</span><br><span class="line">                      borderWidth: CGFloat,</span><br><span class="line">                      backgroundColor: UIColor,</span><br><span class="line">                      borderColor: UIColor) &#123;</span><br><span class="line">        let imageView = UIImageView(image: kt_drawRectWithRoundedCorner(radius: radius,</span><br><span class="line">                                    borderWidth: borderWidth,</span><br><span class="line">                                    backgroundColor: backgroundColor,</span><br><span class="line">                                    borderColor: borderColor))</span><br><span class="line">        self.insertSubview(imageView, atIndex: 0)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在调用时 只需要像这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let view = UIView(frame: CGRectMake(1,2,3,4))  </span><br><span class="line">view.kt_addCorner(radius: 6)</span><br></pre></td></tr></table></figure>
+<h2 id="直接截取图片为-UIImageView-加圆角"><a href="#直接截取图片为-UIImageView-加圆角" class="headerlink" title="直接截取图片为 UIImageView 加圆角"></a>直接截取图片为 UIImageView 加圆角</h2><p>这里的实现思路是直接截取图片：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">extension UIImage &#123;  </span><br><span class="line">    func kt_drawRectWithRoundedCorner(radius radius: CGFloat, _ sizetoFit: CGSize) -&gt; UIImage &#123;</span><br><span class="line">        let rect = CGRect(origin: CGPoint(x: 0, y: 0), size: sizetoFit)</span><br><span class="line"></span><br><span class="line">        UIGraphicsBeginImageContextWithOptions(rect.size, false, UIScreen.mainScreen().scale)</span><br><span class="line">        CGContextAddPath(UIGraphicsGetCurrentContext(),</span><br><span class="line">            UIBezierPath(roundedRect: rect, byRoundingCorners: UIRectCorner.AllCorners,</span><br><span class="line">                cornerRadii: CGSize(width: radius, height: radius)).CGPath)</span><br><span class="line">        CGContextClip(UIGraphicsGetCurrentContext())</span><br><span class="line"></span><br><span class="line">        self.drawInRect(rect)</span><br><span class="line">        CGContextDrawPath(UIGraphicsGetCurrentContext(), .FillStroke)</span><br><span class="line">        let output = UIGraphicsGetImageFromCurrentImageContext();</span><br><span class="line">        UIGraphicsEndImageContext();</span><br><span class="line"></span><br><span class="line">        return output</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>圆角路径直接用贝塞尔曲线绘制。这个函数的效果是将原来的 UIImage 剪裁出圆角。配合着这函数，我们可以为 UIImageView 拓展一个设置圆角的方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">extension UIImageView &#123;  </span><br><span class="line">    /**</span><br><span class="line">     / !!!只有当 imageView 不为nil 时，调用此方法才有效果</span><br><span class="line"></span><br><span class="line">     :param: radius 圆角半径</span><br><span class="line">     */</span><br><span class="line">    override func kt_addCorner(radius radius: CGFloat) &#123;</span><br><span class="line">        self.image = self.image?.kt_drawRectWithRoundedCorner(radius: radius, self.bounds.size)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在调用时只需要像如下这样写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let imageView = let imgView1 = UIImageView(image: UIImage(name: &quot;&quot;))  </span><br><span class="line">imageView.kt_addCorner(radius: 6)</span><br></pre></td></tr></table></figure>
+<p>注意：需要小心使用背景颜色。因为没有设置 masksToBounds，因此超出圆角的部分依然会被显示。因此不应该再使用背景颜色，可以在绘制圆角矩形时设置填充颜色来达到类似效果。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>如果能够只用 cornerRadius 解决问题，就不用优化。</li>
+<li>如果必须设置 masksToBounds，可以参考圆角视图的数量，如果数量较少（一页只有几个）也可以考虑不用优化。</li>
+<li>UIImageView 的圆角通过直接截取图片实现，其它视图的圆角可以通过 Core Graphics 画出圆角矩形实现。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/06/Animation-%E6%B8%B8%E6%88%8F%E6%89%93%E5%87%BB%E6%84%9F%E7%9A%84%E7%A0%94%E7%A9%B6/" rel="next" title="Animation-游戏打击感的研究">
+                <i class="fa fa-chevron-left"></i> Animation-游戏打击感的研究
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#离屏渲染"><span class="nav-number">1.</span> <span class="nav-text">离屏渲染</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#离屏渲染往往会带来界面卡顿的问题，这里将会讨论-当前屏幕渲染、离屏渲染-以及-CPU-渲染"><span class="nav-number">1.1.</span> <span class="nav-text">离屏渲染往往会带来界面卡顿的问题，这里将会讨论 当前屏幕渲染、离屏渲染 以及 CPU 渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cornerRadius"><span class="nav-number">1.2.</span> <span class="nav-text">cornerRadius</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIBezierPath"><span class="nav-number">1.3.</span> <span class="nav-text">UIBezierPath</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Core-Graphics-为-UIView-加圆角-与直接截取图片-为-UIImageView-加圆角"><span class="nav-number">1.4.</span> <span class="nav-text">Core Graphics(为 UIView 加圆角)与直接截取图片(为 UIImageView 加圆角)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#直接截取图片为-UIImageView-加圆角"><span class="nav-number">1.5.</span> <span class="nav-text">直接截取图片为 UIImageView 加圆角</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.6.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
