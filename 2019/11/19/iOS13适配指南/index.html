@@ -97,7 +97,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-17b874cf86afde08.gif?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;360">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-cbe15928781f0d68.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;686">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-3bd5a28b99637789.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2">
-<meta property="og:updated_time" content="2019-12-05T07:20:18.748Z">
+<meta property="og:updated_time" content="2019-12-13T06:51:05.260Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-17b874cf86afde08.gif?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;360">
 
@@ -376,7 +376,7 @@
 </li>
 </ul>
 <h2 id="UI层面"><a href="#UI层面" class="headerlink" title="UI层面"></a>UI层面</h2><ol start="2">
-<li><p>Dark</p>
+<li><p>Dark（黑夜模式）</p>
 <ul>
 <li><p>iOS 13 推出暗黑模式，UIKit 提供新的系统颜色和 api 来适配不同颜色模式，xcassets 对素材适配也做了调整，官方具体适配可见: <a href="https://developer.apple.com/videos/play/wwdc2019/214/" target="_blank" rel="noopener">Implementing Dark Mode on iOS</a>。</p>
 </li>
@@ -390,7 +390,24 @@
 <ul>
 <li>苹果官方文档 【Sign In with Apple will be available for beta testing this summer. It will be required as an option for users in apps that support third-party sign-in when it is commercially available later this year.】</li>
 </ul>
-<p>如果你的应用支持使用第三方登录，那么就必须加上苹果新推出的登录方式：Introducing Sign In with Apple。目前苹果只在 News and Updates 上提到正式发布时要求加上，具体发布时间还没确定。</p>
+<p>如果你的应用支持使用第三方登录，那么就必须加上苹果新推出的登录方式：Introducing Sign In with Apple。目前苹果只在 News and Updates 上提到正式发布时要求加上，具体发布时间还没确定。但苹果同样举出了几种特例的情况：</p>
+<ul>
+<li>仅使用公司内部账号登陆。</li>
+</ul>
+<ul>
+<li>教育或者企业应用，需要使用现有的教育和企业帐号登录。</li>
+</ul>
+<ul>
+<li>应用需要使用政府或者行业背景的共名身份系统或者 电子ID 进行登录。</li>
+</ul>
+<ul>
+<li><p>应用是特定的第三方客户服务客户端，需要使用邮箱，社交帐号，或者其他的三方服务来获取他们的内容。</p>
+</li>
+<li><p><a href="https://developer.apple.com/design/human-interface-guidelines/sign-in-with-apple/overview/" target="_blank" rel="noopener">Sign in with Apple 设计规范</a></p>
+</li>
+<li><p><a href="https://developer.apple.com/app-store/review/guidelines/?from=groupmessage&isappinstalled=0#sign-in-with-apple" target="_blank" rel="noopener">App Store Review Guidelines</a></p>
+</li>
+</ul>
 <ol start="4">
 <li>模态弹出默认交互改变（必须适配，强制要求）</li>
 </ol>
@@ -504,7 +521,26 @@
 <li>废弃UIWebView（必须）</li>
 </ol>
 <ul>
-<li>UIWebView在12.0就已经被废弃，部分APP使用webview时, 审核被拒</li>
+<li><p>UIWebView在12.0就已经被废弃，部分APP使用webview时, 审核被拒<br>目前提交苹果应用市场（App Store）会反馈以下邮件提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ITMS-90809: Deprecated API Usage - Apple will stop accepting submissions of apps that use UIWebView APIs .</span><br><span class="line">See developer.apple.com/documentati… for more information.</span><br></pre></td></tr></table></figure>
+<p>查找哪些SDK包含了 UIWebView</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f | grep -e &quot;.a&quot; -e &quot;.framework&quot; | xargs grep -s UIWebView</span><br></pre></td></tr></table></figure>
+<p>目前常用的SDK中，已知更新移除 UIWebView 的版本有：</p>
+</li>
+<li><p>QQ登录 (v3.3.6)</p>
+<ul>
+<li>ShareSDK (v4.3.2)</li>
+<li>极验证 (v0.12.5)</li>
+</ul>
+</li>
+<li><p>新浪微博（v3.2.5）</p>
+<ul>
+<li><p>微信开放平台 (v1.8.6.1)<br>暂未更新移除 UIWebView 版本的 SDK :</p>
+</li>
+<li><p>谷歌广告<br>部分关于 UIWebView 审核问题的讨论：<br><a href="http://bbs.mob.com/thread-26364-1-1.html" target="_blank" rel="noopener">dcloud Cocos2d-x ShareSDK</a></p>
+</li>
+</ul>
+</li>
 </ul>
 <ol start="11">
 <li>WKWebView 中测量页面内容高度的方式变更</li>
@@ -524,6 +560,12 @@
 </ol>
 <ul>
 <li>iOS13 以后只有开启了 Access WiFi Information capability，才能获取到 SSID 和 BSSID wi-fi or wlan 相关使用变更<br>最近收到了苹果的邮件，说获取WiFi SSID的接口CNCopyCurrentNetworkInfo 不再返回SSID的值。不仔细看还真会被吓一跳，对物联网的相关APP简直是炸弹。仔细看邮件还好说明了可以先获取用户位置权限才能返回SSID。<br>注意：目本身已经打开位置权限，则可以直接获取</li>
+</ul>
+<ol start="14">
+<li>MJExtension 问题</li>
+</ol>
+<ul>
+<li>Stack overflow in +[NSObject(Property) mj_properties] 升级 MJExtension 至 3.1.0版本以上，弃用老方法，涉及到所有方法添加 mj_ 前缀。</li>
 </ul>
 
       
