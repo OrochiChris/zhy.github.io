@@ -1930,7 +1930,7 @@ img:hover {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #59aa4f;
+  background: #771d9c;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3099,7 +3099,7 @@ img:hover {
   }
 }
 body {
-  background: url("https://images3.alphacoders.com/104/1043921.jpg");
+  background: url("https://images6.alphacoders.com/992/992249.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 100% 100%;
@@ -3116,4 +3116,16 @@ body {
   padding: 25px;
   -webkit-box-shadow: 0 0 5px rgba(202,203,203,0.5);
   -moz-box-shadow: 0 0 5px rgba(202,203,204,0.5);
+}
+body {
+  background: url("https://images3.alphacoders.com/104/1043921.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+.header-inner {
+  opacity: 0.95;
+}
+.main-inner {
+  opacity: 0.95;
 }
