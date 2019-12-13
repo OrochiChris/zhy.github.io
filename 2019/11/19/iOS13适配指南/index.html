@@ -97,7 +97,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-17b874cf86afde08.gif?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;360">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-cbe15928781f0d68.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;686">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-3bd5a28b99637789.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2">
-<meta property="og:updated_time" content="2019-12-13T06:51:05.260Z">
+<meta property="og:updated_time" content="2019-12-13T07:11:28.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;10389949-17b874cf86afde08.gif?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;w&#x2F;360">
 
@@ -375,19 +375,13 @@
 <li><p>iPod touch (第七代)</p>
 </li>
 </ul>
-<h2 id="UI层面"><a href="#UI层面" class="headerlink" title="UI层面"></a>UI层面</h2><ol start="2">
-<li><p>Dark（黑夜模式）</p>
-<ul>
+<h2 id="UI层面"><a href="#UI层面" class="headerlink" title="UI层面"></a>UI层面</h2><h3 id="2-Dark（黑夜模式）"><a href="#2-Dark（黑夜模式）" class="headerlink" title="2. Dark（黑夜模式）"></a>2. Dark（黑夜模式）</h3><ul>
 <li><p>iOS 13 推出暗黑模式，UIKit 提供新的系统颜色和 api 来适配不同颜色模式，xcassets 对素材适配也做了调整，官方具体适配可见: <a href="https://developer.apple.com/videos/play/wwdc2019/214/" target="_blank" rel="noopener">Implementing Dark Mode on iOS</a>。</p>
 </li>
 <li><p>iOS13-适配夜间模式/深色外观(Dark Mode)<a href="https://juejin.im/post/5cf6276be51d455a68490b26" target="_blank" rel="noopener">怎么动态改变颜色</a>.</p>
 </li>
 </ul>
-</li>
-<li><p>Sign In with Apple</p>
-</li>
-</ol>
-<ul>
+<h3 id="3-Sign-In-with-Apple"><a href="#3-Sign-In-with-Apple" class="headerlink" title="3. Sign In with Apple"></a>3. Sign In with Apple</h3><ul>
 <li>苹果官方文档 【Sign In with Apple will be available for beta testing this summer. It will be required as an option for users in apps that support third-party sign-in when it is commercially available later this year.】</li>
 </ul>
 <p>如果你的应用支持使用第三方登录，那么就必须加上苹果新推出的登录方式：Introducing Sign In with Apple。目前苹果只在 News and Updates 上提到正式发布时要求加上，具体发布时间还没确定。但苹果同样举出了几种特例的情况：</p>
@@ -408,10 +402,7 @@
 <li><p><a href="https://developer.apple.com/app-store/review/guidelines/?from=groupmessage&isappinstalled=0#sign-in-with-apple" target="_blank" rel="noopener">App Store Review Guidelines</a></p>
 </li>
 </ul>
-<ol start="4">
-<li>模态弹出默认交互改变（必须适配，强制要求）</li>
-</ol>
-<ul>
+<h3 id="4-模态弹出默认交互改变（必须适配，强制要求）"><a href="#4-模态弹出默认交互改变（必须适配，强制要求）" class="headerlink" title="4. 模态弹出默认交互改变（必须适配，强制要求）"></a>4. 模态弹出默认交互改变（必须适配，强制要求）</h3><ul>
 <li>在 iOS 13 中此枚举值直接成为了模态弹出的默认值，因此 presentViewController 方式打开视图是如下的视差效果，默认是下滑返回。</li>
 </ul>
 <p><img src="https://upload-images.jianshu.io/upload_images/10389949-17b874cf86afde08.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/360" alt="添加"></p>
@@ -430,141 +421,86 @@
 <p>*可以看出，以UIModalPresentationPageSheet的方式来present/dismiss时，分别少调用了a的两个方法，如果之前在这个位置有相关的逻辑代码，比如网络请求，UI刷新，要注意</p>
 </li>
 </ul>
-<ol start="5">
-<li>UISegmentedControl 默认样式改变（必须适配，强制要求）</li>
-</ol>
-<ul>
+<h3 id="5-UISegmentedControl-默认样式改变（必须适配，强制要求）"><a href="#5-UISegmentedControl-默认样式改变（必须适配，强制要求）" class="headerlink" title="5. UISegmentedControl 默认样式改变（必须适配，强制要求）"></a>5. UISegmentedControl 默认样式改变（必须适配，强制要求）</h3><ul>
 <li>默认样式变为白底黑字，如果设置修改过颜色的话，页面需要修改。<br><img src="https://upload-images.jianshu.io/upload_images/10389949-cbe15928781f0d68.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/686" alt="添加"><br>原本设置选中颜色的 tintColor 已经失效，新增了 selectedSegmentTintColor 属性用以修改选中的颜色。</li>
 </ul>
-<ol start="6">
-<li>Web的适配，参考链接：<br><a href="https://blog.csdn.net/u012413955/article/details/92198556" target="_blank" rel="noopener"></a></li>
-</ol>
-<h2 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h2><ol>
-<li>私有方法 KVC 不允许使用（必须适配，强制要求）</li>
-</ol>
-<ul>
+<h3 id="6-Web的适配，参考链接："><a href="#6-Web的适配，参考链接：" class="headerlink" title="6. Web的适配，参考链接："></a>6. Web的适配，参考链接：</h3><p><a href="https://blog.csdn.net/u012413955/article/details/92198556" target="_blank" rel="noopener"></a></p>
+<h2 id="代码层面"><a href="#代码层面" class="headerlink" title="代码层面"></a>代码层面</h2><h3 id="1-私有方法-KVC-不允许使用（必须适配，强制要求）"><a href="#1-私有方法-KVC-不允许使用（必须适配，强制要求）" class="headerlink" title="1. 私有方法 KVC 不允许使用（必须适配，强制要求）"></a>1. 私有方法 KVC 不允许使用（必须适配，强制要求）</h3><ul>
 <li>在 iOS 13 中不再允许使用 valueForKey、setValue:forKey: 等方法获取或设置私有属性，虽然编译可以通过，但是在运行时会直接崩溃，并提示一下崩溃信息：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 使用的私有方法</span><br><span class="line">[_textField setValue:[UIColor redColor] forKeyPath:@&quot;_placeholderLabel.textColor&quot;];</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 崩溃提示信息</span><br><span class="line">*** Terminating app due to uncaught exception &apos;NSGenericException&apos;, reason: &apos;Access to UITextField&apos;s _placeholderLabel ivar is prohibited. This is an application bug&apos;</span><br></pre></td></tr></table></figure>
 <p>解决方案:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 替换的方案</span><br><span class="line">_textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@&quot;输入&quot;attributes:@&#123;NSForegroundColorAttributeName: [UIColor redColor]&#125;];</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>推送的 deviceToken 获取到的格式发生变化（必须适配，强制要求）</li>
-</ol>
-<ul>
+<h3 id="2-推送的-deviceToken-获取到的格式发生变化（必须适配，强制要求）"><a href="#2-推送的-deviceToken-获取到的格式发生变化（必须适配，强制要求）" class="headerlink" title="2. 推送的 deviceToken 获取到的格式发生变化（必须适配，强制要求）"></a>2. 推送的 deviceToken 获取到的格式发生变化（必须适配，强制要求）</h3><ul>
 <li>原本可以直接将 NSData 类型的 deviceToken 转换成 NSString 字符串，然后替换掉多余的符号即可：</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken &#123;</span><br><span class="line">    NSString *token = [deviceToken description];</span><br><span class="line">    for (NSString *symbol in @[@&quot; &quot;, @&quot;&lt;&quot;, @&quot;&gt;&quot;, @&quot;-&quot;]) &#123;</span><br><span class="line">        token = [token stringByReplacingOccurrencesOfString:symbol withString:@&quot;&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    NSLog(@&quot;deviceToken:%@&quot;, token);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>在 iOS 13 中，这种方法已经失效，NSData类型的 deviceToken 转换成的字符串变成了：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;length = 32, bytes = 0xd7f9fe34 69be14d1 fa51be22 329ac80d ... 5ad13017 b8ad0736 &#125;</span><br></pre></td></tr></table></figure></li>
-<li>需要进行一次数据格式处理，参考友盟的做法，可以适配新旧系统，获取方式如下：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken &#123;</span><br><span class="line">    if (![deviceToken isKindOfClass:[NSData class]]) return;</span><br><span class="line">    const unsigned *tokenBytes = [deviceToken bytes];</span><br><span class="line">    NSString *hexToken = [NSString stringWithFormat:@&quot;%08x%08x%08x%08x%08x%08x%08x%08x&quot;,</span><br><span class="line">                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),</span><br><span class="line">                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),</span><br><span class="line">                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];</span><br><span class="line">    NSLog(@&quot;deviceToken:%@&quot;, hexToken);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="3">
-<li>UISearchBar 黑线处理导致崩溃</li>
-</ol>
-<ul>
+<li><p>在 iOS 13 中，这种方法已经失效，NSData类型的 deviceToken 转换成的字符串变成了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;length = 32, bytes = 0xd7f9fe34 69be14d1 fa51be22 329ac80d ... 5ad13017 b8ad0736 &#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>需要进行一次数据格式处理，参考友盟的做法，可以适配新旧系统，获取方式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;arpa/inet.h&gt;</span><br><span class="line">- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken &#123;</span><br><span class="line">    if (![deviceToken isKindOfClass:[NSData class]]) return;</span><br><span class="line">    const unsigned *tokenBytes = [deviceToken bytes];</span><br><span class="line">    NSString *hexToken = [NSString stringWithFormat:@&quot;%08x%08x%08x%08x%08x%08x%08x%08x&quot;,</span><br><span class="line">                          ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]),</span><br><span class="line">                          ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]),</span><br><span class="line">                          ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];</span><br><span class="line">    NSLog(@&quot;deviceToken:%@&quot;, hexToken);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="3-UISearchBar-黑线处理导致崩溃"><a href="#3-UISearchBar-黑线处理导致崩溃" class="headerlink" title="3. UISearchBar 黑线处理导致崩溃"></a>3. UISearchBar 黑线处理导致崩溃</h3></li>
 <li><p>之前为了处理搜索框的黑线问题，通常会遍历 searchBar 的 subViews，找到并删除 UISearchBarBackground，在 iOS13 中这么做会导致 UI 渲染失败，然后直接崩溃，崩溃信息如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due to uncaught exception &apos;NSInternalInconsistencyException&apos;, reason: &apos;Missing or detached view for search bar layout&apos;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>解决办法是设置 UISearchBarBackground 的 layer.contents 为 nil:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (UIView *view in _searchBar.subviews.lastObject.subviews) &#123;</span><br><span class="line">    if ([view isKindOfClass:NSClassFromString(@&quot;UISearchBarBackground&quot;)]) &#123;</span><br><span class="line">        // [view removeFromSuperview];</span><br><span class="line">        view.layer.contents = nil;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="4">
-<li>使用 UISearchDisplayController 导致崩溃</li>
-</ol>
-<ul>
+<li>解决办法是设置 UISearchBarBackground 的 layer.contents 为 nil:<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for (UIView *view in _searchBar.subviews.lastObject.subviews) &#123;</span><br><span class="line">    if ([view isKindOfClass:NSClassFromString(@&quot;UISearchBarBackground&quot;)]) &#123;</span><br><span class="line">        // [view removeFromSuperview];</span><br><span class="line">        view.layer.contents = nil;</span><br><span class="line">        break;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-使用-UISearchDisplayController-导致崩溃"><a href="#4-使用-UISearchDisplayController-导致崩溃" class="headerlink" title="4. 使用 UISearchDisplayController 导致崩溃"></a>4. 使用 UISearchDisplayController 导致崩溃</h3></li>
 <li>在 iOS 8 之前，我们在 UITableView 上添加搜索框需要使用 UISearchBar + UISearchDisplayController 的组合方式，而在 iOS 8 之后，苹果就已经推出了 UISearchController 来代替这个组合方式。在 iOS 13 中，如果还继续使用 UISearchDisplayController 会直接导致崩溃，崩溃信息如下：</li>
 </ul>
 </li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due to uncaught exception &apos;NSGenericException&apos;, reason: &apos;UISearchDisplayController is no longer supported when linking against this version of iOS. Please migrate your application to UISearchController.&apos;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>另外说一下，在 iOS 13 中终于可以获取直接获取搜索的文本框：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_searchBar.searchTextField.text = @“search&quot;;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="5">
-<li>MPMoviePlayerController 被弃用</li>
-</ol>
-<ul>
-<li>在 iOS 9 之前播放视频可以使用 MediaPlayer.framework 中的MPMoviePlayerController类来完成，它支持本地视频和网络视频播放。但是在 iOS 9 开始被弃用，如果在 iOS 13 中继续使用的话会直接抛出异常：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;, reason: &apos;MPMoviePlayerController is no longer available. Use AVPlayerViewController in AVKit.&apos;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="6">
-<li>LaunchImage 被弃用（必须）</li>
-</ol>
-<ul>
+<li>另外说一下，在 iOS 13 中终于可以获取直接获取搜索的文本框：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_searchBar.searchTextField.text = @“search&quot;;</span><br></pre></td></tr></table></figure>
+<h3 id="5-MPMoviePlayerController-被弃用"><a href="#5-MPMoviePlayerController-被弃用" class="headerlink" title="5. MPMoviePlayerController 被弃用"></a>5. MPMoviePlayerController 被弃用</h3></li>
+<li>在 iOS 9 之前播放视频可以使用 MediaPlayer.framework 中的MPMoviePlayerController类来完成，它支持本地视频和网络视频播放。但是在 iOS 9 开始被弃用，如果在 iOS 13 中继续使用的话会直接抛出异常：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*** Terminating app due to uncaught exception &apos;NSInvalidArgumentException&apos;, reason: &apos;MPMoviePlayerController is no longer available. Use AVPlayerViewController in AVKit.&apos;</span><br></pre></td></tr></table></figure>
+<h3 id="6-LaunchImage-被弃用（必须）"><a href="#6-LaunchImage-被弃用（必须）" class="headerlink" title="6. LaunchImage 被弃用（必须）"></a>6. LaunchImage 被弃用（必须）</h3></li>
 <li>iOS 8 之前我们是在LaunchImage 来设置启动图，但是随着苹果设备尺寸越来越多，我们需要在对应的 aseets 里面放入所有尺寸的启动图，这是非常繁琐的一个步骤。因此在 iOS 8 苹果引入了 LaunchScreen.storyboard，支持界面布局用的 AutoLayout + SizeClass ，可以很方便适配各种屏幕。<br>需要注意的是，苹果在 <a href="https://developer.apple.com/videos/play/wwdc2019/224/" target="_blank" rel="noopener">Modernizing Your UI for iOS 13 section</a> 中提到，从2020年4月开始，所有支持 iOS 13 的 App 必须提供 LaunchScreen.storyboard，否则将无法提交到 App Store 进行审批。</li>
 </ul>
-<ol start="7">
-<li>Xcode 11 创建的工程在低版本设备上运行黑屏</li>
-</ol>
-<ul>
+<h3 id="7-Xcode-11-创建的工程在低版本设备上运行黑屏"><a href="#7-Xcode-11-创建的工程在低版本设备上运行黑屏" class="headerlink" title="7. Xcode 11 创建的工程在低版本设备上运行黑屏"></a>7. Xcode 11 创建的工程在低版本设备上运行黑屏</h3><ul>
 <li>使用 Xcode 11 创建的工程，运行设备选择 iOS 13.0 以下的设备，运行应用时会出现黑屏。这是因为 Xcode 11 默认是会创建通过 UIScene 管理多个 UIWindow 的应用，工程中除了 AppDelegate 外会多一个 SceneDelegate.</li>
 </ul>
 <p><img src="https://upload-images.jianshu.io/upload_images/10389949-3bd5a28b99637789.png?imageMogr2/auto-orient/strip%7CimageView2/2" alt=""></p>
 <p>这是为了 iPadOS 的多进程准备的，也就是说 UIWindow 不再是 UIApplication 中管理。但是旧版本根本没有 UIScene，因此解决方案就是在 AppDelegate 的头文件加上：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@property (strong, nonatomic) UIWindow *window;</span><br></pre></td></tr></table></figure>
-<ol start="8">
-<li>使用 @available 导致旧版本 Xcode 编译出错。（必须)</li>
-</ol>
-<p>在 Xcode 11 的 SDK 工程的代码里面使用了 @available 判断当前系统版本，打出来的包放在 Xcode 10 中编译，会出现一下错误：</p>
+<h3 id="8-使用-available-导致旧版本-Xcode-编译出错。（必须"><a href="#8-使用-available-导致旧版本-Xcode-编译出错。（必须" class="headerlink" title="8. 使用 @available 导致旧版本 Xcode 编译出错。（必须)"></a>8. 使用 @available 导致旧版本 Xcode 编译出错。（必须)</h3><p>在 Xcode 11 的 SDK 工程的代码里面使用了 @available 判断当前系统版本，打出来的包放在 Xcode 10 中编译，会出现一下错误：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Undefine symbols for architecture i386:</span><br><span class="line">    &quot;__isPlatformVersionAtLeast&quot;, referenced from:</span><br><span class="line">        ...</span><br><span class="line">ld: symbol(s) not found for architecture i386</span><br></pre></td></tr></table></figure>
 <p>从错误信息来看，是 __isPlatformVersionAtLeast 方法没有具体的实现，但是工程里根本没有这个方法。实际测试无论在哪里使用@available ，并使用 Xcode 11 打包成动态库或静态库，把打包的库添加到 Xcode 10 中编译都会出现这个错误，因此可以判断是 iOS 13 的 @available 的实现中使用了新的 api。如果你的 SDK 需要适配旧版本的 Xcode，那么需要避开此方法，通过获取系统版本来进行判断：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ([UIDevice currentDevice].systemVersion.floatValue &gt;= 13.0) &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>另外，在 Xcode 10 上打开 SDK 工程也应该可以正常编译，这就需要加上编译宏进行处理：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#ifndef __IPHONE_13_0</span><br><span class="line">#define __IPHONE_13_0 130000</span><br><span class="line">#endif</span><br><span class="line"></span><br><span class="line">#if __IPHONE_OS_VERSION_MAX_ALLOWED &gt;= __IPHONE_13_0</span><br><span class="line">...</span><br><span class="line">#endif</span><br></pre></td></tr></table></figure>
-<ol start="9">
-<li>NSAttributedString优化</li>
-</ol>
-<ul>
-<li>对于UILabel、UITextField、UITextView，在设置NSAttributedString时也要考虑适配Dark Mode，否则在切换模式时会与背景色融合，造成不好的体验/推荐的做法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 添加一个NSForegroundColorAttributeName属性</span><br><span class="line">NSDictionary *dic = @&#123;NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor labelColor]&#125;;</span><br><span class="line">NSAttributedString *str = [[NSAttributedString alloc] initWithString:@&quot;富文本文案&quot; attributes:dic];</span><br></pre></td></tr></table></figure></li>
-</ul>
-<ol start="10">
-<li>废弃UIWebView（必须）</li>
-</ol>
-<ul>
-<li><p>UIWebView在12.0就已经被废弃，部分APP使用webview时, 审核被拒<br>目前提交苹果应用市场（App Store）会反馈以下邮件提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ITMS-90809: Deprecated API Usage - Apple will stop accepting submissions of apps that use UIWebView APIs .</span><br><span class="line">See developer.apple.com/documentati… for more information.</span><br></pre></td></tr></table></figure>
-<p>查找哪些SDK包含了 UIWebView</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f | grep -e &quot;.a&quot; -e &quot;.framework&quot; | xargs grep -s UIWebView</span><br></pre></td></tr></table></figure>
-<p>目前常用的SDK中，已知更新移除 UIWebView 的版本有：</p>
-</li>
-<li><p>QQ登录 (v3.3.6)</p>
-<ul>
+<h3 id="9-NSAttributedString优化"><a href="#9-NSAttributedString优化" class="headerlink" title="9. NSAttributedString优化"></a>9. NSAttributedString优化</h3><ul>
+<li>对于UILabel、UITextField、UITextView，在设置NSAttributedString时也要考虑适配Dark Mode，否则在切换模式时会与背景色融合，造成不好的体验/推荐的做法：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">// 添加一个NSForegroundColorAttributeName属性</span><br><span class="line">NSDictionary *dic = @&#123;NSFontAttributeName:[UIFont systemFontOfSize:16],NSForegroundColorAttributeName:[UIColor labelColor]&#125;;</span><br><span class="line">NSAttributedString *str = [[NSAttributedString alloc] initWithString:@&quot;富文本文案&quot; attributes:dic];</span><br></pre></td></tr></table></figure>
+<h3 id="10-废弃UIWebView（必须）"><a href="#10-废弃UIWebView（必须）" class="headerlink" title="10. 废弃UIWebView（必须）"></a>10. 废弃UIWebView（必须）</h3></li>
+<li>UIWebView在12.0就已经被废弃，部分APP使用webview时, 审核被拒<br>目前提交苹果应用市场（App Store）会反馈以下邮件提示：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ITMS-90809: Deprecated API Usage - Apple will stop accepting submissions of apps that use UIWebView APIs .</span><br><span class="line">See developer.apple.com/documentati… for more information.</span><br></pre></td></tr></table></figure>
+查找哪些SDK包含了 UIWebView<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find . -type f | grep -e &quot;.a&quot; -e &quot;.framework&quot; | xargs grep -s UIWebView</span><br></pre></td></tr></table></figure>
+目前常用的SDK中，已知更新移除 UIWebView 的版本有：</li>
+<li>QQ登录 (v3.3.6)</li>
 <li>ShareSDK (v4.3.2)</li>
 <li>极验证 (v0.12.5)</li>
+<li>新浪微博（v3.2.5）</li>
+<li>微信开放平台 (v1.8.6.1)</li>
 </ul>
-</li>
-<li><p>新浪微博（v3.2.5）</p>
+<p>暂未更新移除 UIWebView 版本的 SDK :</p>
 <ul>
-<li><p>微信开放平台 (v1.8.6.1)<br>暂未更新移除 UIWebView 版本的 SDK :</p>
-</li>
-<li><p>谷歌广告<br>部分关于 UIWebView 审核问题的讨论：<br><a href="http://bbs.mob.com/thread-26364-1-1.html" target="_blank" rel="noopener">dcloud Cocos2d-x ShareSDK</a></p>
-</li>
+<li>谷歌广告<br>部分关于 UIWebView 审核问题的讨论：<br><a href="http://bbs.mob.com/thread-26364-1-1.html" target="_blank" rel="noopener">dcloud Cocos2d-x ShareSDK</a></li>
 </ul>
-</li>
-</ul>
-<ol start="11">
-<li>WKWebView 中测量页面内容高度的方式变更</li>
-</ol>
-<ul>
+<h3 id="11-WKWebView-中测量页面内容高度的方式变更"><a href="#11-WKWebView-中测量页面内容高度的方式变更" class="headerlink" title="11. WKWebView 中测量页面内容高度的方式变更"></a>11. WKWebView 中测量页面内容高度的方式变更</h3><ul>
 <li>iOS 13以前 document.body.scrollHeight iOS 13中 document.documentElement.scrollHeight 两者相差55 应该是浏览器定义高度变了</li>
 </ul>
-<ol start="12">
-<li>蓝牙权限需要申请</li>
-</ol>
-<ul>
-<li>CBCentralManager，iOS13以前，使用蓝牙时可以直接用，不会出现权限提示，iOS13后，再使用就会提示了。 在info.plist里增加<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSBluetoothAlwaysUsageDescription&lt;/key&gt; </span><br><span class="line">&lt;string&gt;我们要一直使用您的蓝牙&lt;/string&gt;</span><br></pre></td></tr></table></figure></li>
-<li>在iOS13中，蓝牙变成了和位置，通知服务等同样的可以针对单个app授权的服务。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (NSString*) getWifiSsid &#123;</span><br><span class="line">  if (@available(iOS 13.0, *)) &#123;</span><br><span class="line">    //用户明确拒绝，可以弹窗提示用户到设置中手动打开权限</span><br><span class="line">    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) &#123;</span><br><span class="line">      NSLog(@&quot;User has explicitly denied authorization for this application, or location services are disabled in Settings.&quot;);</span><br><span class="line">      //使用下面接口可以打开当前应用的设置页面</span><br><span class="line">      //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];</span><br><span class="line">      return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    CLLocationManager* cllocation = [[CLLocationManager alloc] init];</span><br><span class="line">    if(![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)&#123;</span><br><span class="line">      //弹框提示用户是否开启位置权限</span><br><span class="line">      [cllocation requestWhenInUseAuthorization];</span><br><span class="line">      usleep(50);</span><br><span class="line">      //递归等待用户选选择</span><br><span class="line">      return [self getWifiSsidWithCallback:callback];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  NSString *wifiName = nil;</span><br><span class="line">  CFArrayRef wifiInterfaces = CNCopySupportedInterfaces();</span><br><span class="line">  if (!wifiInterfaces) &#123;</span><br><span class="line">    return nil;</span><br><span class="line">  &#125;</span><br><span class="line">  NSArray *interfaces = (__bridge NSArray *)wifiInterfaces;</span><br><span class="line">  for (NSString *interfaceName in interfaces) &#123;</span><br><span class="line">    CFDictionaryRef dictRef = CNCopyCurrentNetworkInfo((__bridge CFStringRef)(interfaceName));</span><br><span class="line"> </span><br><span class="line">    if (dictRef) &#123;</span><br><span class="line">      NSDictionary *networkInfo = (__bridge NSDictionary *)dictRef;</span><br><span class="line">      NSLog(@&quot;network info -&gt; %@&quot;, networkInfo);</span><br><span class="line">      wifiName = [networkInfo objectForKey:(__bridge NSString *)kCNNetworkInfoKeySSID];</span><br><span class="line">      CFRelease(dictRef);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  CFRelease(wifiInterfaces);</span><br><span class="line">  return wifiName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<h3 id="12-蓝牙权限需要申请"><a href="#12-蓝牙权限需要申请" class="headerlink" title="12. 蓝牙权限需要申请"></a>12. 蓝牙权限需要申请</h3><ul>
+<li><p>CBCentralManager，iOS13以前，使用蓝牙时可以直接用，不会出现权限提示，iOS13后，再使用就会提示了。 在info.plist里增加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;NSBluetoothAlwaysUsageDescription&lt;/key&gt; </span><br><span class="line">&lt;string&gt;我们要一直使用您的蓝牙&lt;/string&gt;</span><br></pre></td></tr></table></figure></li>
+<li><p>在iOS13中，蓝牙变成了和位置，通知服务等同样的可以针对单个app授权的服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">- (NSString*) getWifiSsid &#123;</span><br><span class="line">  if (@available(iOS 13.0, *)) &#123;</span><br><span class="line">    //用户明确拒绝，可以弹窗提示用户到设置中手动打开权限</span><br><span class="line">    if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied) &#123;</span><br><span class="line">      NSLog(@&quot;User has explicitly denied authorization for this application, or location services are disabled in Settings.&quot;);</span><br><span class="line">      //使用下面接口可以打开当前应用的设置页面</span><br><span class="line">      //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];</span><br><span class="line">      return nil;</span><br><span class="line">    &#125;</span><br><span class="line">    CLLocationManager* cllocation = [[CLLocationManager alloc] init];</span><br><span class="line">    if(![CLLocationManager locationServicesEnabled] || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined)&#123;</span><br><span class="line">      //弹框提示用户是否开启位置权限</span><br><span class="line">      [cllocation requestWhenInUseAuthorization];</span><br><span class="line">      usleep(50);</span><br><span class="line">      //递归等待用户选选择</span><br><span class="line">      return [self getWifiSsidWithCallback:callback];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  NSString *wifiName = nil;</span><br><span class="line">  CFArrayRef wifiInterfaces = CNCopySupportedInterfaces();</span><br><span class="line">  if (!wifiInterfaces) &#123;</span><br><span class="line">    return nil;</span><br><span class="line">  &#125;</span><br><span class="line">  NSArray *interfaces = (__bridge NSArray *)wifiInterfaces;</span><br><span class="line">  for (NSString *interfaceName in interfaces) &#123;</span><br><span class="line">    CFDictionaryRef dictRef = CNCopyCurrentNetworkInfo((__bridge CFStringRef)(interfaceName));</span><br><span class="line"> </span><br><span class="line">    if (dictRef) &#123;</span><br><span class="line">      NSDictionary *networkInfo = (__bridge NSDictionary *)dictRef;</span><br><span class="line">      NSLog(@&quot;network info -&gt; %@&quot;, networkInfo);</span><br><span class="line">      wifiName = [networkInfo objectForKey:(__bridge NSString *)kCNNetworkInfoKeySSID];</span><br><span class="line">      CFRelease(dictRef);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  CFRelease(wifiInterfaces);</span><br><span class="line">  return wifiName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="13-CNCopyCurrentNetworkInfo"><a href="#13-CNCopyCurrentNetworkInfo" class="headerlink" title="13. CNCopyCurrentNetworkInfo"></a>13. CNCopyCurrentNetworkInfo</h3></li>
+<li><p>iOS13 以后只有开启了 Access WiFi Information capability，才能获取到 SSID 和 BSSID wi-fi or wlan 相关使用变更</p>
+</li>
 </ul>
-<ol start="13">
-<li>CNCopyCurrentNetworkInfo </li>
-</ol>
-<ul>
-<li>iOS13 以后只有开启了 Access WiFi Information capability，才能获取到 SSID 和 BSSID wi-fi or wlan 相关使用变更<br>最近收到了苹果的邮件，说获取WiFi SSID的接口CNCopyCurrentNetworkInfo 不再返回SSID的值。不仔细看还真会被吓一跳，对物联网的相关APP简直是炸弹。仔细看邮件还好说明了可以先获取用户位置权限才能返回SSID。<br>注意：目本身已经打开位置权限，则可以直接获取</li>
-</ul>
-<ol start="14">
-<li>MJExtension 问题</li>
-</ol>
-<ul>
+<p>最近收到了苹果的邮件，说获取WiFi SSID的接口CNCopyCurrentNetworkInfo 不再返回SSID的值。不仔细看还真会被吓一跳，对物联网的相关APP简直是炸弹。仔细看邮件还好说明了可以先获取用户位置权限才能返回SSID。<br>注意：目本身已经打开位置权限，则可以直接获取</p>
+<h3 id="14-MJExtension-问题"><a href="#14-MJExtension-问题" class="headerlink" title="14. MJExtension 问题"></a>14. MJExtension 问题</h3><ul>
 <li>Stack overflow in +[NSObject(Property) mj_properties] 升级 MJExtension 至 3.1.0版本以上，弃用老方法，涉及到所有方法添加 mj_ 前缀。</li>
 </ul>
 
@@ -748,7 +684,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS13系统上线后，我遇到了哪些问题？"><span class="nav-number">1.</span> <span class="nav-text">iOS13系统上线后，我遇到了哪些问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新系统的发布，xcode的第一时间更新带来的问题"><span class="nav-number">1.1.</span> <span class="nav-text">新系统的发布，xcode的第一时间更新带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谈谈适配问题"><span class="nav-number">1.2.</span> <span class="nav-text">谈谈适配问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI层面"><span class="nav-number">1.3.</span> <span class="nav-text">UI层面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码层面"><span class="nav-number">1.4.</span> <span class="nav-text">代码层面</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS13系统上线后，我遇到了哪些问题？"><span class="nav-number">1.</span> <span class="nav-text">iOS13系统上线后，我遇到了哪些问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新系统的发布，xcode的第一时间更新带来的问题"><span class="nav-number">1.1.</span> <span class="nav-text">新系统的发布，xcode的第一时间更新带来的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#谈谈适配问题"><span class="nav-number">1.2.</span> <span class="nav-text">谈谈适配问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI层面"><span class="nav-number">1.3.</span> <span class="nav-text">UI层面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Dark（黑夜模式）"><span class="nav-number">1.3.1.</span> <span class="nav-text">2. Dark（黑夜模式）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Sign-In-with-Apple"><span class="nav-number">1.3.2.</span> <span class="nav-text">3. Sign In with Apple</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-模态弹出默认交互改变（必须适配，强制要求）"><span class="nav-number">1.3.3.</span> <span class="nav-text">4. 模态弹出默认交互改变（必须适配，强制要求）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-UISegmentedControl-默认样式改变（必须适配，强制要求）"><span class="nav-number">1.3.4.</span> <span class="nav-text">5. UISegmentedControl 默认样式改变（必须适配，强制要求）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Web的适配，参考链接："><span class="nav-number">1.3.5.</span> <span class="nav-text">6. Web的适配，参考链接：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码层面"><span class="nav-number">1.4.</span> <span class="nav-text">代码层面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-私有方法-KVC-不允许使用（必须适配，强制要求）"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. 私有方法 KVC 不允许使用（必须适配，强制要求）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-推送的-deviceToken-获取到的格式发生变化（必须适配，强制要求）"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. 推送的 deviceToken 获取到的格式发生变化（必须适配，强制要求）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-UISearchBar-黑线处理导致崩溃"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. UISearchBar 黑线处理导致崩溃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-使用-UISearchDisplayController-导致崩溃"><span class="nav-number">1.4.4.</span> <span class="nav-text">4. 使用 UISearchDisplayController 导致崩溃</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-MPMoviePlayerController-被弃用"><span class="nav-number">1.4.5.</span> <span class="nav-text">5. MPMoviePlayerController 被弃用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-LaunchImage-被弃用（必须）"><span class="nav-number">1.4.6.</span> <span class="nav-text">6. LaunchImage 被弃用（必须）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-Xcode-11-创建的工程在低版本设备上运行黑屏"><span class="nav-number">1.4.7.</span> <span class="nav-text">7. Xcode 11 创建的工程在低版本设备上运行黑屏</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-使用-available-导致旧版本-Xcode-编译出错。（必须"><span class="nav-number">1.4.8.</span> <span class="nav-text">8. 使用 @available 导致旧版本 Xcode 编译出错。（必须)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-NSAttributedString优化"><span class="nav-number">1.4.9.</span> <span class="nav-text">9. NSAttributedString优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-废弃UIWebView（必须）"><span class="nav-number">1.4.10.</span> <span class="nav-text">10. 废弃UIWebView（必须）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-WKWebView-中测量页面内容高度的方式变更"><span class="nav-number">1.4.11.</span> <span class="nav-text">11. WKWebView 中测量页面内容高度的方式变更</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-蓝牙权限需要申请"><span class="nav-number">1.4.12.</span> <span class="nav-text">12. 蓝牙权限需要申请</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-CNCopyCurrentNetworkInfo"><span class="nav-number">1.4.13.</span> <span class="nav-text">13. CNCopyCurrentNetworkInfo</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-MJExtension-问题"><span class="nav-number">1.4.14.</span> <span class="nav-text">14. MJExtension 问题</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
