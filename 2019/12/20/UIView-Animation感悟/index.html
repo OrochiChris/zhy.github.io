@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="动画对于用户体验的提升很重要。动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的Ap">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIView Animation感悟">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;20&#x2F;UIView-Animation%E6%84%9F%E6%82%9F&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="动画对于用户体验的提升很重要。动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的Ap">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-20T10:13:51.313Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/20/UIView-Animation感悟/"/>
+
+
+
+
+
+  <title>UIView Animation感悟 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/20/UIView-Animation%E6%84%9F%E6%82%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">UIView Animation感悟</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-20T14:56:12+08:00">
+                2019-12-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动画对于用户体验的提升很重要。"><a href="#动画对于用户体验的提升很重要。" class="headerlink" title="动画对于用户体验的提升很重要。"></a>动画对于用户体验的提升很重要。</h1><h2 id="动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？"><a href="#动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？" class="headerlink" title="动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？"></a>动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？</h2><h2 id="视图的属性动画"><a href="#视图的属性动画" class="headerlink" title="视图的属性动画"></a>视图的属性动画</h2><p>UIView 的 + animateWithDuration:delay:options:animations:completion: 方法，可以通过改变视图的一些属性来生成动画。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">+ (void)animateWithDuration:(NSTimeInterval)duration             delay:(NSTimeInterval)delay                         options:(UIViewAnimationOptions)options                         animations:(void (^)(void))animations                         completion:(void (^)(BOOL finished))completion</span><br></pre></td></tr></table></figure>
+<p>可以改变的属性有：</p>
+<ul>
+<li>frame</li>
+<li>bounds</li>
+<li>center</li>
+<li>alpha</li>
+<li>transform….等</li>
+</ul>
+<p>这个方便使用起来很简单，只需要在 animations 参数中的 block 中写入对 UIView 属性的改变即可，系统会自动根据你的代码，将属性的改变做一个平缓的动画。</p>
+<ul>
+<li>duration ：整个动画持续的时间</li>
+<li>delay：动画在多久之后开始，值为 0 表示代码执行到这里后动画立刻开始</li>
+<li>options：一些有关动画的设置，例如想要动画刚开始比较快，到快结束时比较慢，都在这里设置。</li>
+<li>animations：在这个 block 中写入你想要执行的代码即可。block 中对视图的动画属性所做的改变都会生成动画</li>
+<li>completion：动画完成后会调用，finished 表示动画是否成功执行完毕。可以将动画执行完成后需要执行的代码写在这里</li>
+</ul>
+<p>举个例子，我想让一个 View 从左上角移动到右下角某个位置，并且背景色更改为 red，整个移动的过程（动画持续执行的时间）为 1 秒，并且延迟 0.3 秒执行。那么可以这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">- (void)animationProperty &#123;   </span><br><span class="line"> [UIView animateWithDuration:1.0 delay:0.3 options:0 animations:^&#123;    </span><br><span class="line">     self.someView.center = CGPointMake(300, 400);     </span><br><span class="line">     self.someView.backgroundColor = [UIColor redColor];   </span><br><span class="line"></span><br><span class="line"> &#125; completion:^(BOOL finished)</span><br><span class="line"> &#123;        NSLog(@&quot;动画完成了&quot;);   </span><br><span class="line"> </span><br><span class="line"> &#125;];</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当这个方法被调用时，首先有一个 0.3 秒的延迟，然后动画开始，在 1 秒内 someView 将从原来的位置移动到 （300，400）的位置，并且背景色有原来的颜色逐渐变为红色。<br>其实在上面的代码中，我们只是告诉系统，我希望有一个动画，这个动画的动作为视图位置与背景色的更改，设置好动画时间，其他的工作系统已经为我们全部做好，并且在动画完成时还通知我们。<br>可以看出使用 UIView 的类方法实现动画很是便捷。<br>细心点就会发现，我们对 UIView 的属性做了改变，然后系统相应地自动为属性的整个改变过程做了动画。那么 UIView 的哪些属性支持动画呢？</p>
+<ul>
+<li>位置和大小（Position &amp; Size）：你可以改变视图的位置和大小，使得 View 变大变小或移动到某个位置，具体可以使用这些属性：</li>
+<li>bounds：重新设置 View 的大小</li>
+<li>Frame：移动或缩放 View</li>
+<li>center：更改 View 的位置（有关 UIView 的 center、Frame 等关系另行搜索 ）<br>外观（Appearance）：可以通过设置以下属性来更改 view 的外观：</li>
+<li>backgroundColor：这个就比较简单啦，背景色的改变在这个动画期间是从原来的旧值过渡到新值的</li>
+<li>alpha：此值的变化也是过渡的，设置为 0 可以让 view 逐渐消失</li>
+<li>变换（Transformation）：主要通过改变 View 的 transform 来做动画，这样子就可以做更多的事情啦。</li>
+</ul>
+<h2 id="动画选项-Animation-Options"><a href="#动画选项-Animation-Options" class="headerlink" title="动画选项 Animation Options"></a>动画选项 Animation Options</h2><p>在刚才的方法中，options 选项我们填写了 0 ，表示采用默认的值。options 主要用于设置动画的一些执行特性，告诉 UIKit 来如何创建动画。下面我们来看一哈这个枚举类型都有哪些值。</p>
+<h3 id="重复-Repeat"><a href="#重复-Repeat" class="headerlink" title="重复 Repeat"></a>重复 Repeat</h3><p>首先可以简单看一下下面两个选项：<br>-UIViewAnimationOptionRepeat：表示动画重复执行，即执行完成后再来一次.<br>-UIViewAnimationOptionAutoreverse: 这个选项只能配合 repeat 一起使用，表示反向重复，即这个动画是来来回回的执行，并不是简单重复。更简单点说就是，动画完成后倒退回去再继续整个过程。</p>
+<h3 id="减缓-easing"><a href="#减缓-easing" class="headerlink" title="减缓 easing"></a>减缓 easing</h3><p>在真实的世界中，运动都是有一个过程的，例如球的滚动是刚开始比较快，最后快停下来的时候比较慢。下面的选项就是设置动画执行的速度的：</p>
+<ul>
+<li>UIViewAnimationOptionCurveLinear：线性地，即始终都是一个速率，以某个速度突然的开始动画，突然的停止动画，整个动画过程都是一个速率。</li>
+</ul>
+<ul>
+<li>UIViewAnimationOptionCurveEaseIn：缓慢的开始，然后以某个速率开始动画，一直到结束</li>
+</ul>
+<ul>
+<li>UIViewAnimationOptionCurveEaseOut：缓慢的结束</li>
+</ul>
+<ul>
+<li>UIViewAnimationOptionCurveEaseInOut：开始和结束时都比较缓慢<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#转场类型（仅适用于转场动画设置，可以从中选择一个进行设置，基本动画、关键帧动画不需要设置）</span><br><span class="line">[UIView transitionWithView:animationView duration: 1 options: UIViewAnimationOptionTransitionFlipFromLeft animations: ^&#123;</span><br><span class="line">   //动画操作</span><br><span class="line">&#125; completion: ^(BOOL finished) &#123;</span><br><span class="line"> //动画完成操作</span><br><span class="line">&#125;];</span><br><span class="line"></span><br><span class="line">UIViewAnimationOptionTransitionNone            = 0 &lt;&lt; 20, // 没有转场动画效果</span><br><span class="line">UIViewAnimationOptionTransitionFlipFromLeft    = 1 &lt;&lt; 20, // 从左侧翻转效果</span><br><span class="line">UIViewAnimationOptionTransitionFlipFromRight   = 2 &lt;&lt; 20, // 从右侧翻转效果</span><br><span class="line">UIViewAnimationOptionTransitionCurlUp          = 3 &lt;&lt; 20, // 向后翻页的动画过渡效果</span><br><span class="line">UIViewAnimationOptionTransitionCurlDown        = 4 &lt;&lt; 20, // 向前翻页的动画过渡效果</span><br><span class="line">UIViewAnimationOptionTransitionCrossDissolve   = 5 &lt;&lt; 20, // 旧视图溶解消失显示下一个新视图的效果</span><br><span class="line">UIViewAnimationOptionTransitionFlipFromTop     = 6 &lt;&lt; 20, // 从上方翻转效果</span><br><span class="line">UIViewAnimationOptionTransitionFlipFromBottom  = 7 &lt;&lt; 20, // 从底部翻转效果</span><br></pre></td></tr></table></figure>
+<h2 id="动画完成时的回调-completion"><a href="#动画完成时的回调-completion" class="headerlink" title="动画完成时的回调 completion"></a>动画完成时的回调 completion</h2></li>
+</ul>
+<p>当动画序列执行完毕后，系统将执行回调中的代码。block 中只有一个 finished 参数表示 block 被调用时，动画是否完成。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">如果动画的 duration 为 0 ，那么block 中的代码将在下一个 RunLoop 循环中执行。</span><br></pre></td></tr></table></figure>
+<p>此时，我们可以使用这个 UIView 类方法实现大多数我们想要的动画。属性动画是可以合并的，比如在移动的同时缩放、更改背景色。<br>动画可以叠加，串成一个动画链。比如在 animation1 的 completion 回调中创建 animation2，那么动画1 完成后将继续执行动画 2。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">根据官方文档，在整个动画过程中，用户交互对于此视图是暂时无效的（而IOS5.0前，动画过程中，用户交互对于整个应用是无效的），如果想要用户可以和视图交互，可以改变 UIViewAnimationOptionAllowUserInteraction</span><br></pre></td></tr></table></figure>
+<h2 id="想法"><a href="#想法" class="headerlink" title="想法"></a>想法</h2><p>UIView 的这个类方法本质为创建 CAAnimation 对象并且添加到相应的 view 所管理的 CALayer 上，然后在下个 RunLoop 中执行动画。<br>如果在多个类方法中将 view 的属性做改变，那么创建的 CAAnimation 对象将做合并。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/13/%E7%B2%BE%E9%80%9AMapKit%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C%EF%BC%9F/" rel="next" title="精通MapKit是一种什么样的体验？">
+                <i class="fa fa-chevron-left"></i> 精通MapKit是一种什么样的体验？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动画对于用户体验的提升很重要。"><span class="nav-number">1.</span> <span class="nav-text">动画对于用户体验的提升很重要。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？"><span class="nav-number">1.1.</span> <span class="nav-text">动画的流畅和真实性，决定了用户接下来的交互体验，当用户点击，手势滑动或者摇晃手机，应用第一时间反馈的是动画，然后是数据。比如红包的开启，摇一摇的弹出，下拉刷新的弹性，loading加载等。我们程序员如果从用户角度出发，展开联想，换位思考，这样的应用才是有灵魂的App，而不是装着数据的躯壳，做一名开发人员要对得起自己的努力和应用的使用率，排开用户粘性不谈，一款合格的App，从视觉，动画，交互给人感觉自然得体最重要，还记得一次乔布斯公开tableView滑动弹性给人们的震撼吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视图的属性动画"><span class="nav-number">1.2.</span> <span class="nav-text">视图的属性动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画选项-Animation-Options"><span class="nav-number">1.3.</span> <span class="nav-text">动画选项 Animation Options</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重复-Repeat"><span class="nav-number">1.3.1.</span> <span class="nav-text">重复 Repeat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#减缓-easing"><span class="nav-number">1.3.2.</span> <span class="nav-text">减缓 easing</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动画完成时的回调-completion"><span class="nav-number">1.4.</span> <span class="nav-text">动画完成时的回调 completion</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#想法"><span class="nav-number">1.5.</span> <span class="nav-text">想法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

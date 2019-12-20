@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？ 国际化项目，我们项目使用需求是在香港。实地考察发现，香港的高德地图针对细小的路段，偏差严重，百度地图相比精确一点，但2者最大的问题也就是地图的涂层绘制的很粗略（在香港的地理环境下）。 百度，高德用来乘车导航的，地">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精通MapKit是一种什么样的体验？">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;13&#x2F;%E7%B2%BE%E9%80%9AMapKit%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C%EF%BC%9F&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？ 国际化项目，我们项目使用需求是在香港。实地考察发现，香港的高德地图针对细小的路段，偏差严重，百度地图相比精确一点，但2者最大的问题也就是地图的涂层绘制的很粗略（在香港的地理环境下）。 百度，高德用来乘车导航的，地">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-20T07:00:50.308Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/13/精通MapKit是一种什么样的体验？/"/>
+
+
+
+
+
+  <title>精通MapKit是一种什么样的体验？ | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/13/%E7%B2%BE%E9%80%9AMapKit%E6%98%AF%E4%B8%80%E7%A7%8D%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%E4%BD%93%E9%AA%8C%EF%BC%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">精通MapKit是一种什么样的体验？</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-13T15:43:13+08:00">
+                2019-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）"><a href="#记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）" class="headerlink" title="记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）"></a>记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）</h1><h2 id="国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？"><a href="#国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？" class="headerlink" title="国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？"></a>国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？</h2><ul>
+<li>国际化项目，我们项目使用需求是在香港。实地考察发现，香港的高德地图针对细小的路段，偏差严重，百度地图相比精确一点，但2者最大的问题也就是地图的涂层绘制的很粗略（在香港的地理环境下）。</li>
+<li>百度，高德用来乘车导航的，地铁线路还是可以的，但现在目标缩小到一个花园级别，范围需要精确，里面小路蜿蜒曲折，草坪和假山众多，需要体现的是游玩的乐趣。</li>
+<li>高德，百度，谷歌（安卓）地图坐标系的区别，也是要去解决的问题，因为局域网的问题。内地游客可能使用的地图坐标系和当地游客显示不一样。这样就在还没到到达香港的时候，提前预览会出现大头针错乱还有地图overLayer的错位，地理围栏也是香港实测的经纬度矩形范围读取中心区域而来，所以会有偏移。</li>
+</ul>
+<h2 id="地图开发的共同问题"><a href="#地图开发的共同问题" class="headerlink" title="地图开发的共同问题"></a>地图开发的共同问题</h2><h3 id="在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系："><a href="#在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系：" class="headerlink" title="在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系："></a>在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系：</h3><p>1.WGS－84原始坐标系，一般用国际GPS纪录仪记录下来的经纬度，通过GPS定位拿到的原始经纬度，Google和高德地图定位的的经纬度（国外）都是基于WGS－84坐标系的；但是在国内是不允许直接用WGS84坐标系标注的，必须经过加密后才能使用；</p>
+<p>2.GCJ－02坐标系，又名“火星坐标系”，是我国国测局独创的坐标体系，由WGS－84加密而成，在国内，必须至少使用GCJ－02坐标系，或者使用在GCJ－02加密后再进行加密的坐标系，如百度坐标系。高德和Google在国内都是使用GCJ－02坐标系，可以说，GCJ－02是国内最广泛使用的坐标系；</p>
+<p>3.百度坐标系:bd-09，百度坐标系是在GCJ－02坐标系的基础上再次加密偏移后形成的坐标系，只适用于百度地图。(目前百度API提供了从其它坐标系转换为百度坐标系的API，但却没有从百度坐标系转为其他坐标系的API)</p>
+<h3 id="二。为什么会发生偏移？"><a href="#二。为什么会发生偏移？" class="headerlink" title="二。为什么会发生偏移？"></a>二。为什么会发生偏移？</h3><p>1.由于坐标系之间不兼容，如在百度地图上定位的经纬度拿到高德地图上直接描点就肯定会发生偏移；只考虑国内的情况，高德地图和Google地图是可以不经过转换也能够准确显示的（在国内用的都是GCJ－02坐标系）；下面是收录了网上的WGS－84，GCJ－02，百度坐标系(bd-09)之间的相互转换的方法，经测试，是转换后相对准确可用的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">package com.zehin.map.util;</span><br><span class="line"></span><br><span class="line">public class GPSUtil &#123;  </span><br><span class="line">    public static double pi = 3.1415926535897932384626;  </span><br><span class="line">    public static double x_pi = 3.14159265358979324 * 3000.0 / 180.0;  </span><br><span class="line">    public static double a = 6378245.0;  </span><br><span class="line">    public static double ee = 0.00669342162296594323;  </span><br><span class="line">  </span><br><span class="line">    public static double transformLat(double x, double y) &#123;  </span><br><span class="line">        double ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y  </span><br><span class="line">                + 0.2 * Math.sqrt(Math.abs(x));  </span><br><span class="line">        ret += (20.0 * Math.sin(6.0 * x * pi) + 20.0 * Math.sin(2.0 * x * pi)) * 2.0 / 3.0;  </span><br><span class="line">        ret += (20.0 * Math.sin(y * pi) + 40.0 * Math.sin(y / 3.0 * pi)) * 2.0 / 3.0;  </span><br><span class="line">        ret += (160.0 * Math.sin(y / 12.0 * pi) + 320 * Math.sin(y * pi / 30.0)) * 2.0 / 3.0;  </span><br><span class="line">        return ret;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    public static double transformLon(double x, double y) &#123;  </span><br><span class="line">        double ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1  </span><br><span class="line">                * Math.sqrt(Math.abs(x));  </span><br><span class="line">        ret += (20.0 * Math.sin(6.0 * x * pi) + 20.0 * Math.sin(2.0 * x * pi)) * 2.0 / 3.0;  </span><br><span class="line">        ret += (20.0 * Math.sin(x * pi) + 40.0 * Math.sin(x / 3.0 * pi)) * 2.0 / 3.0;  </span><br><span class="line">        ret += (150.0 * Math.sin(x / 12.0 * pi) + 300.0 * Math.sin(x / 30.0  </span><br><span class="line">                * pi)) * 2.0 / 3.0;  </span><br><span class="line">        return ret;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static double[] transform(double lat, double lon) &#123;  </span><br><span class="line">        if (outOfChina(lat, lon)) &#123;  </span><br><span class="line">            return new double[]&#123;lat,lon&#125;;  </span><br><span class="line">        &#125;  </span><br><span class="line">        double dLat = transformLat(lon - 105.0, lat - 35.0);  </span><br><span class="line">        double dLon = transformLon(lon - 105.0, lat - 35.0);  </span><br><span class="line">        double radLat = lat / 180.0 * pi;  </span><br><span class="line">        double magic = Math.sin(radLat);  </span><br><span class="line">        magic = 1 - ee * magic * magic;  </span><br><span class="line">        double sqrtMagic = Math.sqrt(magic);  </span><br><span class="line">        dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * pi);  </span><br><span class="line">        dLon = (dLon * 180.0) / (a / sqrtMagic * Math.cos(radLat) * pi);  </span><br><span class="line">        double mgLat = lat + dLat;  </span><br><span class="line">        double mgLon = lon + dLon;  </span><br><span class="line">        return new double[]&#123;mgLat,mgLon&#125;;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static boolean outOfChina(double lat, double lon) &#123;  </span><br><span class="line">        if (lon &lt; 72.004 || lon &gt; 137.8347)  </span><br><span class="line">            return true;  </span><br><span class="line">        if (lat &lt; 0.8293 || lat &gt; 55.8271)  </span><br><span class="line">            return true;  </span><br><span class="line">        return false;  </span><br><span class="line">    &#125;  </span><br><span class="line">    /** </span><br><span class="line">     * 84 to 火星坐标系 (GCJ-02) World Geodetic System ==&gt; Mars Geodetic System </span><br><span class="line">     * </span><br><span class="line">     * @param lat </span><br><span class="line">     * @param lon </span><br><span class="line">     * @return </span><br><span class="line">     */  </span><br><span class="line">    public static double[] gps84_To_Gcj02(double lat, double lon) &#123;  </span><br><span class="line">        if (outOfChina(lat, lon)) &#123;  </span><br><span class="line">            return new double[]&#123;lat,lon&#125;;  </span><br><span class="line">        &#125;  </span><br><span class="line">        double dLat = transformLat(lon - 105.0, lat - 35.0);  </span><br><span class="line">        double dLon = transformLon(lon - 105.0, lat - 35.0);  </span><br><span class="line">        double radLat = lat / 180.0 * pi;  </span><br><span class="line">        double magic = Math.sin(radLat);  </span><br><span class="line">        magic = 1 - ee * magic * magic;  </span><br><span class="line">        double sqrtMagic = Math.sqrt(magic);  </span><br><span class="line">        dLat = (dLat * 180.0) / ((a * (1 - ee)) / (magic * sqrtMagic) * pi);  </span><br><span class="line">        dLon = (dLon * 180.0) / (a / sqrtMagic * Math.cos(radLat) * pi);  </span><br><span class="line">        double mgLat = lat + dLat;  </span><br><span class="line">        double mgLon = lon + dLon;  </span><br><span class="line">        return new double[]&#123;mgLat, mgLon&#125;;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    /** </span><br><span class="line">     * * 火星坐标系 (GCJ-02) to 84 * * @param lon * @param lat * @return </span><br><span class="line">     * */  </span><br><span class="line">    public static double[] gcj02_To_Gps84(double lat, double lon) &#123;  </span><br><span class="line">        double[] gps = transform(lat, lon);  </span><br><span class="line">        double lontitude = lon * 2 - gps[1];  </span><br><span class="line">        double latitude = lat * 2 - gps[0];  </span><br><span class="line">        return new double[]&#123;latitude, lontitude&#125;;  </span><br><span class="line">    &#125;  </span><br><span class="line">    /** </span><br><span class="line">     * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换算法 将 GCJ-02 坐标转换成 BD-09 坐标 </span><br><span class="line">     * </span><br><span class="line">     * @param lat </span><br><span class="line">     * @param lon </span><br><span class="line">     */  </span><br><span class="line">    public static double[] gcj02_To_Bd09(double lat, double lon) &#123;  </span><br><span class="line">        double x = lon, y = lat;  </span><br><span class="line">        double z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);  </span><br><span class="line">        double theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);  </span><br><span class="line">        double tempLon = z * Math.cos(theta) + 0.0065;  </span><br><span class="line">        double tempLat = z * Math.sin(theta) + 0.006;  </span><br><span class="line">        double[] gps = &#123;tempLat,tempLon&#125;;  </span><br><span class="line">        return gps;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    /** </span><br><span class="line">     * * 火星坐标系 (GCJ-02) 与百度坐标系 (BD-09) 的转换算法 * * 将 BD-09 坐标转换成GCJ-02 坐标 * * @param </span><br><span class="line">     * bd_lat * @param bd_lon * @return </span><br><span class="line">     */  </span><br><span class="line">    public static double[] bd09_To_Gcj02(double lat, double lon) &#123;  </span><br><span class="line">        double x = lon - 0.0065, y = lat - 0.006;  </span><br><span class="line">        double z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_pi);  </span><br><span class="line">        double theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_pi);  </span><br><span class="line">        double tempLon = z * Math.cos(theta);  </span><br><span class="line">        double tempLat = z * Math.sin(theta);  </span><br><span class="line">        double[] gps = &#123;tempLat,tempLon&#125;;  </span><br><span class="line">        return gps;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    /**将gps84转为bd09 </span><br><span class="line">     * @param lat </span><br><span class="line">     * @param lon </span><br><span class="line">     * @return </span><br><span class="line">     */  </span><br><span class="line">    public static double[] gps84_To_bd09(double lat,double lon)&#123;  </span><br><span class="line">        double[] gcj02 = gps84_To_Gcj02(lat,lon);  </span><br><span class="line">        double[] bd09 = gcj02_To_Bd09(gcj02[0],gcj02[1]);  </span><br><span class="line">        return bd09;  </span><br><span class="line">    &#125;  </span><br><span class="line">    public static double[] bd09_To_gps84(double lat,double lon)&#123;  </span><br><span class="line">        double[] gcj02 = bd09_To_Gcj02(lat, lon);  </span><br><span class="line">        double[] gps84 = gcj02_To_Gps84(gcj02[0], gcj02[1]);  </span><br><span class="line">        //保留小数点后六位  </span><br><span class="line">        gps84[0] = retain6(gps84[0]);  </span><br><span class="line">        gps84[1] = retain6(gps84[1]);  </span><br><span class="line">        return gps84;  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">    /**保留小数点后六位 </span><br><span class="line">     * @param num </span><br><span class="line">     * @return </span><br><span class="line">     */  </span><br><span class="line">    private static double retain6(double num)&#123;  </span><br><span class="line">        String result = String .format(&quot;%.6f&quot;, num);  </span><br><span class="line">        return Double.valueOf(result);  </span><br><span class="line">    &#125;  </span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Mapkit-优点"><a href="#Mapkit-优点" class="headerlink" title="Mapkit 优点"></a>Mapkit 优点</h2><ul>
+<li>根据地理自动切换更合适的地图引擎，在中国就是高德地图，香港就是tomtom</li>
+<li>国际化App语言适配更优秀</li>
+<li>适配最新13以上系统，黑暗模式的UI切换也兼容</li>
+<li>点的聚合缩放更自然得体</li>
+<li>WWDC 2019 发布会对苹果原生地图的革命更新</li>
+</ul>
+<h2 id="Mapkit-缺点"><a href="#Mapkit-缺点" class="headerlink" title="Mapkit 缺点"></a>Mapkit 缺点</h2><ul>
+<li>安卓一般用高德或百度的定位SDK，所以获取到的坐标也就是相对应的高德坐标或百度坐标，iOS中，CLLocationManager 获取到的是地球坐标，也就是WGS84，但是MKMapView 里面的那个 showUserLocation 是高德坐标，因为iOS 自带的地图是高德的，所以会有一个现象：如果直接拿CLLocationManager 获取到的坐标在 MKMapView 上面描点，就发现和 userLocation 那个蓝色的点有偏差。需要转换坐标系</li>
+</ul>
+<h2 id="做事前需要阅读相关文档"><a href="#做事前需要阅读相关文档" class="headerlink" title="做事前需要阅读相关文档"></a>做事前需要阅读相关文档</h2><ul>
+<li>[原生Mapkit]:(<a href="https://developer.apple.com/documentation/mapkit?language=objc" target="_blank" rel="noopener">https://developer.apple.com/documentation/mapkit?language=objc</a>)</li>
+<li>[百度地图API开发文档]:(<a href="https://lbsyun.baidu.com/index.php?title=iossdk" target="_blank" rel="noopener">https://lbsyun.baidu.com/index.php?title=iossdk</a>)</li>
+<li>[高德地图API开发文档]:(<a href="https://lbs.amap.com/api/ios-sdk/summary/" target="_blank" rel="noopener">https://lbs.amap.com/api/ios-sdk/summary/</a>)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/12/%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96%E4%B9%8B%E7%A6%BB%E5%B1%8F%E6%B8%B2%E6%9F%93%E9%97%AE%E9%A2%98/" rel="next" title="性能优化——离屏渲染问题">
+                <i class="fa fa-chevron-left"></i> 性能优化——离屏渲染问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/20/UIView-Animation%E6%84%9F%E6%82%9F/" rel="prev" title="UIView Animation感悟">
+                UIView Animation感悟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）"><span class="nav-number">1.</span> <span class="nav-text">记录从百度，高德国内地图引擎的熟练操作到国际化App的Mapkit调用（内容涉及较广，后续会持续更新）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？"><span class="nav-number">1.1.</span> <span class="nav-text">国内百度，高德地图引擎的api已经很成熟了，为什么我会选择苹果原生的Mapkit呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#地图开发的共同问题"><span class="nav-number">1.2.</span> <span class="nav-text">地图开发的共同问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系："><span class="nav-number">1.2.1.</span> <span class="nav-text">在进行地图开发过程中，我们一般能接触到以下三种类型的地图坐标系：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二。为什么会发生偏移？"><span class="nav-number">1.2.2.</span> <span class="nav-text">二。为什么会发生偏移？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapkit-优点"><span class="nav-number">1.3.</span> <span class="nav-text">Mapkit 优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mapkit-缺点"><span class="nav-number">1.4.</span> <span class="nav-text">Mapkit 缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#做事前需要阅读相关文档"><span class="nav-number">1.5.</span> <span class="nav-text">做事前需要阅读相关文档</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
