@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处理事">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Responder Chain 感悟">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;Top-iOS-Interview-Questions-and-Answers&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处理事">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-d33cd8efed539a33.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-cb8bbc32634c78dd.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;format&#x2F;webp">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;4155c9ffe1a8">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-e7e1506126edf29d.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;format&#x2F;webp">
+<meta property="og:updated_time" content="2019-12-25T10:36:48.565Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-d33cd8efed539a33.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/25/Top-iOS-Interview-Questions-and-Answers/"/>
+
+
+
+
+
+  <title>Responder Chain 感悟 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/25/Top-iOS-Interview-Questions-and-Answers/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Responder Chain 感悟</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T12:08:46+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app"><a href="#做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app" class="headerlink" title="做事前学会思考一个问题：how to handle events that propagate through your app."></a>做事前学会思考一个问题：how to handle events that propagate through your app.</h1><ul>
+<li>查看<a href="https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events?language=objc" target="_blank" rel="noopener">官方文档</a>来学习</li>
+</ul>
+<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
+<li><p>App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。</p>
+</li>
+<li><p>UIResponder的子类包括UIView,UIViewController,UIApplication等。</p>
+</li>
+<li><p>响应者接收到原始事件数据，必须处理事件或者转发到另一个响应者对象。当你的App接收到一个事件时，UIKit自动引导事件到最合适的响应者对象，也叫做第一响应者。</p>
+</li>
+<li><p>不能处理的事件被传递到响应链中，这是App响应者对象动态配置的。在App中没有单一的响应链，UIKit定义了默认的规则关于对象如何被传递在一个响应者到另一个响应者，但是你可以重写响应者对象中适当的属性来改变这些规则。</p>
+</li>
+</ul>
+<p><img src="https://upload-images.jianshu.io/upload_images/2492441-d33cd8efed539a33.png" alt="官方默认实例图"></p>
+<p>App中包含一个UILable,UITextField,UIButton,以及2个backgroundView，如果UITextField不能响应事件，UIKit发送事件到UITextField的父视图(UIView)对象，随后是UIWindow的根视图(UIView)。从根视图，响应者链在事件传递到UIWindow之前，先转移到所拥有的UIViewController。如果UIWindow不能处理事件，UIKit传递事件到UIApplication对象，也可能到app delegate如果对象是UIResponder的实例并且不是响应链的一部分。</p>
+<h2 id="确定事件的第一响应者"><a href="#确定事件的第一响应者" class="headerlink" title="确定事件的第一响应者"></a>确定事件的第一响应者</h2><p> UIKit指定一个第一响应者，然后最先发送事件到这个对象。第一响应者基于事件的类型而变化。</p>
+<ul>
+<li>Touch event<br>第一响应者是触摸事件产生的view</li>
+<li>Press event<br>第一响应者是焦点响应者。</li>
+<li>Shake-motion events,Remote-control events,Editing menu messages<br>第一响应者是你或者UIKit指定的对象。<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：运动事件相关的加速度计、陀螺仪、磁强计都不属于响应者链。而是由CoreMotion传递事件给你指定的对象。</span><br></pre></td></tr></table></figure>
+参考文档<a href="">Core Motion</a></li>
+</ul>
+<p>控件直接与它相关的target对象使用action消息通信。当用户与控件交互时，控件调用target对象的action方法，换句话说，控件发送action消息到目标对象。Action消息不是事件，但是它仍然可以利用响应链。当控件的target对象为nil，UIKit从target对象和响应链走，直到找到一个对象实现了合适的action方法。</p>
+<p>如果视图有添加手势识别器，手势识别器接收touch和press事件在视图接收事件之前。如果所有的视图的手势识别器都不能识别它们的手势，这些事件会传递到视图处理。如果视图不能处理它们，UIKit传递事件到响应链。</p>
+<h2 id="确定哪个响应者包含Touch事件"><a href="#确定哪个响应者包含Touch事件" class="headerlink" title="确定哪个响应者包含Touch事件"></a>确定哪个响应者包含Touch事件</h2><p>UIKit使用基于视图的hit-testing来确定Touch事件在哪里产生。UIKit将Touch位置与视图层级中的视图对象的边界进行了比较。UIView的hitTest:withEvent:方法在视图层级中执行，寻找最深的包含指定Touch的子视图，这个视图将成为Touch事件的第一响应者。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：如果Touch位置超过视图边界，hitTest:withEvent方法将忽略这个视图和它的所有子视图。结果就是，当视图的ciipsToBounds属性为NO，子视图超过视图边界也不会返回，即使它们包含发生的Touch。</span><br></pre></td></tr></table></figure>
+<p>UIKit不变的分配每一个Touch给包含它的视图。UIKit创建UITouch对象当touch第一次产生时，释放这个UITouch对象在touch结束时。当touch位置或者其他参数改变时，UIKit更新UITouch对象新的信息。只有包含它的视图这个属性不会改变。甚至这个touch位置移动刀初始视图的外面，这个属性也不会改变。</p>
+<h2 id="hitTest-withEvent"><a href="#hitTest-withEvent" class="headerlink" title="hitTest:withEvent\"></a>hitTest:withEvent\</h2><p>这个方法返回最远的子视图在视图层级中，这个子视图是能接收包含指定点的(包括它本身)。<br>这个方法遍历视图层级让每个子视图调用poiotInside:withEvent:方法确定哪个子视图应该接收这个touch事件。如果poiotInside:withEvent: 返回YES，那么子视图的层次是类似遍历，直到找到最前面的视图包含指定点的。如果一个视图不包含该点，那么其分支视图可以被忽略。很少需要自己调用这个方法。但是可以重写它去隐藏touch事件在子视图中。</p>
+<p>这个方法忽略以下情况：</p>
+<ul>
+<li>视图是隐藏的 hidden = YES</li>
+<li>用户交互关闭的 userInteractionEnabled = NO</li>
+<li>透明度小于0.01的 alpha &lt; 0.01</li>
+</ul>
+<p>这个方法在确定命中的时候，不考虑视图的内容。因此，即使指定的点位于该视图内容的透明范围，仍然可以返回视图。</p>
+<p>点在接收者的范围之外不会被命中，即使它们实际上处于接收者的子视图之内。如果当前视图的cilpsToBounds属性被设置为NO,影响了子视图超过当前视图会产生这种情况。</p>
+<h2 id="改变响应链"><a href="#改变响应链" class="headerlink" title="改变响应链"></a>改变响应链</h2><p>你可以改变响应链通过重写你的响应对象的nextResponder属性。当你这样做了之后，下一个响应者就是你设置的。<br>许多UIKit的类已经重写了这个属性然后返回了指定的对象。</p>
+<ul>
+<li><p>UIView 如果视图是ViewController的根视图，下一个响应者为ViewController，否者是视图的父视图。</p>
+</li>
+<li><p>UIViewController 如果视图控制器是window的根视图下一个响应者为window对象。如果视图控制器是由另一个视图控制器推出来，那么下一个响应者为正在推出的视图控制器。</p>
+</li>
+</ul>
+<p>-UIWindow 下一个响应者为UIApplication对象。</p>
+<ul>
+<li>UIApplication 下一个响应者为app delegate，但是代理应该是UIResponder的一个实例 而不是 UIView,UIViewController或者app对象本身。</li>
+</ul>
+<p>在iOS中能够响应事件的都是UIResponder的子类对象。 UIResponder里有4个点击回调的方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;</span><br><span class="line">- (void)touchesMoved:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;</span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;</span><br><span class="line">- (void)touchesCancelled:(NSSet&lt;UITouch *&gt; *)touches withEvent:(nullable UIEvent *)event;</span><br></pre></td></tr></table></figure>
+<p>参数里可以看到有一个UITouch和一个UIEvent对象，分别代表点击对象和事件对象。</p>
+<p>为了便于测试我先添加了一个UIView类别。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;UIView+Responder.h&quot;</span><br><span class="line"></span><br><span class="line">static inline void swizzling_exchangeMethod(Class class ,SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    </span><br><span class="line">    Method originalMethod = class_getInstanceMethod(class, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);</span><br><span class="line">    </span><br><span class="line">    BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));</span><br><span class="line">    if (success) &#123;</span><br><span class="line">        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@implementation UIView (Responder)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesBegan:withEvent:), @selector(ds_touchesBegan:withEvent:));</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesMoved:withEvent:), @selector(ds_touchesMoved:withEvent:));</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesEnded:withEvent:), @selector(ds_touchesEnded:withEvent:));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark - </span><br><span class="line"></span><br><span class="line">- (void)ds_touchesBegan: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch begin&quot;, self.class);</span><br><span class="line">    UIResponder *next = [self nextResponder];</span><br><span class="line">    while (next) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,next.class);</span><br><span class="line">        next = [next nextResponder];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)ds_touchesMoved: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch move&quot;, self.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)ds_touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch end&quot;, self.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着创建了4个继承于UIView的子View，AView的子视图为 BView、DView。BView的子视图为CView。<br><img src="https://upload-images.jianshu.io/upload_images/2492441-cb8bbc32634c78dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="图例"></p>
+<p>首先是模拟官方的例子，我们点击CView，控制台输出如下：<br><img src="https://www.jianshu.com/p/4155c9ffe1a8" alt="图例"></p>
+<p>因为CView并不能响应这个事件，所以会一直往上寻找，和官方给的例子完全符合。<br>如果view上有手势呢？给AView添加一个单击手势。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(aviewAction)];</span><br><span class="line">    [aview addGestureRecognizer:tap];</span><br><span class="line"></span><br><span class="line">- (void)aviewAction &#123;</span><br><span class="line">    NSLog(@&quot;单击&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>单击之后控制台显示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AView touch begin</span><br><span class="line">UIView</span><br><span class="line">ViewController</span><br><span class="line">UiWindow</span><br><span class="line">UIApplication</span><br><span class="line">AppDelegate</span><br><span class="line">单击</span><br></pre></td></tr></table></figure>
+<p>长按后</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">AView touch begin</span><br><span class="line">UIView</span><br><span class="line">ViewController</span><br><span class="line">UiWindow</span><br><span class="line">UIApplication</span><br><span class="line">AppDelegate</span><br><span class="line">AView  touch end</span><br></pre></td></tr></table></figure>
+<p>可以发现，无论有没有手势都会调用begin方法，如果识别到手势，UIView自己的end方法不调用了，会执行单击事件。如果没有识别到手势，则会调用end方法，接着交给UIView自己处理。至于响应链的输出在前面是因为我写在了begin方法里，在使用正常使用场景里，我们点击完松开手了才响应事件，也就是end之后才响应，有手势就执行手势方法 忽略了end，所以说手势接收事件在视图接收事件之前。</p>
+<h2 id="现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。"><a href="#现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。" class="headerlink" title="现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。"></a>现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。</h2><p>为了模拟系统的实现，在+(void)load()方法里添加。然后写一下方法实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">swizzling_exchangeMethod([UIView class], @selector(hitTest:withEvent:), @selector(ds_hitTest:withEvent:));</span><br><span class="line">swizzling_exchangeMethod([UIView class], @selector(pointInside:withEvent:), @selector(ds_pointInside:withEvent:));</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">//模拟一下，系统真正的实现肯定不是这样的，毕竟事件我都没用上。。</span><br><span class="line">- (UIView *)ds_hitTest:(CGPoint)point withEvent:(UIEvent *)event &#123;</span><br><span class="line">    </span><br><span class="line">    if (!self.isUserInteractionEnabled || self.isHidden || self.alpha &lt;= 0.01) return nil;</span><br><span class="line">    //判断点在不在这个视图里</span><br><span class="line">    if ([self pointInside:point withEvent:event]) &#123;</span><br><span class="line">        //在这个视图 遍历该视图的子视图</span><br><span class="line">        for (UIView *subview in [self.subviews reverseObjectEnumerator]) &#123;</span><br><span class="line">            //转换坐标到子视图</span><br><span class="line">            CGPoint convertedPoint = [subview convertPoint:point fromView:self];</span><br><span class="line">            //递归调用hitTest:withEvent继续判断</span><br><span class="line">            UIView *hitTestView = [subview hitTest:convertedPoint withEvent:event];</span><br><span class="line">            if (hitTestView) &#123;</span><br><span class="line">                //在这里打印self.class可以看到递归返回的顺序。</span><br><span class="line">                return hitTestView;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        //这里就是该视图没有子视图了 点在该视图中，所以直接返回本身，上面的hitTestView就是这个。</span><br><span class="line">        NSLog(@&quot;命中的view:%@&quot;,self.class);</span><br><span class="line">        return self;</span><br><span class="line">    &#125;</span><br><span class="line">    //不在这个视图直接返回nil</span><br><span class="line">    return nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (BOOL)ds_pointInside:(CGPoint)point withEvent:(nullable UIEvent *)event &#123;</span><br><span class="line">    BOOL success = CGRectContainsPoint(self.bounds, point);</span><br><span class="line">    if (success) &#123;</span><br><span class="line">        NSLog(@&quot;点在%@里&quot;,self.class);</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        NSLog(@&quot;点不在%@里&quot;,self.class);</span><br><span class="line">    &#125;</span><br><span class="line">    return success;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我点击了CView，控制台输出如下：</p>
+<p>首先是模拟官方的例子，我们点击CView，控制台输出如下：<br><img src="https://upload-images.jianshu.io/upload_images/2492441-e7e1506126edf29d.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="图例"></p>
+<p>从(1)这里可以看出会从UIWindow一层层的开始往子视图查找，直到找到一个视图，touch点还在这个视图里，但是该视图没有子视图，这个就是最深层的。<br>在（2）这里我也不明白为什么会调用2次，没找到相关资料。但是看名字应该是导航栏上的那些，最后命中的是UIStatusBarWindow，我感觉应该就是UIWindow后面的一层吧，但是UIWindow又不是加在它上面的，否则不会命中它。<br>在这里，（3）就是响应链了。命中CView后，立即调用了begin方法。</p>
+<p>至于其他情况和其他视图的点击，我这里就不贴出来了。把上面代码拿去测试一下就行了。</p>
+<h2 id="实际使用"><a href="#实际使用" class="headerlink" title="实际使用"></a>实际使用</h2><p>不规则图形的点击事件，或者扩大缩小点击范围，<br>还有像Tarbar中间那个凸起的按钮我感觉用这个也可以实现(这个我自己没试过) ，只要重写pointInside:withEvent:方法就行了。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/20/UIView-Animation%E6%84%9F%E6%82%9F/" rel="next" title="UIView Animation感悟">
+                <i class="fa fa-chevron-left"></i> UIView Animation感悟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/25/OC-Q-A/" rel="prev" title="Objective-C Q & A">
+                Objective-C Q & A <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app"><span class="nav-number">1.</span> <span class="nav-text">做事前学会思考一个问题：how to handle events that propagate through your app.</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#What"><span class="nav-number">1.1.</span> <span class="nav-text">What</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#确定事件的第一响应者"><span class="nav-number">1.2.</span> <span class="nav-text">确定事件的第一响应者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#确定哪个响应者包含Touch事件"><span class="nav-number">1.3.</span> <span class="nav-text">确定哪个响应者包含Touch事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#hitTest-withEvent"><span class="nav-number">1.4.</span> <span class="nav-text">hitTest:withEvent\</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改变响应链"><span class="nav-number">1.5.</span> <span class="nav-text">改变响应链</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。"><span class="nav-number">1.6.</span> <span class="nav-text">现在来看一下系统是怎么通过hit-test找到究竟是哪一个View产生的Touch，也就是包含Touch事件。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实际使用"><span class="nav-number">1.7.</span> <span class="nav-text">实际使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。【后期可以做成类似驾考宝典一样的考试类App，交互先参考探探翻牌子，左滑回答，右滑放弃并收藏，可在收藏里面查看答案】想想有点小激动~毕竟之前在学校做过钢琴APP，拳皇回合格斗demo，做个人定制化的app还是挺好玩的呢 基础题Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C Q &amp; A">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;OC-Q-A&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。【后期可以做成类似驾考宝典一样的考试类App，交互先参考探探翻牌子，左滑回答，右滑放弃并收藏，可在收藏里面查看答案】想想有点小激动~毕竟之前在学校做过钢琴APP，拳皇回合格斗demo，做个人定制化的app还是挺好玩的呢 基础题Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;9&#x2F;25&#x2F;16d67d070bee8cb7?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;ignore-error&#x2F;1">
+<meta property="og:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;9&#x2F;16&#x2F;16d38e94d2da6456?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;format&#x2F;webp&#x2F;ignore-error&#x2F;1">
+<meta property="og:updated_time" content="2019-12-26T03:47:29.934Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;user-gold-cdn.xitu.io&#x2F;2019&#x2F;9&#x2F;25&#x2F;16d67d070bee8cb7?imageView2&#x2F;0&#x2F;w&#x2F;1280&#x2F;h&#x2F;960&#x2F;ignore-error&#x2F;1">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2019/12/25/OC-Q-A/"/>
+
+
+
+
+
+  <title>Objective-C Q & A | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2019/12/25/OC-Q-A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Objective-C Q & A</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-25T18:53:40+08:00">
+                2019-12-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">学习心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。"><a href="#归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。" class="headerlink" title="归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。"></a>归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。</h1><p>【后期可以做成类似驾考宝典一样的考试类App，交互先参考探探翻牌子，左滑回答，右滑放弃并收藏，可在收藏里面查看答案】想想有点小激动~毕竟之前在学校做过钢琴APP，拳皇回合格斗demo，做个人定制化的app还是挺好玩的呢</p>
+<h1 id="基础题"><a href="#基础题" class="headerlink" title="基础题"></a>基础题</h1><h2 id="Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？"><a href="#Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？" class="headerlink" title="Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？"></a>Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">Objective-c的类不可以有多继承，OC里面都是单继承，多继承可以用protocol委托代理来模拟实现</span><br><span class="line">可以实现多个接口，可以通过实现多个接口完成OC的多重继承</span><br><span class="line"></span><br><span class="line">Category是类别；</span><br><span class="line"></span><br><span class="line">⚠️重写一个类的方式用继承好还是分类好：</span><br><span class="line">重写一个类的方式用继承还是分类.取决于具体情况.假如目标类有许多的子类.我们需要拓展这个类又不希望影响到原有的代码.继承后比较好.</span><br><span class="line">如果仅仅是拓展方法.分类更好.（不需要涉及到原先的代码）</span><br><span class="line"></span><br><span class="line">分类中方法的优先级比原来类中的方法高，也就是说，在分类中重写了原来类中的方法，那么分类中的方法会覆盖原来类中的方法</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">⚠️为什么不要在category中重写一个类原有的方法：</span><br><span class="line">1、category没有办法去代替子类，它不能像子类一样通过super去调用父类的方法实现。如果category中重写覆盖了当前类中的某个方法，那么这个当前类中的原始方法实现，将永远不会被执行，这在某些方法里是致命的。(ps:这里提一下，+(void)load方法是一个特例，它会在当前类执行完之后再在category中执行。)</span><br><span class="line">2、同时，一个category也不能可靠的覆盖另一个category中相同的类的相同的方法。例如UIViewController+A与UIViewController+B，都重写了viewDidLoad，我们就无法控制谁覆盖了谁。</span><br><span class="line">3、通过观察头文件我们可以发现，Cocoa框架中的许多类都是通过category来实现功能的，可能不经意间你就覆盖了这些方法中的其一，有时候就会产生一些无法排查的异常原因。</span><br><span class="line">4、category的诞生只是为了让开发者更加方便的去拓展一个类，它的初衷并不是让你去改变一个类。</span><br><span class="line">结论：</span><br><span class="line">要重写方法，当然我们首推通过子类重写父类的方法，在一些不方便重写的情况下，我们也可以在category中用runtime进行method swizzling(方法的偷梁换柱)来实现。</span><br></pre></td></tr></table></figure>
+<h2 id="请说明并比较以下关键词：strong-weak-assign-copy。"><a href="#请说明并比较以下关键词：strong-weak-assign-copy。" class="headerlink" title="请说明并比较以下关键词：strong, weak, assign, copy。"></a>请说明并比较以下关键词：strong, weak, assign, copy。</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">* strong表示指向并拥有该对象。其修饰的对象引用计数会增加1。该对象只要引用计数不为0则不会被销毁。当然强行将其设为nil可以销毁它。</span><br><span class="line">* weak表示指向但不拥有该对象。其修饰的对象引用计数不会增加。无需手动设置，该对象会自行在内存中销毁。</span><br><span class="line">* assign主要用于修饰基本数据类型，如NSInteger和CGFloat，这些数值主要存在于栈上。</span><br><span class="line">* weak 一般用来修饰对象，assign一般用来修饰基本数据类型。原因是assign修饰的对象被释放后，指针的地址依然存在，造成野指针，在堆上容易造成崩溃。而栈上的内存系统会自动处理，不会造成野指针。</span><br><span class="line">* copy与strong类似。不同之处是strong的复制是多个指针指向同一个地址，而copy的复制每次会在内存中拷贝一份对象，指针指向不同地址。copy一般用在修饰有可变对应类型的不可变对象上，如NSString, NSArray, NSDictionary。</span><br><span class="line">* Objective-C 中，基本数据类型的默认关键字是atomic, readwrite, assign；普通属性的默认关键字是atomic, readwrite, strong。</span><br></pre></td></tr></table></figure>
+<h2 id="浅拷贝和深拷贝的区别？"><a href="#浅拷贝和深拷贝的区别？" class="headerlink" title="浅拷贝和深拷贝的区别？"></a>浅拷贝和深拷贝的区别？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">浅拷贝：只复制指向对象的指针，而不复制引用对象本身。</span><br><span class="line">深拷贝：复制引用对象本身。内存中存在了两份独立对象本身，当修改A时，A_copy不变。</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.cocoachina.com/articles/17275" target="_blank" rel="noopener">参考</a></p>
+<h2 id="用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><a href="#用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？" class="headerlink" title="用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？"></a>用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">用 @property 声明 NSString、NSArray、NSDictionary 经常使用 copy 关键字，是因为他们有对应的可变类型：NSMutableString、NSMutableArray、NSMutableDictionary，他们之间可能进行赋值操作（就是把可变的赋值给不可变的），为确保对象中的字符串值不会无意间变动，应该在设置新属性值时拷贝一份。</span><br><span class="line">1. 因为父类指针可以指向子类对象,使用 copy 的目的是为了让本对象的属性不受外界影响,使用 copy 无论给我传入是一个可变对象还是不可对象,我本身持有的就是一个不可变的副本。</span><br><span class="line">2. 如果我们使用是 strong ,那么这个属性就有可能指向一个可变对象,如果这个可变对象在外部被修改了,那么会影响该属性。</span><br><span class="line">//总结：使用copy的目的是，防止把可变类型的对象赋值给不可变类型的对象时，可变类型对象的值发送变化会无意间篡改不可变类型对象原来的值。</span><br></pre></td></tr></table></figure>
+<h2 id="Objective-C-如何对内存管理的，说说你的看法和解决方法？"><a href="#Objective-C-如何对内存管理的，说说你的看法和解决方法？" class="headerlink" title="Objective-C 如何对内存管理的，说说你的看法和解决方法？"></a>Objective-C 如何对内存管理的，说说你的看法和解决方法？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：Objective-C的内存管理主要有三种方式ARC(自动内存计数)、手动内存计数、内存池。</span><br><span class="line">1). 自动内存计数ARC：由Xcode自动在App编译阶段，在代码中添加内存管理代码。</span><br><span class="line">2). 手动内存计数MRC：遵循内存谁申请、谁释放；谁添加，谁释放的原则。</span><br><span class="line">3). 内存释放池Release Pool：把需要释放的内存统一放在一个池子中，当池子被抽干后(drain)，池子中所有的内存空间也被自动释放掉。内存池的释放操作分为自动和手动。自动释放受runloop机制影响。</span><br></pre></td></tr></table></figure>
+<h2 id="继承、分类和类扩展"><a href="#继承、分类和类扩展" class="headerlink" title="继承、分类和类扩展"></a>继承、分类和类扩展</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1. 分类有名字，类扩展没有分类名字，是一种特殊的分类。</span><br><span class="line">2. 分类只能扩展方法（属性仅仅是声明，并没真正实现），类扩展可以扩展属性、成员变量和方法。</span><br><span class="line">3. 继承可以增加，修改或者删除方法，并且可以增加属性。</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.csdn.net/u013602835/article/details/80918042" target="_blank" rel="noopener">iOS中Category和Extension 原理详解</a><br><a href="https://blog.csdn.net/benbenhai1999/article/details/51504590" target="_blank" rel="noopener">IOS 分类(category)、扩展(Extension)和继承（inheritance）的区别?</a><br><a href="https://www.jianshu.com/p/31fae4d81607" target="_blank" rel="noopener">iOS 成员变量 实例变量 属性变量</a></p>
+<h2 id="我们说的OC是动态运行时语言是什么意思？"><a href="#我们说的OC是动态运行时语言是什么意思？" class="headerlink" title="我们说的OC是动态运行时语言是什么意思？"></a>我们说的OC是动态运行时语言是什么意思？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">主要是将数据类型的确定由编译时，推迟到了运行时。简单来说, 运行时机制使我们直到运行时才去决定一个对象的类别,以及调用该类别对象指定方法。</span><br></pre></td></tr></table></figure>
+<h2 id="什么是-KVO-和-KVC？谈谈-KVC-以及-KVO-的理解？"><a href="#什么是-KVO-和-KVC？谈谈-KVC-以及-KVO-的理解？" class="headerlink" title=".什么是 KVO 和 KVC？谈谈 KVC 以及 KVO 的理解？"></a>.什么是 KVO 和 KVC？谈谈 KVC 以及 KVO 的理解？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">KVC(key-value-coding)键值编码，是一种间接访问实例变量的方法。提供一种机制来间接访问对象的属性。</span><br><span class="line">1、给私有变量赋值。</span><br><span class="line">2、给控件的内部属性赋值（如自定义UITextFiled的clearButton，或placeholder的颜色，一般可利用runtime获取控件的内部属性名，Ivar *ivar = class_getInstanceVariable获取实例成员变量）。</span><br><span class="line">[textField setValue:[UIColor redColor] forKeyPath:@&quot;placeholderLabel.textColor&quot;];</span><br><span class="line">3、结合Runtime，model和字典的转换（setValuesForKeysWithDictionary，class_copyIvarList获取指定类的Ivar成员列表）</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">KVO是一种基于KVC实现的观察者模式。当指定的被观察的对象的属性更改了，KVO会以自动或手动方式通知观察者。</span><br><span class="line">事例：监听 ScrollView 的 contentOffSet属性</span><br><span class="line">[scrollview addObserver:self forKeyPath:@&quot;contentOffset&quot;  options:NSKeyValueObservingOptionNew context:nil];</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/25/16d67d070bee8cb7?imageView2/0/w/1280/h/960/ignore-error/1" alt="KVO参考"></p>
+<h2 id="block的注意点"><a href="#block的注意点" class="headerlink" title="block的注意点"></a>block的注意点</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1. 在block内部使用外部指针且会造成循环引用情况下，需要用__weak修饰外部指针：</span><br><span class="line">    __weak typeof(self) weakSelf = self; </span><br><span class="line">2. 在block内部如果调用了延时函数还使用弱指针会取不到该指针，因为已经被销毁了，需要在block内部再将弱指针重新强引用一下。</span><br><span class="line">    __strong typeof(self) strongSelf = weakSelf;</span><br><span class="line">3. 如果需要在block内部改变外部栈区变量的话，需要在用__block修饰外部变量。</span><br></pre></td></tr></table></figure>
+<h2 id="堆、栈和队列"><a href="#堆、栈和队列" class="headerlink" title="堆、栈和队列"></a>堆、栈和队列</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1.从管理方式来讲</span><br><span class="line">对于栈来讲，是由编译器自动管理，无需我们手工控制；</span><br><span class="line">对于堆来说，释放工作由程序员控制，容易产生内存泄露(memory leak)</span><br><span class="line">2.从申请大小大小方面讲</span><br><span class="line">栈空间比较小</span><br><span class="line">堆控件比较大</span><br><span class="line">3.从数据存储方面来讲</span><br><span class="line">栈空间中一般存储基本类型，对象的地址</span><br><span class="line">堆空间一般存放对象本身，block的copy等</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line"># 堆</span><br><span class="line">堆是一种经过排序的树形数据结构，每个节点都有一个值，通常我们所说的堆的数据结构是指二叉树。所以堆在数据结构中通常可以被看做是一棵树的数组对象。而且堆需要满足一下两个性质：</span><br><span class="line"></span><br><span class="line">1）堆中某个节点的值总是不大于或不小于其父节点的值；</span><br><span class="line"></span><br><span class="line">2）堆总是一棵完全二叉树。</span><br><span class="line"></span><br><span class="line">堆分为两种情况，有最大堆和最小堆。将根节点最大的堆叫做最大堆或大根堆，根节点最小的堆叫做最小堆或小根堆，在一个摆放好元素的最小堆中，父结点中的元素一定比子结点的元素要小，但对于左右结点的大小则没有规定谁大谁小。</span><br><span class="line"></span><br><span class="line">堆常用来实现优先队列，堆的存取是随意的，这就如同我们在图书馆的书架上取书，虽然书的摆放是有顺序的，但是我们想取任意一本时不必像栈一样，先取出前面所有的书，书架这种机制不同于箱子，我们可以直接取出我们想要的书。</span><br><span class="line"></span><br><span class="line"># 栈</span><br><span class="line">栈是限定仅在表尾进行插入和删除操作的线性表。我们把允许插入和删除的一端称为栈顶，另一端称为栈底，不含任何数据元素的栈称为空栈。栈的特殊之处在于它限制了这个线性表的插入和删除位置，它始终只在栈顶进行。</span><br><span class="line"></span><br><span class="line">栈是一种具有后进先出的数据结构，又称为后进先出的线性表，简称 LIFO（Last In First Out）结构。也就是说后存放的先取，先存放的后取，这就类似于我们要在取放在箱子底部的东西（放进去比较早的物体），我们首先要移开压在它上面的物体（放进去比较晚的物体）。</span><br><span class="line"></span><br><span class="line">堆栈中定义了一些操作。两个最重要的是PUSH和POP。PUSH操作在堆栈的顶部加入一个元素。POP操作相反，在堆栈顶部移去一个元素，并将堆栈的大小减一。</span><br><span class="line"></span><br><span class="line">栈的应用—递归</span><br><span class="line"></span><br><span class="line"># 队列</span><br><span class="line">队列是只允许在一端进行插入操作、而在另一端进行删除操作的线性表。允许插入的一端称为队尾，允许删除的一端称为队头。它是一种特殊的线性表，特殊之处在于它只允许在表的前端进行删除操作，而在表的后端进行插入操作，和栈一样，队列是一种操作受限制的线性表。</span><br><span class="line"></span><br><span class="line">队列是一种先进先出的数据结构，又称为先进先出的线性表，简称 FIFO（First In First Out）结构。也就是说先放的先取，后放的后取，就如同行李过安检的时候，先放进去的行李在另一端总是先出来，后放入的行李会在最后面出来。</span><br></pre></td></tr></table></figure>
+<h2 id="什么是多态-什么是分类-什么是协议"><a href="#什么是多态-什么是分类-什么是协议" class="headerlink" title="什么是多态?什么是分类?什么是协议?"></a>什么是多态?什么是分类?什么是协议?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">多态在面向对象语言中指同一个接口有多种不同的实现方式,在OC中,多态则是不同对象对同一消息的不同响应方式;子类通过重写父类的方法来改变同一方法的实现.体现多态性</span><br><span class="line">通俗来讲: 多态就父类类型的指针指向子类的对象,在函数（方法）调用的时候可以调用到正确版本的函数（方法）。</span><br><span class="line">多态就是某一类事物的多种形态.继承是多态的前提;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">分类: 在不修改原有类代码的情况下,可以给类添加方法</span><br><span class="line">Categroy 给类扩展方法,或者关联属性, Categroy底层结构也是一个结构体:内部存储这结构体的名字,那个类的分类,以及对象和类方法列表,协议,属性信息</span><br><span class="line">通过Runtime加载某个类的所有Category数据</span><br><span class="line">把所有Category的方法、属性、协议数据，合并到一个大数组中后面参与编译的Category数据，会在数组的前面</span><br><span class="line">将合并后的分类数据（方法、属性、协议），插入到类原来数据的前面</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">协议：协议是一套标准，这个标准中声明了很多方法，但是不关心具体这些方法是怎么实现的，具体实现是由遵循这个协议的类去完成的。</span><br><span class="line">在OC中，一个类可以实现多个协议，通过协议可以弥补单继承的缺陷但是协议跟继承不一样，协议只是一个方法列表，方法的实现得靠遵循这个协议的类去实现。</span><br></pre></td></tr></table></figure>
+<h2 id="UIView-和-CALayer-是什么关系？"><a href="#UIView-和-CALayer-是什么关系？" class="headerlink" title="UIView 和 CALayer 是什么关系？"></a>UIView 和 CALayer 是什么关系？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">UIView 继承 UIResponder，而 UIResponder 是响应者对象，可以对iOS 中的事件响应及传递，CALayer 没有继承自 UIResponder，所以 CALayer 不具备响应处理事件的能力。CALayer 是 QuartzCore 中的类，是一个比较底层的用来绘制内容的类，用来绘制UI</span><br><span class="line"></span><br><span class="line">UIView 对 CALayer 封装属性，对 UIView 设置 frame、center、bounds 等位置信息时，其实都是UIView 对 CALayer 进一层封装，使得我们可以很方便地设置控件的位置；例如圆角、阴影等属性， UIView 就没有进一步封装，所以我们还是需要去设置 Layer 的属性来实现功能。</span><br><span class="line"></span><br><span class="line">UIView 是 CALayer 的代理，UIView 持有一个 CALayer 的属性，并且是该属性的代理，用来提供一些 CALayer 行的数据，例如动画和绘制。</span><br></pre></td></tr></table></figure>
+<h2 id="说一下-JS-和-OC-互相调用的几种方式？"><a href="#说一下-JS-和-OC-互相调用的几种方式？" class="headerlink" title="说一下 JS 和 OC 互相调用的几种方式？"></a>说一下 JS 和 OC 互相调用的几种方式？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">js调用oc的三种方式:</span><br><span class="line"></span><br><span class="line">方式一:通过替换js中的function(方法)</span><br><span class="line">方式二:通过注入对象,直接调用对象方法</span><br><span class="line">方式三:利用网页重定向,截取字符串.</span><br><span class="line"></span><br><span class="line">oc调用js代码两种方式</span><br><span class="line"></span><br><span class="line">1.通过webVIew调用 webView stringByEvaluatingJavaScriptFromString: 调用</span><br><span class="line">2.通过JSContext调用[context evaluateScript:];</span><br></pre></td></tr></table></figure>
+<h2 id="如何理解HTTP-Http-和-Https-的区别？Https为什么更加安全？"><a href="#如何理解HTTP-Http-和-Https-的区别？Https为什么更加安全？" class="headerlink" title="如何理解HTTP?/Http 和 Https 的区别？Https为什么更加安全？"></a>如何理解HTTP?/Http 和 Https 的区别？Https为什么更加安全？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">HTTP本质上是一种协议，全称是Hypertext Transfer Protocol，即超文本传输协议。HTTP是一个基于TCP/IP通信协议来传递数据, 该协议用于规定客户端与服务端之间的传输规则，所传输的内容不局限于文本(其实可以传输任意类型的数据)。</span><br><span class="line"></span><br><span class="line">一次HTTP可以看做是一个事务,其工作过程分为4步:</span><br><span class="line"></span><br><span class="line">1.客户端与服务器建立连接</span><br><span class="line">2.建立连接后,客户端给服务端发送请求</span><br><span class="line">3.服务器收到消息后,给与响应操作</span><br><span class="line">4.客户端收到消息后,展示到屏幕上,断开连接.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">区别</span><br><span class="line"></span><br><span class="line">1.HTTPS 需要向机构申请 CA 证书，极少免费。</span><br><span class="line"></span><br><span class="line">2.HTTP 属于明文传输，HTTPS基于 SSL 进行加密传输。</span><br><span class="line"></span><br><span class="line">3.HTTP 端口号为 80，HTTPS 端口号为 443 。</span><br><span class="line"></span><br><span class="line">4.HTTPS 是加密传输，有身份验证的环节，更加安全。</span><br><span class="line"></span><br><span class="line">安全</span><br><span class="line"></span><br><span class="line">SSL(安全套接层) TLS(传输层安全)</span><br><span class="line"></span><br><span class="line">以上两者在传输层之上，对网络连接进行加密处理，保障数据的完整性，更加的安全。</span><br></pre></td></tr></table></figure>
+<h2 id="编程中的六大设计原则？"><a href="#编程中的六大设计原则？" class="headerlink" title="编程中的六大设计原则？"></a>编程中的六大设计原则？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1.单一职责原则</span><br><span class="line"></span><br><span class="line">通俗地讲就是一个类只做一件事</span><br><span class="line"></span><br><span class="line">CALayer：动画和视图的显示。</span><br><span class="line"></span><br><span class="line">UIView：只负责事件传递、事件响应。</span><br><span class="line"></span><br><span class="line">2.开闭原则</span><br><span class="line"></span><br><span class="line">对修改关闭，对扩展开放。 要考虑到后续的扩展性，而不是在原有的基础上来回修改</span><br><span class="line"></span><br><span class="line">3.接口隔离原则</span><br><span class="line"></span><br><span class="line">使用多个专门的协议、而不是一个庞大臃肿的协议，如 UITableviewDelegate + UITableViewDataSource</span><br><span class="line"></span><br><span class="line">4.依赖倒置原则</span><br><span class="line"></span><br><span class="line">抽象不应该依赖于具体实现、具体实现可以依赖于抽象。 调用接口感觉不到内部是如何操作的</span><br><span class="line"></span><br><span class="line">5.里氏替换原则</span><br><span class="line"></span><br><span class="line">父类可以被子类无缝替换，且原有的功能不受任何影响 如：KVO</span><br><span class="line"></span><br><span class="line">6.迪米特法则</span><br><span class="line"></span><br><span class="line">一个对象应当对其他对象尽可能少的了解，实现高聚合、低耦合</span><br></pre></td></tr></table></figure>
+<h2 id="Objective-C与Swift的异同？"><a href="#Objective-C与Swift的异同？" class="headerlink" title="Objective-C与Swift的异同？"></a>Objective-C与Swift的异同？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1.1、swift和OC的共同点：</span><br><span class="line"></span><br><span class="line"> - OC出现过的绝大多数概念，比如引用计数、ARC（自动引用计数）、属性、协议、接口、初始化、扩展类、命名参数、匿名函数等，在Swift中继续有效（可能最多换个术语）。</span><br><span class="line"></span><br><span class="line"> - Swift和Objective-C共用一套运行时环境，Swift的类型可以桥接到Objective-C（下面我简称OC），反之亦然</span><br><span class="line"></span><br><span class="line">1.2、swift的优点：</span><br><span class="line"></span><br><span class="line"> - swift注重安全，OC注重灵活</span><br><span class="line"></span><br><span class="line"> - swift注重面向协议编程、函数式编程、面向对象编程，OC注重面向对象编程</span><br><span class="line"></span><br><span class="line"> - swift注重值类型，OC注重指针和引用</span><br><span class="line"></span><br><span class="line"> - swift是静态类型语言，OC是动态类型语言</span><br><span class="line"></span><br><span class="line"> - swift容易阅读，文件结构和大部分语法简易化，只有.swift文件，结尾不需要分号</span><br><span class="line"></span><br><span class="line"> - swift中的可选类型，是用于所有数据类型，而不仅仅局限于类。相比于OC中的nil更加安全和简明</span><br><span class="line"></span><br><span class="line"> - swift中的泛型类型更加方便和通用，而非OC中只能为集合类型添加泛型</span><br><span class="line"></span><br><span class="line"> - swift中各种方便快捷的高阶函数（函数式编程） (Swift的标准数组支持三个高阶函数：map，filter和reduce,以及map的扩展flatMap)</span><br><span class="line"></span><br><span class="line"> - swift新增了两种权限，细化权限。open &gt; public &gt; internal(默认) &gt; fileprivate &gt; private</span><br><span class="line"></span><br><span class="line"> - swift中独有的元组类型(tuples)，把多个值组合成复合值。元组内的值可以是任何类型，并不要求是相同类型的。</span><br></pre></td></tr></table></figure>
+<h2 id="沙盒目录结构是怎样的？各自用于那些场景？"><a href="#沙盒目录结构是怎样的？各自用于那些场景？" class="headerlink" title="沙盒目录结构是怎样的？各自用于那些场景？"></a>沙盒目录结构是怎样的？各自用于那些场景？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">Application：存放程序源文件，上架前经过数字签名，上架后不可修改</span><br><span class="line">Documents：常用目录，iCloud备份目录，存放数据</span><br><span class="line">Library</span><br><span class="line">Caches：存放体积大又不需要备份的数据</span><br><span class="line">Preference：设置目录，iCloud会备份设置信息</span><br><span class="line">tmp：存放临时文件，不会被备份，而且这个文件下的数据有可能随时被清除的可能</span><br></pre></td></tr></table></figure>
+<h2 id="iOS中数据持久化方案有哪些？"><a href="#iOS中数据持久化方案有哪些？" class="headerlink" title="iOS中数据持久化方案有哪些？"></a>iOS中数据持久化方案有哪些？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">NSUserDefault 简单数据快速读写</span><br><span class="line">Property list (属性列表)文件存储</span><br><span class="line">Archiver (归档)</span><br><span class="line">SQLite 本地数据库</span><br><span class="line">CoreData（是iOS5之后才出现的一个框架，本质上是对SQLite的一个封装，它提供了对象-关系映射(ORM)的功能，即能够将OC对象转化成数据，保存在SQLite数据库文件中，也能够将保存在数据库中的数据还原成OC对象，通过CoreData管理应用程序的数据模型）</span><br></pre></td></tr></table></figure>
+
+<h2 id="单个viewController的生命周期？"><a href="#单个viewController的生命周期？" class="headerlink" title="单个viewController的生命周期？"></a>单个viewController的生命周期？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">- initWithCoder:(NSCoder *)aDecoder：（如果使用storyboard或者xib）</span><br><span class="line">- loadView：加载view</span><br><span class="line">- viewDidLoad：view加载完毕</span><br><span class="line">- viewWillAppear：控制器的view将要显示</span><br><span class="line">- viewWillLayoutSubviews：控制器的view将要布局子控件</span><br><span class="line">- viewDidLayoutSubviews：控制器的view布局子控件完成  </span><br><span class="line">- viewDidAppear:控制器的view完全显示</span><br><span class="line">- viewWillDisappear：控制器的view即将消失的时候</span><br><span class="line">- viewDidDisappear：控制器的view完全消失的时候</span><br><span class="line">- dealloc 控制器销毁</span><br></pre></td></tr></table></figure>
+
+<h2 id="cocoa-和-cocoa-touch是什么-cocoa-touch底层技术架构"><a href="#cocoa-和-cocoa-touch是什么-cocoa-touch底层技术架构" class="headerlink" title="cocoa 和 cocoa touch是什么?/cocoa touch底层技术架构?"></a>cocoa 和 cocoa touch是什么?/cocoa touch底层技术架构?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">Cocoa包含Foundation和AppKit框架，可用于开发Mac OS X系统的应用程序。</span><br><span class="line">Cocoa Touch包含Foundation和UIKit框架，可用于开发iPhone OS系统的应用程序。</span><br><span class="line">Cocoa是 Mac OS X 的开发环境，Cocoa Touch是 iPhone OS的开发环境。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">cocoa touch底层技术架构 主要分为4层:</span><br><span class="line"></span><br><span class="line">可触摸层 Cocoa Touch : UI组件,触摸事件和事件驱动,系统接口</span><br><span class="line">媒体层 Media: 音视频播放,动画,2D和3D图形</span><br><span class="line">Core Server: 核心服务层,底层特性,文件,网络,位置服务区等</span><br><span class="line">Core OS: 内存管理,底层网络,硬盘管理</span><br></pre></td></tr></table></figure>
+
+<h2 id="如何选择delegate、notification、KVO？"><a href="#如何选择delegate、notification、KVO？" class="headerlink" title="如何选择delegate、notification、KVO？"></a>如何选择delegate、notification、KVO？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">三种模式都是一个对象传递事件给另外一个对象，并且不要他们有耦合。</span><br><span class="line"></span><br><span class="line">delegate. 一对一</span><br><span class="line">notification 一对多,多对多</span><br><span class="line">KVO 一对一</span><br><span class="line">三者各有自己的特点:</span><br><span class="line"></span><br><span class="line">delegate 语法简洁,方便阅读,易于调试</span><br><span class="line">notification 灵活多变,可以跨越多个类之间进行使用</span><br><span class="line">KVO 实现属性监听,实现model和view同步</span><br><span class="line">可以根据实际开发遇到的场景来使用不同的方式</span><br></pre></td></tr></table></figure>
+<h2 id="平时开发有没有玩过-Instrument-？"><a href="#平时开发有没有玩过-Instrument-？" class="headerlink" title="平时开发有没有玩过 Instrument ？"></a>平时开发有没有玩过 Instrument ？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">Instruments里面工具很多，常用的有：</span><br><span class="line">(1).Time Profiler：性能分析,用来检测应用CPU的使用情况.可以看到应用程序中各个方法正在消耗CPU时间。</span><br><span class="line">(2).Zoombies：检查是否访问了僵尸对象，但是这个工具只能从上往下检查，不智能</span><br><span class="line">(3).Allocations：用来检查内存，写算法的那批人也用这个来检查</span><br><span class="line">(4).Leaks：检查内存，看是否有内存泄漏</span><br><span class="line">(5).Core Animation：评估图形性能，这个选项检查了图片是否被缩放，以及像素是否对齐。被放缩的图片会被标记为黄色，像素不对齐则会标注为紫色。黄色、紫色越多，性能越差。</span><br></pre></td></tr></table></figure>
+
+<h2 id="常用的排序算法"><a href="#常用的排序算法" class="headerlink" title="常用的排序算法"></a>常用的排序算法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">选择排序、冒泡排序、插入排序三种排序算法可以总结为如下：</span><br><span class="line"></span><br><span class="line">都将数组分为已排序部分和未排序部分。</span><br><span class="line"></span><br><span class="line">选择排序将已排序部分定义在左端，然后选择未排序部分的最小元素和未排序部分的第一个元素交换。</span><br><span class="line"></span><br><span class="line">冒泡排序将已排序部分定义在右端，在遍历未排序部分的过程执行交换，将最大元素交换到最右端。</span><br><span class="line"></span><br><span class="line">插入排序将已排序部分定义在左端，将未排序部分元的第一个元素插入到已排序部分合适的位置。</span><br><span class="line"></span><br><span class="line">/** </span><br><span class="line"> *    【选择排序】：最值出现在起始端</span><br><span class="line"> *    </span><br><span class="line"> *    第1趟：在n个数中找到最小(大)数与第一个数交换位置</span><br><span class="line"> *    第2趟：在剩下n-1个数中找到最小(大)数与第二个数交换位置</span><br><span class="line"> *    重复这样的操作...依次与第三个、第四个...数交换位置</span><br><span class="line"> *    第n-1趟，最终可实现数据的升序（降序）排列。</span><br><span class="line"> *</span><br><span class="line"> */</span><br><span class="line">void selectSort(int *arr, int length) &#123;</span><br><span class="line">    for (int i = 0; i &lt; length - 1; i++) &#123; //趟数</span><br><span class="line">        for (int j = i + 1; j &lt; length; j++) &#123; //比较次数</span><br><span class="line">            if (arr[i] &gt; arr[j]) &#123;</span><br><span class="line">                int temp = arr[i];</span><br><span class="line">                arr[i] = arr[j];</span><br><span class="line">                arr[j] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/** </span><br><span class="line"> *    【冒泡排序】：相邻元素两两比较，比较完一趟，最值出现在末尾</span><br><span class="line"> *    第1趟：依次比较相邻的两个数，不断交换（小数放前，大数放后）逐个推进，最值最后出现在第n个元素位置</span><br><span class="line"> *    第2趟：依次比较相邻的两个数，不断交换（小数放前，大数放后）逐个推进，最值最后出现在第n-1个元素位置</span><br><span class="line"> *     ……   ……</span><br><span class="line"> *    第n-1趟：依次比较相邻的两个数，不断交换（小数放前，大数放后）逐个推进，最值最后出现在第2个元素位置    </span><br><span class="line"> */</span><br><span class="line">void bublleSort(int *arr, int length) &#123;</span><br><span class="line">    for(int i = 0; i &lt; length - 1; i++) &#123; //趟数</span><br><span class="line">        for(int j = 0; j &lt; length - i - 1; j++) &#123; //比较次数</span><br><span class="line">            if(arr[j] &gt; arr[j+1]) &#123;</span><br><span class="line">                int temp = arr[j];</span><br><span class="line">                arr[j] = arr[j+1];</span><br><span class="line">                arr[j+1] = temp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">/**</span><br><span class="line"> *    折半查找：优化查找时间（不用遍历全部数据）</span><br><span class="line"> *</span><br><span class="line"> *    折半查找的原理：</span><br><span class="line"> *   1&gt; 数组必须是有序的</span><br><span class="line"> *   2&gt; 必须已知min和max（知道范围）</span><br><span class="line"> *   3&gt; 动态计算mid的值，取出mid对应的值进行比较</span><br><span class="line"> *   4&gt; 如果mid对应的值大于要查找的值，那么max要变小为mid-1</span><br><span class="line"> *   5&gt; 如果mid对应的值小于要查找的值，那么min要变大为mid+1</span><br><span class="line"> *</span><br><span class="line"> */ </span><br><span class="line">// 已知一个有序数组, 和一个key, 要求从数组中找到key对应的索引位置 </span><br><span class="line">int findKey(int *arr, int length, int key) &#123;</span><br><span class="line">    int min = 0, max = length - 1, mid;</span><br><span class="line">    while (min &lt;= max) &#123;</span><br><span class="line">        mid = (min + max) / 2; //计算中间值</span><br><span class="line">        if (key &gt; arr[mid]) &#123;</span><br><span class="line">            min = mid + 1;</span><br><span class="line">        &#125; else if (key &lt; arr[mid]) &#123;</span><br><span class="line">            max = mid - 1;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            return mid;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return -1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="SDWebImage加载图片过程"><a href="#SDWebImage加载图片过程" class="headerlink" title="SDWebImage加载图片过程"></a>SDWebImage加载图片过程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">0、首先显示占位图</span><br><span class="line"></span><br><span class="line">1、在webimagecache中寻找图片对应的缓存，它是以url为数据索引先在内存中查找是否有缓存；</span><br><span class="line"></span><br><span class="line">2、如果没有缓存，就通过md5处理过的key来在磁盘中查找对应的数据，如果找到就会把磁盘中的数据加到内存中，并显示出来；</span><br><span class="line"></span><br><span class="line">3、如果内存和磁盘中都没有找到，就会向远程服务器发送请求，开始下载图片；</span><br><span class="line"></span><br><span class="line">4、下载完的图片加入缓存中，并写入到磁盘中；</span><br><span class="line"></span><br><span class="line">5、整个获取图片的过程是在子线程中进行，在主线程中显示。</span><br></pre></td></tr></table></figure>
+<h2 id="AFNetworking-底层原理分析"><a href="#AFNetworking-底层原理分析" class="headerlink" title="AFNetworking 底层原理分析"></a>AFNetworking 底层原理分析</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">AFNetworking是封装的NSURLSession的网络请求，由五个模块组成：分别由NSURLSession,Security,Reachability,Serialization,UIKit五部分组成</span><br><span class="line"></span><br><span class="line">NSURLSession：网络通信模块（核心模块） 对应 AFNetworking中的 AFURLSessionManager和对HTTP协议进行特化处理的AFHTTPSessionManager,AFHTTPSessionManager是继承于AFURLSessionmanager的</span><br><span class="line"></span><br><span class="line">Security：网络通讯安全策略模块  对应 AFSecurityPolicy</span><br><span class="line"></span><br><span class="line">Reachability：网络状态监听模块 对应AFNetworkReachabilityManager</span><br><span class="line"></span><br><span class="line">Seriaalization：网络通信信息序列化、反序列化模块 对应 AFURLResponseSerialization</span><br><span class="line"></span><br><span class="line">UIKit：对于iOS UIKit的扩展库</span><br></pre></td></tr></table></figure>
+
+<h1 id="进阶题："><a href="#进阶题：" class="headerlink" title="进阶题："></a>进阶题：</h1><h2 id="KVC的底层实现？"><a href="#KVC的底层实现？" class="headerlink" title="KVC的底层实现？"></a>KVC的底层实现？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">当一个对象调用setValue方法时，方法内部会做以下操作：</span><br><span class="line">1). 检查是否存在相应的key的set方法，如果存在，就调用set方法。</span><br><span class="line">2). 如果set方法不存在，就会查找与key相同名称并且带下划线的成员变量，如果有，则直接给成员变量属性赋值。</span><br><span class="line">3). 如果没有找到_key，就会查找相同名称的属性key，如果有就直接赋值。</span><br><span class="line">4). 如果还没有找到，则调用valueForUndefinedKey:和setValue:forUndefinedKey:方法。</span><br><span class="line">这些方法的默认实现都是抛出异常，我们可以根据需要重写它们。</span><br></pre></td></tr></table></figure>
+<p><img src="https://user-gold-cdn.xitu.io/2019/9/16/16d38e94d2da6456?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt="KVO的底层实现？"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line"></span><br><span class="line">KVO-键值观察机制，原理如下：</span><br><span class="line"></span><br><span class="line">1.当给A类添加KVO的时候，runtime动态的生成了一个子类NSKVONotifying_A，让A类的isa指针指向NSKVONotifying_A类，重写class方法，隐藏对象真实类信息</span><br><span class="line"></span><br><span class="line">2.重写监听属性的setter方法，在setter方法内部调用了Foundation 的 _NSSetObjectValueAndNotify 函数</span><br><span class="line"></span><br><span class="line">3._NSSetObjectValueAndNotify函数内部</span><br><span class="line"></span><br><span class="line">a) 首先会调用 willChangeValueForKey</span><br><span class="line"></span><br><span class="line">b) 然后给属性赋值</span><br><span class="line"></span><br><span class="line">c) 最后调用 didChangeValueForKey</span><br><span class="line"></span><br><span class="line">d) 最后调用 observer 的 observeValueForKeyPath 去告诉监听器属性值发生了改变 .</span><br><span class="line"></span><br><span class="line">4.重写了dealloc做一些 KVO 内存释放</span><br></pre></td></tr></table></figure>
+<h2 id="说一下工作中你怎么做性能优化的"><a href="#说一下工作中你怎么做性能优化的" class="headerlink" title="说一下工作中你怎么做性能优化的"></a>说一下工作中你怎么做性能优化的</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">答：一般都是说关于tableView的优化处理，</span><br><span class="line"></span><br><span class="line">造成tableView卡顿的原因</span><br><span class="line">1.没有使用cell的重用标识符，导致一直创建新的cell</span><br><span class="line">2.cell的重新布局</span><br><span class="line">3.没有提前计算并缓存cell的属性及内容</span><br><span class="line">4.cell中控件的数量过多</span><br><span class="line">5.使用了ClearColor，无背景色，透明度为0</span><br><span class="line">6.更新只使用tableView.reloadData()（如果只是更新某组的话，使用reloadSection进行局部更新）</span><br><span class="line">7.加载网络数据，下载图片，没有使用异步加载，并缓存</span><br><span class="line">8.使用addView 给cell动态添加view</span><br><span class="line">9.没有按需加载cell（cell滚动很快时，只加载范围内的cell）</span><br><span class="line">10.实现无用的代理方法(tableView只遵守两个协议)</span><br><span class="line">11.没有做缓存行高（estimatedHeightForRow不能和HeightForRow里面的layoutIfNeed同时存在，这两者同时存在才会出现“窜动”的bug。</span><br><span class="line">建议是：只要是固定行高就写预估行高来减少行高调用次数提升性能。如果是动态行高就不要写预估方法了，用一个行高的缓存字典来减少代码的调用次数即可）</span><br><span class="line">12.做了多余的绘制工作（在实现drawRect:的时候，它的rect参数就是需要绘制的区域，这个区域之外的不需要进行绘制）</span><br><span class="line">13.没有预渲染图像。（当新的图像出现时，仍然会有短暂的停顿现象。解决的办法就是在bitmap context里先将其画一遍，导出成UIImage对象，然后再绘制到屏幕）</span><br><span class="line"></span><br><span class="line">提升tableView的流畅度</span><br><span class="line">*本质上是降低 CPU、GPU 的工作，从这两个大的方面去提升性能。</span><br><span class="line">  1.CPU：对象的创建和销毁、对象属性的调整、布局计算、文本的计算和排版、图片的格式转换和解码、图像的绘制</span><br><span class="line">  2.GPU：纹理的渲染</span><br><span class="line">  </span><br><span class="line">卡顿优化在 CPU 层面</span><br><span class="line">1.尽量用轻量级的对象，比如用不到事件处理的地方，可以考虑使用 CALayer 取代 UIView</span><br><span class="line">2.不要频繁地调用 UIView 的相关属性，比如 frame、bounds、transform 等属性，尽量减少不必要的修改</span><br><span class="line">3.尽量提前计算好布局，在有需要时一次性调整对应的属性，不要多次修改属性</span><br><span class="line">4.Autolayout 会比直接设置 frame 消耗更多的 CPU 资源</span><br><span class="line">5.图片的 size 最好刚好跟 UIImageView 的 size 保持一致</span><br><span class="line">6.控制一下线程的最大并发数量</span><br><span class="line">7.尽量把耗时的操作放到子线程</span><br><span class="line">8.文本处理（尺寸计算、绘制）</span><br><span class="line">9.图片处理（解码、绘制）</span><br><span class="line"></span><br><span class="line">卡顿优化在 GPU层面</span><br><span class="line">1.尽量避免短时间内大量图片的显示，尽可能将多张图片合成一张进行显示</span><br><span class="line">2.GPU能处理的最大纹理尺寸是 4096x4096，一旦超过这个尺寸，就会占用 CPU 资源进行处理，所以纹理尽量不要超过这个尺寸</span><br><span class="line">3.尽量减少视图数量和层次</span><br><span class="line">4.减少透明的视图（alpha&lt;1），不透明的就设置 opaque 为 YES</span><br><span class="line">5.尽量避免出现离屏渲染</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.ibireme.com/2015/11/12/smooth_user_interfaces_for_ios/" target="_blank" rel="noopener">参考iOS 保持界面流畅的技巧</a></p>
+<h2 id="Runtime实现的机制是什么？能做什么事情呢？"><a href="#Runtime实现的机制是什么？能做什么事情呢？" class="headerlink" title="Runtime实现的机制是什么？能做什么事情呢？"></a>Runtime实现的机制是什么？能做什么事情呢？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">runtime简称运行时。OC是运行时机制，也就是在运行时才做一些处理。例如：C语言在编译的时候就知道要调用哪个方法函数，而OC在编译的时候并不知道要调用哪个方法函数，只有在运行的时候才知道调用的方法函数名称，来找到对应的方法函数进行调用。</span><br><span class="line"></span><br><span class="line">1.发送消息</span><br><span class="line">【场景：方法调用】</span><br><span class="line"></span><br><span class="line">2.交换方法实现（交换系统的方法）</span><br><span class="line">【场景：当第三方框架或者系统原生方法功能不能满足我们的时候，我们可以在保持系统原有方法功能的基础上，添加额外的功能。】</span><br><span class="line"></span><br><span class="line">3.动态添加方法</span><br><span class="line">【场景：如果一个类方法非常多，加载类到内存的时候也比较耗费资源，需要给每个方法生成映射表，可以使用动态给某个类，添加方法解决。】</span><br><span class="line"></span><br><span class="line">4.利用关联对象（AssociatedObject）给分类添加属性</span><br><span class="line">【</span><br><span class="line"> 场景：分类是不能自定义属性和变量的，这时候可以使用runtime动态添加属性方法；</span><br><span class="line"> 原理：给一个类声明属性，其实本质就是给这个类添加关联，并不是直接把这个值的内存空间添加到类存空间。</span><br><span class="line"> 】</span><br><span class="line"></span><br><span class="line">5.遍历类的所有成员变量</span><br><span class="line">【</span><br><span class="line">  1.NSCoding自动归档解档</span><br><span class="line">  场景：如果一个模型有许多个属性，实现自定义模型数据持久化时，需要对每个属性都实现一遍encodeObject 和 decodeObjectForKey方法，比较麻烦。我们可以使用Runtime来解决。</span><br><span class="line">  原理：用runtime提供的函数遍历Model自身所有属性，并对属性进行encode和decode操作。</span><br><span class="line"></span><br><span class="line">  2.字典转模型</span><br><span class="line">  原理：利用Runtime，遍历模型中所有属性，根据模型的属性名，去字典中查找key，取出对应的值，给模型的属性赋值。</span><br><span class="line">  </span><br><span class="line">  3.修改textfield的占位文字颜色</span><br><span class="line">】</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">6.利用消息转发机制解决方法找不到的异常问题</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.jianshu.com/p/6fd68ac84701" target="_blank" rel="noopener">教你深刻理解Runtime机制</a></p>
+<p><a href="https://juejin.im/post/5cb5c03f51882533017e7a70#heading-5" target="_blank" rel="noopener">Runtime在工作中的运用</a></p>
+<p><a href="https://www.jianshu.com/p/1f43dd215159" target="_blank" rel="noopener">Runtime运行机制</a></p>
+<h2 id="iOS图片设置圆角性能问题"><a href="#iOS图片设置圆角性能问题" class="headerlink" title="iOS图片设置圆角性能问题"></a>iOS图片设置圆角性能问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1.直接使用setCornerRadius</span><br><span class="line">【这样设置会触发离屏渲染，比较消耗性能。比如当一个页面上有十几头像这样设置了圆角会明显感觉到卡顿。</span><br><span class="line"> 注意：png图片UIImageView处理圆角是不会产生离屏渲染的。（ios9.0之后不会离屏渲染，ios9.0之前还是会离屏渲染）</span><br><span class="line"> 】</span><br><span class="line"> </span><br><span class="line"> 2.setCornerRadius设置圆角之后，shouldRasterize=YES光栅化</span><br><span class="line"> 【avatarImageView.layer.shouldRasterize = YES;</span><br><span class="line">   avatarImageViewUrl.layer.rasterizationScale=[UIScreen mainScreen].scale;  //UIImageView不加这句会产生一点模糊</span><br><span class="line"> </span><br><span class="line">  shouldRasterize=YES设置光栅化，可以使离屏渲染的结果缓存到内存中存为位图，</span><br><span class="line">使用的时候直接使用缓存，节省了一直离屏渲染损耗的性能。</span><br><span class="line"></span><br><span class="line">  但是如果layer及sublayers常常改变的话，它就会一直不停的渲染及删除缓存重新</span><br><span class="line">创建缓存，所以这种情况下建议不要使用光栅化，这样也是比较损耗性能的。</span><br><span class="line"> 】</span><br><span class="line"> </span><br><span class="line"> 3.直接覆盖一张中间为圆形透明的图片（推荐使用）</span><br><span class="line"> </span><br><span class="line"> 4.UIImage drawInRect绘制圆角</span><br><span class="line">【这种方式GPU损耗低内存占用大，而且UIButton上不知道怎么绘制，可以用</span><br><span class="line">UIimageView添加个点击手势当做UIButton使用。】</span><br><span class="line"></span><br><span class="line">5.SDWebImage处理图片时Core Graphics绘制圆角（暂时感觉是最优方法)</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jianshu.com/p/34189f62bfd8" target="_blank" rel="noopener">iOS图片设置圆角性能问题</a></p>
+<h2 id="什么是-RunLoop？"><a href="#什么是-RunLoop？" class="headerlink" title="什么是 RunLoop？"></a>什么是 RunLoop？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">从字面上讲就是运行循环，它内部就是do-while循环，在这个循环内部不断地处理各种任务。</span><br><span class="line">一个线程对应一个RunLoop，基本作用就是保持程序的持续运行，处理app中的各种事件。通过runloop，有事运行，没事就休息，可以节省cpu资源，提高程序性能。</span><br><span class="line">主线程的run loop默认是启动的。iOS的应用程序里面，程序启动后会有一个如下的main()函数</span><br><span class="line">int main(int argc, char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">RunLoop，是多线程的法宝，即一个线程一次只能执行一个任务，执行完任务后就会退出线程。主线程执行完即时任务时会继续等待接收事件而不退出。非主线程通常来说就是为了执行某一任务的，执行完毕就需要归还资源，因此默认是不运行RunLoop的；</span><br><span class="line"></span><br><span class="line">每一个线程都有其对应的RunLoop，只是默认只有主线程的RunLoop是启动的，其它子线程的RunLoop默认是不启动的，若要启动则需要手动启动；</span><br><span class="line"></span><br><span class="line">在一个单独的线程中，如果需要在处理完某个任务后不退出，继续等待接收事件，则需要启用RunLoop；</span><br><span class="line"></span><br><span class="line">NSRunLoop提供了一个添加NSTimer的方法，可以指定Mode，如果要让任何情况下都回调，则需要设置Mode为Common模式；</span><br><span class="line"></span><br><span class="line">实质上，对于子线程的runloop默认是不存在的，因为苹果采用了懒加载的方式。如果我们没有手动调用[NSRunLoop currentRunLoop]的话，就不会去查询是否存在当前线程的RunLoop，也就不会去加载，更不会创建。</span><br></pre></td></tr></table></figure>
+<p><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">深入理解RunLoop</a></p>
+<h2 id="以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？"><a href="#以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？" class="headerlink" title="以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？"></a>以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">原因在于滑动时当前线程的runloop切换了mode用于列表滑动，导致timer暂停。</span><br><span class="line">runloop中的mode主要用来指定事件在runloop中的优先级，有以下几种：</span><br><span class="line">* Default（NSDefaultRunLoopMode）：默认，一般情况下使用；</span><br><span class="line">* Connection（NSConnectionReplyMode）：一般系统用来处理NSConnection相关事件，开发者一般用不到；</span><br><span class="line">* Modal（NSModalPanelRunLoopMode）：处理modal panels事件；</span><br><span class="line">* Event Tracking（NSEventTrackingRunLoopMode）：用于处理拖拽和用户交互的模式。</span><br><span class="line">* Common（NSRunloopCommonModes）：模式合集。默认包括Default，Modal，Event Tracking三大模式，可以处理几乎所有事件。</span><br><span class="line">回到题中的情境。滑动列表时，runloop的mode由原来的Default模式切换到了Event Tracking模式，timer原来好好的运行在Default模式中，被关闭后自然就停止工作了。</span><br><span class="line">解决方法其一是将timer加入到NSRunloopCommonModes中。其二是将timer放到另一个线程中，然后开启另一个线程的runloop，这样可以保证与主线程互不干扰，而现在主线程正在处理页面滑动。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">方法1</span><br><span class="line">[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</span><br><span class="line">方法2</span><br><span class="line">dispatch_async(dispatch_get_global_queue(0, 0), ^&#123;</span><br><span class="line">timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(repeat:) userInfo:nil repeats:true];</span><br><span class="line">[[NSRunLoop currentRunLoop] run];</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">进程：</span><br><span class="line"></span><br><span class="line">1.进程是一个具有一定独立功能的程序关于某次数据集合的一次运行活动，它是操作系统分配资源的基本单元.</span><br><span class="line"></span><br><span class="line">2.进程是指在系统中正在运行的一个应用程序，就是一段程序的执行过程,我们可以理解为手机上的一个app.</span><br><span class="line"></span><br><span class="line">3.每个进程之间是独立的，每个进程均运行在其专用且受保护的内存空间内，拥有独立运行所需的全部资源</span><br><span class="line"></span><br><span class="line">线程</span><br><span class="line"></span><br><span class="line">1.程序执行流的最小单元，线程是进程中的一个实体.</span><br><span class="line"></span><br><span class="line">2.一个进程要想执行任务,必须至少有一条线程.应用程序启动的时候，系统会默认开启一条线程,也就是主线程</span><br><span class="line"></span><br><span class="line">进程和线程的关系</span><br><span class="line"></span><br><span class="line">1.线程是进程的执行单元，进程的所有任务都在线程中执行</span><br><span class="line"></span><br><span class="line">2.线程是 CPU 分配资源和调度的最小单位</span><br><span class="line"></span><br><span class="line">3.一个程序可以对应多个进程(多进程),一个进程中可有多个线程,但至少要有一条线程</span><br><span class="line"></span><br><span class="line">4.同一个进程内的线程共享进程资源</span><br></pre></td></tr></table></figure>
+<h2 id="iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景-在项目什么时候选择使用-GCD，什么时候选-择-NSOperation"><a href="#iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景-在项目什么时候选择使用-GCD，什么时候选-择-NSOperation" class="headerlink" title="iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景/在项目什么时候选择使用 GCD，什么时候选 择 NSOperation?"></a>iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景/在项目什么时候选择使用 GCD，什么时候选 择 NSOperation?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">NSThread 面向对象的，需要程序员手动创建线程，但不需要手动销毁。子线程间通信很难。</span><br><span class="line"></span><br><span class="line">GCD c语言，充分利用了设备的多核，自动管理线程生命周期。比NSOperation效率更高。</span><br><span class="line"></span><br><span class="line">NSOperation 基于gcd封装，更加面向对象，比gcd多了一些功能。</span><br><span class="line"></span><br><span class="line">【场景：1.多个网络请求完成后执行下一步 2.多个网络请求顺序执行后执行下一步 3.异步操作两组数据时, 执行完第一组之后, 才能执行第二组】</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">项目中使用 NSOperation 的优点是 NSOperation 是对线程的高度抽象，在项目中使 用它，会使项目的程序结构更好，子类化 NSOperation 的设计思路，是具有面向对 象的优点(复用、封装)，使得实现是多线程支持，而接口简单，建议在复杂项目中 使用。</span><br><span class="line"></span><br><span class="line">项目中使用 GCD 的优点是 GCD 本身非常简单、易用，对于不复杂的多线程操 作，会节省代码量，而 Block 参数的使用，会是代码更为易读，建议在简单项目中 使用。</span><br></pre></td></tr></table></figure>
+<h2 id="么是GCD-GCD-的队列类型"><a href="#么是GCD-GCD-的队列类型" class="headerlink" title="么是GCD?GCD 的队列类型?"></a>么是GCD?GCD 的队列类型?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">GCD(Grand Central Dispatch), 又叫做大中央调度, 它对线程操作进行了封装,加入了很多新的特性,内部进行了效率优化,提供了简洁的C语言接口, 使用更加高效,也是苹果推荐的使用方式.</span><br><span class="line"></span><br><span class="line">GCD的队列可以分为2大类型</span><br><span class="line"></span><br><span class="line">1.并发队列（Concurrent Dispatch Queue）</span><br><span class="line">可以让多个任务并发（同时）执行（自动开启多个线程同时执行任务）</span><br><span class="line">并发功能只有在异步（dispatch_async）函数下才有效</span><br><span class="line"></span><br><span class="line">2.串行队列（Serial Dispatch Queue）</span><br><span class="line">让任务一个接着一个地执行（一个任务执行完毕后，再执行下一个任务）,按照FIFO顺序执行.</span><br></pre></td></tr></table></figure>
+<h2 id="什么是同步和异步任务派发-synchronous和asynchronous"><a href="#什么是同步和异步任务派发-synchronous和asynchronous" class="headerlink" title="什么是同步和异步任务派发(synchronous和asynchronous)?"></a>什么是同步和异步任务派发(synchronous和asynchronous)?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">GCD多线程经常会使用 dispatch_sync和dispatch_async函数向指定队列添加任务,分别是同步和异步</span><br><span class="line"></span><br><span class="line">同步：指阻塞当前线程,既要等待添加的耗时任务块Block完成后,函数才能返回,后面的代码才能继续执行</span><br><span class="line">异步：指将任务添加到队列后,函数立即返回,后面的代码不用等待添加的任务完成后即可执行,异步提交无法确定任务执行顺序</span><br></pre></td></tr></table></figure>
+<h2 id="dispatch-barrier-a-sync使用"><a href="#dispatch-barrier-a-sync使用" class="headerlink" title="dispatch_barrier_(a)sync使用?"></a>dispatch_barrier_(a)sync使用?</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">栅栏函数</span><br><span class="line"></span><br><span class="line">一个dispatch barrier 允许在一个并发队列中创建一个同步点。当在并发队列中遇到一个barrier, 他会延迟执行barrier的block,等待所有在barrier之前提交的blocks执行结束。 这时，barrier block自己开始执行。 之后， 队列继续正常的执行操作。</span><br></pre></td></tr></table></figure>
+<h2 id="对称加密和非对称加密的区别？"><a href="#对称加密和非对称加密的区别？" class="headerlink" title="对称加密和非对称加密的区别？"></a>对称加密和非对称加密的区别？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">1、对称加密又称公开密钥加密，加密和解密都会用到同一个密钥，如果密钥被攻击者获得，此时加密就失去了意义。常见的对称加密算法有DES、3DES、AES、Blowfish、IDEA、RC5、RC6。</span><br><span class="line"></span><br><span class="line">2、非对称加密又称共享密钥加密，使用一对非对称的密钥，一把叫做私有密钥，另一把叫做公有密钥；公钥加密只能用私钥来解密，私钥加密只能用公钥来解密。常见的公钥加密算法有：RSA、ElGamal、背包算法、Rabin（RSA的特例）、迪菲－赫尔曼密钥交换协议中的公钥加密算法、椭圆曲线加密算法）。</span><br></pre></td></tr></table></figure>
+
+<h2 id="组件化有什么好处？"><a href="#组件化有什么好处？" class="headerlink" title="组件化有什么好处？"></a>组件化有什么好处？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">业务分层、解耦，使代码变得可维护；</span><br><span class="line"></span><br><span class="line">有效的拆分、组织日益庞大的工程代码，使工程目录变得可维护；</span><br><span class="line"></span><br><span class="line">便于各业务功能拆分、抽离，实现真正的功能复用；</span><br><span class="line"></span><br><span class="line">业务隔离，跨团队开发代码控制和版本风险控制的实现；</span><br><span class="line"></span><br><span class="line">模块化对代码的封装性、合理性都有一定的要求，提升开发同学的设计能力；</span><br><span class="line"></span><br><span class="line">在维护好各级组件的情况下，随意组合满足不同客户需求；（只需要将之前的多个业务组件模块在新的主App中进行组装即可快速迭代出下一个全新App）</span><br></pre></td></tr></table></figure>
+
+<h2 id="你是如何组件化解耦的？"><a href="#你是如何组件化解耦的？" class="headerlink" title="你是如何组件化解耦的？"></a>你是如何组件化解耦的？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">分层</span><br><span class="line"></span><br><span class="line">基础功能组件：按功能分库，不涉及产品业务需求，跟库Library类似，通过良好的接口拱上层业务组件调用；不写入产品定制逻辑，通过扩展接口完成定制；</span><br><span class="line"></span><br><span class="line">基础UI组件：各个业务模块依赖使用，但需要保持好定制扩展的设计</span><br><span class="line"></span><br><span class="line">业务组件：业务功能间相对独立，相互间没有Model共享的依赖；业务之间的页面调用只能通过UIBus进行跳转；业务之间的逻辑Action调用只能通过服务提供；</span><br><span class="line"></span><br><span class="line">中间件：target-action，url-block，protocol-class</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jianshu.com/p/2a7e2aa0748b" target="_blank" rel="noopener">iOS组件化方案的几种实现</a></p>
+<h2 id="APP启动时间应从哪些方面优化？"><a href="#APP启动时间应从哪些方面优化？" class="headerlink" title="APP启动时间应从哪些方面优化？"></a>APP启动时间应从哪些方面优化？</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">答：</span><br><span class="line">App启动时间可以通过xcode提供的工具来度量，在Xcode的Product-&gt;Scheme--&gt;Edit Scheme-&gt;Run-&gt;Auguments中，将环境变量DYLD_PRINT_STATISTICS设为YES，优化需以下方面入手</span><br><span class="line"></span><br><span class="line">dylib loading time</span><br><span class="line"></span><br><span class="line">核心思想是减少dylibs的引用</span><br><span class="line"></span><br><span class="line">合并现有的dylibs（最好是6个以内）</span><br><span class="line"></span><br><span class="line">使用静态库</span><br><span class="line"></span><br><span class="line">rebase/binding time</span><br><span class="line"></span><br><span class="line">核心思想是减少DATA块内的指针</span><br><span class="line"></span><br><span class="line">减少Object C元数据量，减少Objc类数量，减少实例变量和函数（与面向对象设计思想冲突）</span><br><span class="line"></span><br><span class="line">减少c++虚函数</span><br><span class="line"></span><br><span class="line">多使用Swift结构体（推荐使用swift）</span><br><span class="line"></span><br><span class="line">ObjC setup time</span><br><span class="line"></span><br><span class="line">核心思想同上，这部分内容基本上在上一阶段优化过后就不会太过耗时</span><br><span class="line"></span><br><span class="line">initializer time</span><br><span class="line"></span><br><span class="line">使用initialize替代load方法</span><br><span class="line"></span><br><span class="line">减少使用c/c++的attribute((constructor))；推荐使用dispatch_once() pthread_once() std:once()等方法</span><br><span class="line"></span><br><span class="line">推荐使用swift</span><br><span class="line"></span><br><span class="line">不要在初始化中调用dlopen()方法，因为加载过程是单线程，无锁，如果调用dlopen则会变成多线程，会开启锁的消耗，同时有可能死锁</span><br><span class="line"></span><br><span class="line">不要在初始化中创建线程</span><br></pre></td></tr></table></figure>
+<p><a href="https://www.jianshu.com/p/27b2e9d744f0" target="_blank" rel="noopener">iOS App 启动过程（一）：基础概念</a></p>
+<p><a href="https://www.jianshu.com/p/ff8d039195bf" target="_blank" rel="noopener">iOS App 启动过程（二）：从 exec() 到 main()</a></p>
+<p><a href="https://www.jianshu.com/p/ff8d039195bf" target="_blank" rel="noopener">iOS App 启动过程（三）：main() 及生命周期</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/25/Top-iOS-Interview-Questions-and-Answers/" rel="next" title="Responder Chain 感悟">
+                <i class="fa fa-chevron-left"></i> Responder Chain 感悟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。"><span class="nav-number">1.</span> <span class="nav-text">归纳一些OC基础内容，实战中可能会遇到的问题，以及进阶内容。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础题"><span class="nav-number">2.</span> <span class="nav-text">基础题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？"><span class="nav-number">2.1.</span> <span class="nav-text">Objective-C的类可以多重继承么？可以实现多个接口么？Category是什么？重写一个类的方式用继承好还是分类好？为什么不要在category中重写一个类原有的方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请说明并比较以下关键词：strong-weak-assign-copy。"><span class="nav-number">2.2.</span> <span class="nav-text">请说明并比较以下关键词：strong, weak, assign, copy。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#浅拷贝和深拷贝的区别？"><span class="nav-number">2.3.</span> <span class="nav-text">浅拷贝和深拷贝的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用-property声明的-NSString-NSArray-NSDictionary-经常使用-copy-关键字，为什么？如果改用strong关键字，可能造成什么问题？"><span class="nav-number">2.4.</span> <span class="nav-text">用@property声明的 NSString / NSArray / NSDictionary 经常使用 copy 关键字，为什么？如果改用strong关键字，可能造成什么问题？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C-如何对内存管理的，说说你的看法和解决方法？"><span class="nav-number">2.5.</span> <span class="nav-text">Objective-C 如何对内存管理的，说说你的看法和解决方法？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承、分类和类扩展"><span class="nav-number">2.6.</span> <span class="nav-text">继承、分类和类扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#我们说的OC是动态运行时语言是什么意思？"><span class="nav-number">2.7.</span> <span class="nav-text">我们说的OC是动态运行时语言是什么意思？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-KVO-和-KVC？谈谈-KVC-以及-KVO-的理解？"><span class="nav-number">2.8.</span> <span class="nav-text">.什么是 KVO 和 KVC？谈谈 KVC 以及 KVO 的理解？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#block的注意点"><span class="nav-number">2.9.</span> <span class="nav-text">block的注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆、栈和队列"><span class="nav-number">2.10.</span> <span class="nav-text">堆、栈和队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是多态-什么是分类-什么是协议"><span class="nav-number">2.11.</span> <span class="nav-text">什么是多态?什么是分类?什么是协议?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIView-和-CALayer-是什么关系？"><span class="nav-number">2.12.</span> <span class="nav-text">UIView 和 CALayer 是什么关系？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说一下-JS-和-OC-互相调用的几种方式？"><span class="nav-number">2.13.</span> <span class="nav-text">说一下 JS 和 OC 互相调用的几种方式？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何理解HTTP-Http-和-Https-的区别？Https为什么更加安全？"><span class="nav-number">2.14.</span> <span class="nav-text">如何理解HTTP?/Http 和 Https 的区别？Https为什么更加安全？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编程中的六大设计原则？"><span class="nav-number">2.15.</span> <span class="nav-text">编程中的六大设计原则？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Objective-C与Swift的异同？"><span class="nav-number">2.16.</span> <span class="nav-text">Objective-C与Swift的异同？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#沙盒目录结构是怎样的？各自用于那些场景？"><span class="nav-number">2.17.</span> <span class="nav-text">沙盒目录结构是怎样的？各自用于那些场景？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS中数据持久化方案有哪些？"><span class="nav-number">2.18.</span> <span class="nav-text">iOS中数据持久化方案有哪些？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#单个viewController的生命周期？"><span class="nav-number">2.19.</span> <span class="nav-text">单个viewController的生命周期？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#cocoa-和-cocoa-touch是什么-cocoa-touch底层技术架构"><span class="nav-number">2.20.</span> <span class="nav-text">cocoa 和 cocoa touch是什么?/cocoa touch底层技术架构?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何选择delegate、notification、KVO？"><span class="nav-number">2.21.</span> <span class="nav-text">如何选择delegate、notification、KVO？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平时开发有没有玩过-Instrument-？"><span class="nav-number">2.22.</span> <span class="nav-text">平时开发有没有玩过 Instrument ？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常用的排序算法"><span class="nav-number">2.23.</span> <span class="nav-text">常用的排序算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SDWebImage加载图片过程"><span class="nav-number">2.24.</span> <span class="nav-text">SDWebImage加载图片过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AFNetworking-底层原理分析"><span class="nav-number">2.25.</span> <span class="nav-text">AFNetworking 底层原理分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进阶题："><span class="nav-number">3.</span> <span class="nav-text">进阶题：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#KVC的底层实现？"><span class="nav-number">3.1.</span> <span class="nav-text">KVC的底层实现？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#说一下工作中你怎么做性能优化的"><span class="nav-number">3.2.</span> <span class="nav-text">说一下工作中你怎么做性能优化的</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime实现的机制是什么？能做什么事情呢？"><span class="nav-number">3.3.</span> <span class="nav-text">Runtime实现的机制是什么？能做什么事情呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS图片设置圆角性能问题"><span class="nav-number">3.4.</span> <span class="nav-text">iOS图片设置圆角性能问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是-RunLoop？"><span class="nav-number">3.5.</span> <span class="nav-text">什么是 RunLoop？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？"><span class="nav-number">3.6.</span> <span class="nav-text">以scheduledTimerWithTimeInterval的方式触发的timer，在滑动页面上的列表时，timer会暂停，为什么？该如何解决？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程"><span class="nav-number">3.7.</span> <span class="nav-text">进程与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景-在项目什么时候选择使用-GCD，什么时候选-择-NSOperation"><span class="nav-number">3.8.</span> <span class="nav-text">iOS中实现多线程的几种方案，各自有什么特点？讲一下具体使用场景/在项目什么时候选择使用 GCD，什么时候选 择 NSOperation?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#么是GCD-GCD-的队列类型"><span class="nav-number">3.9.</span> <span class="nav-text">么是GCD?GCD 的队列类型?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是同步和异步任务派发-synchronous和asynchronous"><span class="nav-number">3.10.</span> <span class="nav-text">什么是同步和异步任务派发(synchronous和asynchronous)?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dispatch-barrier-a-sync使用"><span class="nav-number">3.11.</span> <span class="nav-text">dispatch_barrier_(a)sync使用?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对称加密和非对称加密的区别？"><span class="nav-number">3.12.</span> <span class="nav-text">对称加密和非对称加密的区别？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件化有什么好处？"><span class="nav-number">3.13.</span> <span class="nav-text">组件化有什么好处？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#你是如何组件化解耦的？"><span class="nav-number">3.14.</span> <span class="nav-text">你是如何组件化解耦的？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP启动时间应从哪些方面优化？"><span class="nav-number">3.15.</span> <span class="nav-text">APP启动时间应从哪些方面优化？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
