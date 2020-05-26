@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="iOS编程中的六大设计原则?单一职责原则 通俗地讲就是一个类只做一件事  CALayer:动画和视图的显示。 UIView:只负责事件传递、事件响应。  开闭原则 对修改关闭，对扩展开放。要考虑到后续的扩展性，而不是在原有的基础上来回修改 接口隔离原则使用多个专门的协议、而不是一个庞大臃肿的协议  UITableviewDelegate UITableViewDataSource  依赖倒置原则">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="设计模式的总结">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2020&#x2F;04&#x2F;10&#x2F;%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="iOS编程中的六大设计原则?单一职责原则 通俗地讲就是一个类只做一件事  CALayer:动画和视图的显示。 UIView:只负责事件传递、事件响应。  开闭原则 对修改关闭，对扩展开放。要考虑到后续的扩展性，而不是在原有的基础上来回修改 接口隔离原则使用多个专门的协议、而不是一个庞大臃肿的协议  UITableviewDelegate UITableViewDataSource  依赖倒置原则">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-26T07:10:23.256Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2020/04/10/设计模式的总结/"/>
+
+
+
+
+
+  <title>设计模式的总结 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2020/04/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">设计模式的总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-10T16:46:32+08:00">
+                2020-04-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="iOS编程中的六大设计原则"><a href="#iOS编程中的六大设计原则" class="headerlink" title="iOS编程中的六大设计原则?"></a>iOS编程中的六大设计原则?</h1><h2 id="单一职责原则"><a href="#单一职责原则" class="headerlink" title="单一职责原则"></a>单一职责原则</h2><p> 通俗地讲就是一个类只做一件事</p>
+<ul>
+<li>CALayer:动画和视图的显示。</li>
+<li>UIView:只负责事件传递、事件响应。</li>
+</ul>
+<h2 id="开闭原则"><a href="#开闭原则" class="headerlink" title="开闭原则"></a>开闭原则</h2><p> 对修改关闭，对扩展开放。要考虑到后续的扩展性，而不是在原有的基础上来回修改</p>
+<h2 id="接口隔离原则"><a href="#接口隔离原则" class="headerlink" title="接口隔离原则"></a>接口隔离原则</h2><p>使用多个专门的协议、而不是一个庞大臃肿的协议</p>
+<ul>
+<li>UITableviewDelegate</li>
+<li>UITableViewDataSource</li>
+</ul>
+<h2 id="依赖倒置原则"><a href="#依赖倒置原则" class="headerlink" title="依赖倒置原则"></a>依赖倒置原则</h2><p> 抽象不应该依赖于具体实现、具体实现可以依赖于抽象。调用接口感觉不到内部是如何操作的</p>
+<h2 id="里氏替换原则"><a href="#里氏替换原则" class="headerlink" title="里氏替换原则"></a>里氏替换原则</h2><p>父类可以被子类无缝替换，且原有的功能不受任何影响</p>
+<ul>
+<li>KVO</li>
+</ul>
+<h2 id="迪米特法则"><a href="#迪米特法则" class="headerlink" title="迪米特法则"></a>迪米特法则</h2><p> 一个对象应当对其他对象尽可能少的了解，实现高聚合、低耦合</p>
+<h1 id="如何设计一个图片缓存框架"><a href="#如何设计一个图片缓存框架" class="headerlink" title="如何设计一个图片缓存框架?"></a>如何设计一个图片缓存框架?</h1><p> 模仿 SDWebImage 来实现。</p>
+<h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><ul>
+<li>Manager</li>
+<li>内存缓存</li>
+<li>磁盘缓存</li>
+<li>网络下载</li>
+<li>Code Manager</li>
+<li>图片解码 </li>
+<li>图片解压缩<br>图片的存储是以图片的单向 hash 值为 Key</li>
+</ul>
+<h2 id="内存设计需要考虑的问题"><a href="#内存设计需要考虑的问题" class="headerlink" title="内存设计需要考虑的问题"></a>内存设计需要考虑的问题</h2><p> 存储的 Size 因为内存的空间有限，我们针对不同尺寸的图片，给出不同的方案</p>
+<ul>
+<li>10K以下的50个 </li>
+<li>100Kb以下的20个</li>
+<li>100kb以上的10个</li>
+</ul>
+<h2 id="淘汰的策略"><a href="#淘汰的策略" class="headerlink" title="淘汰的策略"></a>淘汰的策略</h2><p> 内存的淘汰策略 采取 LRU(最近最少使用算法)<br>触发淘汰策略的时机有三种</p>
+<ul>
+<li>1.定期检查(不建议，耗性能)</li>
+<li>2.提高检查触发频率(一定要注意开销)</li>
+<li>1.前后台切换的时候 </li>
+<li>2.每次读写的时候</li>
+</ul>
+<h2 id="磁盘设计需要考虑的问题"><a href="#磁盘设计需要考虑的问题" class="headerlink" title="磁盘设计需要考虑的问题"></a>磁盘设计需要考虑的问题</h2><ul>
+<li>存储方式</li>
+<li>大小限制(有固定的大小)</li>
+<li>移除策略(可以设置为7天或者15天)</li>
+</ul>
+<h2 id="网络设计需要考虑的问题"><a href="#网络设计需要考虑的问题" class="headerlink" title="网络设计需要考虑的问题"></a>网络设计需要考虑的问题</h2><ul>
+<li>图片请求的最大并发量 </li>
+<li>请求超时策略</li>
+<li>请求优先级</li>
+</ul>
+<h2 id="图片解码"><a href="#图片解码" class="headerlink" title="图片解码"></a>图片解码</h2><p> 应用 策略模式，针对 jpg、png、gif 等不同的图片格式进行解码</p>
+<h2 id="图片解码的时机"><a href="#图片解码的时机" class="headerlink" title="图片解码的时机"></a>图片解码的时机</h2><ul>
+<li>在 子线程 图片刚下载完时 </li>
+<li>在 子线程 刚从磁盘读取完时<br>避免在主线程解压缩、解码，避免卡顿</li>
+</ul>
+<h1 id="如何设计一个时长统计框架"><a href="#如何设计一个时长统计框架" class="headerlink" title="如何设计一个时长统计框架?"></a>如何设计一个时长统计框架?</h1><h2 id="记录器"><a href="#记录器" class="headerlink" title="记录器"></a>记录器</h2><ul>
+<li>页面式记录器 </li>
+<li>流式记录器 </li>
+<li>自定义式</li>
+</ul>
+<h2 id="记录管理者"><a href="#记录管理者" class="headerlink" title="记录管理者"></a>记录管理者</h2><ul>
+<li>内存记录缓存</li>
+<li>磁盘存储</li>
+<li>上传器</li>
+</ul>
+<h2 id="如何降低数据的丢失率"><a href="#如何降低数据的丢失率" class="headerlink" title="如何降低数据的丢失率?"></a>如何降低数据的丢失率?</h2><ul>
+<li>定期写入磁盘</li>
+<li>每当达到某个值的时候，就写入磁盘</li>
+</ul>
+<h2 id="记录上传的时机"><a href="#记录上传的时机" class="headerlink" title="记录上传的时机"></a>记录上传的时机</h2><ul>
+<li>前后台切换的时候可以上传</li>
+<li>从无网到有网切换的时候可以上传</li>
+</ul>
+<h2 id="上传时机的选择"><a href="#上传时机的选择" class="headerlink" title="上传时机的选择"></a>上传时机的选择</h2><ul>
+<li>立即上传</li>
+<li>定时上传 </li>
+<li>延时上传</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2020/02/25/Xcode%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/" rel="next" title="Xcode一些小工具总结">
+                <i class="fa fa-chevron-left"></i> Xcode一些小工具总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1151319619@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/319433100" target="_blank" title="BiliBili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>BiliBili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#iOS编程中的六大设计原则"><span class="nav-number">1.</span> <span class="nav-text">iOS编程中的六大设计原则?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一职责原则"><span class="nav-number">1.1.</span> <span class="nav-text">单一职责原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开闭原则"><span class="nav-number">1.2.</span> <span class="nav-text">开闭原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口隔离原则"><span class="nav-number">1.3.</span> <span class="nav-text">接口隔离原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖倒置原则"><span class="nav-number">1.4.</span> <span class="nav-text">依赖倒置原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#里氏替换原则"><span class="nav-number">1.5.</span> <span class="nav-text">里氏替换原则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#迪米特法则"><span class="nav-number">1.6.</span> <span class="nav-text">迪米特法则</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何设计一个图片缓存框架"><span class="nav-number">2.</span> <span class="nav-text">如何设计一个图片缓存框架?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构成"><span class="nav-number">2.1.</span> <span class="nav-text">构成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存设计需要考虑的问题"><span class="nav-number">2.2.</span> <span class="nav-text">内存设计需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#淘汰的策略"><span class="nav-number">2.3.</span> <span class="nav-text">淘汰的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#磁盘设计需要考虑的问题"><span class="nav-number">2.4.</span> <span class="nav-text">磁盘设计需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#网络设计需要考虑的问题"><span class="nav-number">2.5.</span> <span class="nav-text">网络设计需要考虑的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片解码"><span class="nav-number">2.6.</span> <span class="nav-text">图片解码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片解码的时机"><span class="nav-number">2.7.</span> <span class="nav-text">图片解码的时机</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何设计一个时长统计框架"><span class="nav-number">3.</span> <span class="nav-text">如何设计一个时长统计框架?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#记录器"><span class="nav-number">3.1.</span> <span class="nav-text">记录器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录管理者"><span class="nav-number">3.2.</span> <span class="nav-text">记录管理者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何降低数据的丢失率"><span class="nav-number">3.3.</span> <span class="nav-text">如何降低数据的丢失率?</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#记录上传的时机"><span class="nav-number">3.4.</span> <span class="nav-text">记录上传的时机</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#上传时机的选择"><span class="nav-number">3.5.</span> <span class="nav-text">上传时机的选择</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/zhy.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>

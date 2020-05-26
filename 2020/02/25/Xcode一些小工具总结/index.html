@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="开发中常用的Xcode快捷键一句话总结：理清脉络，熟能生巧，东西用熟练了，就是自己的。 对文件的操作 对文件的增，即增加文件、增加文件夹、增加项目。 对文件的删，即关闭窗口、移除到项目外、删除到垃圾桶。 对文件的改，即打开文件、保存文件、另存为。 对文件的查，即查找到某个类、查看刚刚浏览、头文件和实现文件来回切换     增 删 改 查    command+N(增文件) command+W(关闭">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode一些小工具总结">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2020&#x2F;02&#x2F;25&#x2F;Xcode%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="开发中常用的Xcode快捷键一句话总结：理清脉络，熟能生巧，东西用熟练了，就是自己的。 对文件的操作 对文件的增，即增加文件、增加文件夹、增加项目。 对文件的删，即关闭窗口、移除到项目外、删除到垃圾桶。 对文件的改，即打开文件、保存文件、另存为。 对文件的查，即查找到某个类、查看刚刚浏览、头文件和实现文件来回切换     增 删 改 查    command+N(增文件) command+W(关闭">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-26T07:02:07.935Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2020/02/25/Xcode一些小工具总结/"/>
+
+
+
+
+
+  <title>Xcode一些小工具总结 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2020/02/25/Xcode%E4%B8%80%E4%BA%9B%E5%B0%8F%E5%B7%A5%E5%85%B7%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Xcode一些小工具总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-25T14:00:38+08:00">
+                2020-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="开发中常用的Xcode快捷键"><a href="#开发中常用的Xcode快捷键" class="headerlink" title="开发中常用的Xcode快捷键"></a><center>开发中常用的Xcode快捷键</center></h1><p>一句话总结：<br>理清脉络，熟能生巧，东西用熟练了，就是自己的。</p>
+<h2 id="对文件的操作"><a href="#对文件的操作" class="headerlink" title="对文件的操作"></a>对文件的操作</h2><ul>
+<li>对文件的增，即增加文件、增加文件夹、增加项目。</li>
+<li>对文件的删，即关闭窗口、移除到项目外、删除到垃圾桶。</li>
+<li>对文件的改，即打开文件、保存文件、另存为。</li>
+<li>对文件的查，即查找到某个类、查看刚刚浏览、头文件和实现文件来回切换</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>增</th>
+<th>删</th>
+<th>改</th>
+<th>查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>command+N(增文件)</td>
+<td>command+W(关闭窗口)</td>
+<td>command+O(打开)</td>
+<td>command+shift+O(查某个类)</td>
+</tr>
+<tr>
+<td>command+option+N(增文件夹)</td>
+<td>Remove Reference（在xcode中移除，【但文件还在项目中】）</td>
+<td>command+S(保存)</td>
+<td>command+control+左/右键(按刚浏览的顺序退/进)</td>
+</tr>
+<tr>
+<td>command+shift+N(新建项目)</td>
+<td>Remve to Trash（直接删除到垃圾桶，【文件不在项目中】）</td>
+<td>command+shift+S(另存为)</td>
+<td>command+control+上/下键(h和m文件间切换)</td>
+</tr>
+</tbody></table>
+<h2 id="对代码的操作"><a href="#对代码的操作" class="headerlink" title="对代码的操作"></a>对代码的操作</h2><ul>
+<li>对代码的增，即直接编写、复制、黏贴。</li>
+<li>对代码的删，即删除一个字符、删除一行字符。</li>
+<li>对代码的改，即代码缩进、代码移动、格式化代码、注释、撤销、调试、选中。</li>
+<li>对代码的查，即定位到某个方法、定位到某一行、定位到行头行尾、定位到最顶最后、光标定位在中央、搜索某个关键字</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>增</th>
+<th>删</th>
+<th>改</th>
+<th>查</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>command+C(复制)</td>
+<td>control+K(删除光标右边的左右内容)</td>
+<td>command+[ (左缩进一个tab，可以直接按tab键)</td>
+<td>control+6(定到某个方法)</td>
+</tr>
+<tr>
+<td>command+V(粘贴)</td>
+<td>control+D(删除光标右边一个字符)</td>
+<td>command+] (右缩进)</td>
+<td>command+L (定到具体某一行)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+ option +[ (代码往上交换，移动一行)</td>
+<td>command+方向键左/右（定位到首行/行尾</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+ option +] (代码往下交换，移动一行 )</td>
+<td>command+方向键上/下（定位到类文件第一行/最后一行）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+ i (格式化代码)</td>
+<td>control+L（将光标定位窗口居中处，方便观看代码上下文）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+/ (注释)</td>
+<td>command+F （搜索某个关键字）</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+Z (撤销)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><center>调试</center></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+R (运行)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+. (停止)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+shift+B  (编译)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+ \ (设置断点)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td><center>选中</center></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+shift +键盘左键（光标定位在右边，换完之后全选该行）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+shift +键盘右键（光标定位在左边，换完之后全选该行）</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>command+A（全选）</td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="对代码编辑区的操作"><a href="#对代码编辑区的操作" class="headerlink" title="对代码编辑区的操作"></a>对代码编辑区的操作</h2><p>将不必要的功能面板尽可能的隐藏，需要用到的时候才调用出来即可。操作的功能就是：</p>
+<ul>
+<li>隐藏编辑区左边</li>
+<li>隐藏编辑区右边</li>
+<li>隐藏编辑区下面</li>
+<li>将Xcode全屏</li>
+<li>将Xcode隐藏</li>
+<li>打开/关闭双视图</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>编辑区</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>command + 0（数字）（隐藏/显示代码编辑区左边）</td>
+</tr>
+<tr>
+<td>command+ option + 0（数字）（隐藏/显示代码编辑区右边）</td>
+</tr>
+<tr>
+<td>command+ shift + Y（数字）（隐藏/显示代码编辑区下面）</td>
+</tr>
+<tr>
+<td>command+ control + F（全屏）</td>
+</tr>
+<tr>
+<td>command+ H （隐藏xcode /command +tab出现）</td>
+</tr>
+<tr>
+<td>command+ option + enter （打开双试图）</td>
+</tr>
+<tr>
+<td>command + enter （关闭双试图）</td>
+</tr>
+</tbody></table>
+<h2 id="对模拟器的操作"><a href="#对模拟器的操作" class="headerlink" title="对模拟器的操作"></a>对模拟器的操作</h2><ul>
+<li>回到首页： command + Shift + H 按一次</li>
+<li>HOME键摁两次： command + Shift + H 按两次</li>
+<li>旋转 ：command + 左/右</li>
+<li>调整模拟器大小: command + 1, 2, 3, 4, 5</li>
+<li>模拟器(显示)不显示键盘: command + k</li>
+<li>启用/关闭从电脑键盘输入：cmd+shift+k</li>
+<li>截屏: command + S</li>
+<li>复制屏幕: command + control + C</li>
+<li>粘贴: command + V</li>
+<li>隐藏模拟器: command + H</li>
+<li>关闭模拟器: command + Q</li>
+<li>模拟锁屏：command + L</li>
+<li>屏幕解锁：先按 command + shift + H, 再滑动解锁</li>
+<li>双指拖动手势：option + shift</li>
+<li>双指缩放手势：option</li>
+</ul>
+<h2 id="模拟慢速网络（弱网环境）"><a href="#模拟慢速网络（弱网环境）" class="headerlink" title="模拟慢速网络（弱网环境）"></a>模拟慢速网络（弱网环境）</h2><ul>
+<li><p>模拟器可以通过 Charles工具来模拟慢速网络</p>
+</li>
+<li><p>真机，设置 》开发者 》Status 》Network Link Conditioner 如果手机设置没找到该选向，可以尝试连接电脑，用Xcode 的Origanizer将其设置成测试设备</p>
+<br/> 
+
+</li>
+</ul>
+<h1 id="内存泄露检查工具"><a href="#内存泄露检查工具" class="headerlink" title="内存泄露检查工具"></a><center>内存泄露检查工具</center></h1><p> 项目中存在的内存泄露问题的检测做了一些总结，一些检测工具的使用及简单内存泄露问题的处理。</p>
+<ul>
+<li>Analyzer（静态分析）</li>
+<li>MLeaksFinder (第三方工具)</li>
+<li>Instruments Leaks (动态检测)</li>
+</ul>
+<h2 id="Analyaer"><a href="#Analyaer" class="headerlink" title="Analyaer"></a>Analyaer</h2><p>不需要运行程序，通过 Product-&gt;Analyze 或快捷键 command+shift+B 进行代码分析。<br>分析代码上下文的语法结构和内存情况，找出代码中潜在错误 Analyzer主要分析四种问题：</p>
+<ul>
+<li>逻辑错误：访问空指针或未初始化的变量等；</li>
+<li>内存管理错误：如内存泄漏等；</li>
+<li>声明错误：从未使用过的变量；</li>
+<li>API 调用错误：未包含使用的库和框架。</li>
+</ul>
+<p>在我做南莲园池导航定位项目用到 CoreLocation 框架的需要手动释放问题，就是通过 Analyzer 检测出来的。<br>对于App 的整体性能，以及持续定位的节能上有了很大的进步</p>
+<p>说明： Analyzer由于是编译器根据代码进行的判断, 做出的判断不一定会准确, 因此如果遇到提示, 应该去结合代码上文检查一下；还有某些造成内存泄漏的循环引用通过Analyzer分析不出来。</p>
+<h2 id="MLeaksFinder"><a href="#MLeaksFinder" class="headerlink" title="MLeaksFinder"></a>MLeaksFinder</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod &apos;MLeaksFinder&apos;</span><br></pre></td></tr></table></figure>
+<p>或将下载的 MLeaksFinder 文件导入工程中，<br>在 MLeaksFinder.h 中 设置是否开启内存泄漏检测，以及是在模拟器中开始还是在真机中开启。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">//***内存泄漏控制开关，注释该行代码打开内存泄漏工具，打开该行代码关闭内存泄漏****</span><br><span class="line">//#define MEMORY_LEAKS_FINDER_ENABLED 0</span><br><span class="line">#ifdef MEMORY_LEAKS_FINDER_ENABLED</span><br><span class="line">#define _INTERNAL_MLF_ENABLED MEMORY_LEAKS_FINDER_ENABLED</span><br><span class="line">#else</span><br><span class="line">//仅在模拟器打开内存泄漏检测</span><br><span class="line">#if TARGET_IPHONE_SIMULATOR  //模拟器</span><br><span class="line">    #define _INTERNAL_MLF_ENABLED DEBUG</span><br><span class="line">#elif TARGET_OS_IPHONE      //真机</span><br><span class="line">#endif//TARGET_IPHONE_SIMULATOR</span><br><span class="line">#endif//_INTERNAL_MLF_ENABLED MEMORY_LEAKS_FINDER_ENABLED</span><br></pre></td></tr></table></figure>
+<p>具体操作步骤：<br>不断重复 push 和 pop 同一个 UIViewController，一旦有疑似内存泄漏的地方，就会弹出提示框，控制台也会输出调用栈的层级信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[文件:MLeaksMessenger.m   行数:36] Memory Leak: (</span><br><span class="line">    MCLocateAddressViewController,</span><br><span class="line">    UIView,</span><br><span class="line">    BMKMapView,</span><br><span class="line">    BMKInternalMapView,</span><br><span class="line">    BMKTapDetectingView,</span><br><span class="line">    BMKAnnotationContainer</span><br><span class="line">)</span><br><span class="line">[文件:NSObject+MemoryLeak.m   行数:54] Possibly Memory Leak.</span><br><span class="line">In case that BMKAnnotationContainer should not be dealloced, override -willDealloc in BMKAnnotationContainer by returning NO.</span><br><span class="line">View-ViewController stack: (</span><br><span class="line">    MCLocateAddressViewController,</span><br><span class="line">    UIView,</span><br><span class="line">    BMKMapView,</span><br><span class="line">    BMKInternalMapView,</span><br><span class="line">    BMKTapDetectingView,</span><br><span class="line">    BMKAnnotationContainer</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>展示视图自上而下的调用层级，这里需要注意一些三方 SDK 控件导致的疑似泄漏，可能会因其内部的 cache 机制或者释放不及时而被误判为内存泄漏。</p>
+<h2 id="Instruments-Leaks"><a href="#Instruments-Leaks" class="headerlink" title="Instruments Leaks"></a>Instruments Leaks</h2><ol>
+<li>Xcode 中 按住 command + I 或者菜单栏 Product – Profile</li>
+<li>双击 Leaks 或者按 choose，打开 Leaks 面板</li>
+<li>在显示的 Leaks 面板中，点击左上角红色点，即可运行内存检测</li>
+<li>在运行过程中如果发现Leak Checks（如图）出现红色X说明检测到内存泄露,将鼠标点击Leak Checks，在下方即可看到内存泄漏的相关信息</li>
+</ol>
+<h3 id="定位内存泄漏代码位置"><a href="#定位内存泄漏代码位置" class="headerlink" title="定位内存泄漏代码位置"></a>定位内存泄漏代码位置</h3><ul>
+<li>选择 Leaks 有时候默认是 Run lssues，这时需要将其切换为 Leaks</li>
+<li>选择 call Three</li>
+<li>此时，仍然看不到具体的代码位置，需要选择底部的 Call Tree，在弹窗中选择 Invert Call Tree 和 Hide System Libraries，即可显示出具体内存泄漏的代码</li>
+</ul>
+<h3 id="Call-Tree-四种选项具体含义："><a href="#Call-Tree-四种选项具体含义：" class="headerlink" title="Call Tree 四种选项具体含义："></a>Call Tree 四种选项具体含义：</h3><ul>
+<li>Separate by Thread：按线程分开做分析，这样更容易揪出那些吃资源的问题线程。特别是对于主线程，它要处理和渲染所有的接口数据，一旦受到阻塞，程序必然卡顿或停止响应。</li>
+<li>Invert Call Tree：反向输出调用树。把调用层级最深的方法显示在最上面，更容易找到最耗时的操作。</li>
+<li>Hide System Libraries：隐藏系统库文件。过滤掉各种系统调用，只显示自己的代码调用。</li>
+<li>Flattern Recursion：拼合递归。将同一递归函数产生的多条堆栈（因为递归函数会调用自己）合并为一条。</li>
+<li>注意：Core Foundation 等底层操作它们不支持 ARC，还需要手动内存管理对象的创建和释放。<br>CLLocationCoordinate2D 是 系统框架 CoreLocation 中 一个 C 的 结构体，包含经度和纬度两个值 (CLLocation 是一个 objc 的 对象)，需要通过 free 手动释放。这里需要注意以 Core 开头的系统框架的内存管理。</li>
+</ul>
+<h3 id="双击选中行，带有定位箭头的即可跳转-Instrument-中具体的代码"><a href="#双击选中行，带有定位箭头的即可跳转-Instrument-中具体的代码" class="headerlink" title="双击选中行，带有定位箭头的即可跳转 Instrument 中具体的代码"></a>双击选中行，带有定位箭头的即可跳转 Instrument 中具体的代码</h3><ul>
+<li>如果没有定位箭头怎么办？</li>
+<li>点击项目工程文件-Buidl Setting-All-搜索Debug Information Format-Debug里选择DWARF with dSYM File</li>
+<li>默认情况下，只有 release 环境下为 DWARF with dSYM File，其他环境均为 DWARF。当 Debug Information Format 为 DWARF with dSYM File 的时候，构建过程中多了一步 Generate dSYM File，最终产出的文件也多了一个 dSYM 文件。然后，重新编译启动 Instruments Leaks，重复以上步骤即可定位到具体代码。</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2019/12/31/%E5%A5%B3%E5%8F%8B%E6%89%8D%E6%98%AF%E7%BC%96%E7%A8%8B%E5%A4%A7%E4%BD%AC%EF%BC%8C%E6%88%91%E7%9A%84%E5%A5%BD%E8%80%81%E5%B8%88%EF%BC%81/" rel="next" title="女友才是编程大佬，我的好老师！">
+                <i class="fa fa-chevron-left"></i> 女友才是编程大佬，我的好老师！
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/zhy.github.io/2020/04/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/" rel="prev" title="设计模式的总结">
+                设计模式的总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1151319619@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/319433100" target="_blank" title="BiliBili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>BiliBili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <div id="music163player">
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=350 height=600 src="//music.163.com/outchain/player?type=0&id=3020841502&auto=1&height=430"></iframe>
+</div>
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发中常用的Xcode快捷键"><span class="nav-number">1.</span> <span class="nav-text">开发中常用的Xcode快捷键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对文件的操作"><span class="nav-number">1.1.</span> <span class="nav-text">对文件的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对代码的操作"><span class="nav-number">1.2.</span> <span class="nav-text">对代码的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对代码编辑区的操作"><span class="nav-number">1.3.</span> <span class="nav-text">对代码编辑区的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对模拟器的操作"><span class="nav-number">1.4.</span> <span class="nav-text">对模拟器的操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模拟慢速网络（弱网环境）"><span class="nav-number">1.5.</span> <span class="nav-text">模拟慢速网络（弱网环境）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存泄露检查工具"><span class="nav-number">2.</span> <span class="nav-text">内存泄露检查工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Analyaer"><span class="nav-number">2.1.</span> <span class="nav-text">Analyaer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MLeaksFinder"><span class="nav-number">2.2.</span> <span class="nav-text">MLeaksFinder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Instruments-Leaks"><span class="nav-number">2.3.</span> <span class="nav-text">Instruments Leaks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定位内存泄漏代码位置"><span class="nav-number">2.3.1.</span> <span class="nav-text">定位内存泄漏代码位置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Call-Tree-四种选项具体含义："><span class="nav-number">2.3.2.</span> <span class="nav-text">Call Tree 四种选项具体含义：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双击选中行，带有定位箭头的即可跳转-Instrument-中具体的代码"><span class="nav-number">2.3.3.</span> <span class="nav-text">双击选中行，带有定位箭头的即可跳转 Instrument 中具体的代码</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+      本站总访问量:<span id="busuanzi_value_site_pv"> </span>次
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/zhy.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
