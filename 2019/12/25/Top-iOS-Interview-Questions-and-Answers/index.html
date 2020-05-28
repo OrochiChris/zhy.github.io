@@ -86,19 +86,19 @@
 
 
 
-<meta name="description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处理事">
+<meta name="description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处">
 <meta name="keywords" content="心得">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Responder Chain 感悟">
 <meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2019&#x2F;12&#x2F;25&#x2F;Top-iOS-Interview-Questions-and-Answers&#x2F;index.html">
 <meta property="og:site_name" content="Populus Euphratica Blog">
-<meta property="og:description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处理事">
+<meta property="og:description" content="做事前学会思考一个问题：how to handle events that propagate through your app. 查看官方文档来学习  What App使用响应者对象接收和处理事件，响应者对象是任何UIResponder的实例。  UIResponder的子类包括UIView,UIViewController,UIApplication等。  响应者接收到原始事件数据，必须处">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-d33cd8efed539a33.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-cb8bbc32634c78dd.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;format&#x2F;webp">
-<meta property="og:image" content="https:&#x2F;&#x2F;www.jianshu.com&#x2F;p&#x2F;4155c9ffe1a8">
+<meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-9b3c7805a2125ac4.png">
 <meta property="og:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-e7e1506126edf29d.png?imageMogr2&#x2F;auto-orient&#x2F;strip%7CimageView2&#x2F;2&#x2F;format&#x2F;webp">
-<meta property="og:updated_time" content="2019-12-25T10:36:48.000Z">
+<meta property="og:updated_time" content="2020-05-27T03:39:34.318Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;upload-images.jianshu.io&#x2F;upload_images&#x2F;2492441-d33cd8efed539a33.png">
 
@@ -354,7 +354,9 @@
       
 
       
-        <h1 id="做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app"><a href="#做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app" class="headerlink" title="做事前学会思考一个问题：how to handle events that propagate through your app."></a>做事前学会思考一个问题：how to handle events that propagate through your app.</h1><ul>
+        <meta name="referrer" content="no-referrer"/>
+
+<h1 id="做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app"><a href="#做事前学会思考一个问题：how-to-handle-events-that-propagate-through-your-app" class="headerlink" title="做事前学会思考一个问题：how to handle events that propagate through your app."></a>做事前学会思考一个问题：how to handle events that propagate through your app.</h1><ul>
 <li>查看<a href="https://developer.apple.com/documentation/uikit/touches_presses_and_gestures/using_responders_and_the_responder_chain_to_handle_events?language=objc" target="_blank" rel="noopener">官方文档</a>来学习</li>
 </ul>
 <h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
@@ -408,7 +410,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">#import &quot;UIView+Responder.h&quot;</span><br><span class="line"></span><br><span class="line">static inline void swizzling_exchangeMethod(Class class ,SEL originalSelector, SEL swizzledSelector) &#123;</span><br><span class="line">    </span><br><span class="line">    Method originalMethod = class_getInstanceMethod(class, originalSelector);</span><br><span class="line">    Method swizzledMethod = class_getInstanceMethod(class, swizzledSelector);</span><br><span class="line">    </span><br><span class="line">    BOOL success = class_addMethod(class, originalSelector, method_getImplementation(swizzledMethod), method_getTypeEncoding(swizzledMethod));</span><br><span class="line">    if (success) &#123;</span><br><span class="line">        class_replaceMethod(class, swizzledSelector, method_getImplementation(originalMethod), method_getTypeEncoding(originalMethod));</span><br><span class="line">    &#125;else &#123;</span><br><span class="line">        method_exchangeImplementations(originalMethod, swizzledMethod);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@implementation UIView (Responder)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    static dispatch_once_t onceToken;</span><br><span class="line">    dispatch_once(&amp;onceToken, ^&#123;</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesBegan:withEvent:), @selector(ds_touchesBegan:withEvent:));</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesMoved:withEvent:), @selector(ds_touchesMoved:withEvent:));</span><br><span class="line">        swizzling_exchangeMethod([UIView class], @selector(touchesEnded:withEvent:), @selector(ds_touchesEnded:withEvent:));</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#pragma mark - </span><br><span class="line"></span><br><span class="line">- (void)ds_touchesBegan: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch begin&quot;, self.class);</span><br><span class="line">    UIResponder *next = [self nextResponder];</span><br><span class="line">    while (next) &#123;</span><br><span class="line">        NSLog(@&quot;%@&quot;,next.class);</span><br><span class="line">        next = [next nextResponder];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)ds_touchesMoved: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch move&quot;, self.class);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)ds_touchesEnded: (NSSet *)touches withEvent: (UIEvent *)event</span><br><span class="line">&#123;</span><br><span class="line">    NSLog(@&quot;%@ touch end&quot;, self.class);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>接着创建了4个继承于UIView的子View，AView的子视图为 BView、DView。BView的子视图为CView。<br><img src="https://upload-images.jianshu.io/upload_images/2492441-cb8bbc32634c78dd.png?imageMogr2/auto-orient/strip%7CimageView2/2/format/webp" alt="图例"></p>
-<p>首先是模拟官方的例子，我们点击CView，控制台输出如下：<br><img src="https://www.jianshu.com/p/4155c9ffe1a8" alt="图例"></p>
+<p>首先是模拟官方的例子，我们点击CView，控制台输出如下：<br><img src="https://upload-images.jianshu.io/upload_images/2492441-9b3c7805a2125ac4.png" alt="图例"></p>
 <p>因为CView并不能响应这个事件，所以会一直往上寻找，和官方给的例子完全符合。<br>如果view上有手势呢？给AView添加一个单击手势。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(aviewAction)];</span><br><span class="line">    [aview addGestureRecognizer:tap];</span><br><span class="line"></span><br><span class="line">- (void)aviewAction &#123;</span><br><span class="line">    NSLog(@&quot;单击&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>单击之后控制台显示：</p>
@@ -548,7 +550,7 @@
               
                 <a href="/zhy.github.io/archives">
               
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

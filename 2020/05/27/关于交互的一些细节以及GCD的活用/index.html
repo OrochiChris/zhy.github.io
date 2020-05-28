@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。昨天看《猫妖传》电影解说，让我重新领悟了这句话，当时去电影院并没有理会其中的深奥，觉得特效挺好，大唐盛世。其实不然，当我们学会透过现象看本质的时候，心境会豁然开朗，搞开发也正是如此。 在我离职进行网投这段时间，招聘软件会把一些公司的产品链接显示出来，我感兴趣也会去AppStore下">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于交互的一些细节以及GCD的活用">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2020&#x2F;05&#x2F;27&#x2F;%E5%85%B3%E4%BA%8E%E4%BA%A4%E4%BA%92%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82%E4%BB%A5%E5%8F%8AGCD%E7%9A%84%E6%B4%BB%E7%94%A8&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。昨天看《猫妖传》电影解说，让我重新领悟了这句话，当时去电影院并没有理会其中的深奥，觉得特效挺好，大唐盛世。其实不然，当我们学会透过现象看本质的时候，心境会豁然开朗，搞开发也正是如此。 在我离职进行网投这段时间，招聘软件会把一些公司的产品链接显示出来，我感兴趣也会去AppStore下">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-05-28T09:12:22.995Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2020/05/27/关于交互的一些细节以及GCD的活用/"/>
+
+
+
+
+
+  <title>关于交互的一些细节以及GCD的活用 | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2020/05/27/%E5%85%B3%E4%BA%8E%E4%BA%A4%E4%BA%92%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82%E4%BB%A5%E5%8F%8AGCD%E7%9A%84%E6%B4%BB%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于交互的一些细节以及GCD的活用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-27T22:45:56+08:00">
+                2020-05-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%BC%80%E5%8F%91%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">开发心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。"><a href="#人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。" class="headerlink" title="人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。"></a>人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。</h1><p>昨天看《猫妖传》电影解说，让我重新领悟了这句话，当时去电影院并没有理会其中的深奥，觉得特效挺好，大唐盛世。其实不然，当我们学会透过现象看本质的时候，心境会豁然开朗，搞开发也正是如此。</p>
+<p>在我离职进行网投这段时间，招聘软件会把一些公司的产品链接显示出来，我感兴趣也会去AppStore下载，特别是充满创新和有魅力的界面。我在实用性&gt;交互&gt;界面进行分析，发现一些App在弱网环境下反复点击提交按钮做网络请求会不停push下级页面，以及输入框在文字编辑超过键盘顶部，会遮挡3行左右文字等没做处理。这些交互的不友好细节，在我以前开发导航类App是从没关注的，所谓看山是山。后来在我做香港护理项目PCW，因为每个院友大量日活数据，特别是多护工分时段提交数据，在数据库查询发现同时间账号有多次记录的时候，就发现问题不容忽视，因为涉及数据的查重，以及医院的检查。下面记录我的解决方法以及心得</p>
+<h2 id="我们如果从UI交互入手"><a href="#我们如果从UI交互入手" class="headerlink" title="我们如果从UI交互入手"></a>我们如果从UI交互入手</h2><p>首先想到的是避免带有重要post数据按钮重复点击<br>在实际应用场景中，有几个业务场景需要控制UIButton响应事件的时间间隔。</p>
+<ul>
+<li>当点击按钮来执行网络请求时，若请求耗时稍长，用户往往会多次点击。这样，就执行了多次请求，造成资源浪费。</li>
+<li>纯UI交互不带有网络请求，在移动终端设备性能较差时，连续点击按钮会执行多次事件（比如push出来多个viewController）。</li>
+<li>防止暴力点击。</li>
+</ul>
+<h3 id="通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链"><a href="#通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链" class="headerlink" title="通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链"></a>通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链</h3><p>此方案在逻辑上比较清晰、易懂，但具体代码书写分散，常常涉及多个地方。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)tapBtn:(UIButton *)btn &#123;</span><br><span class="line">    NSLog(@&quot;按钮点击...&quot;);</span><br><span class="line">    btn.enabled = NO;</span><br><span class="line">    </span><br><span class="line">    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^&#123;</span><br><span class="line">        btn.enabled = YES;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通过-NSObject"><a href="#通过-NSObject" class="headerlink" title="通过 NSObject"></a>通过 NSObject</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">+ (void)cancelPreviousPerformRequestsWithTarget:(id)aTarget selector:(SEL)aSelector object:(nullable id)anArgument;</span><br><span class="line">- (void)performSelector:(SEL)aSelector withObject:(nullable id)anArgument afterDelay:(NSTimeInterval)delay;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)tapBtn:(UIButton *)btn &#123;</span><br><span class="line">    NSLog(@&quot;按钮点击了...&quot;);</span><br><span class="line">    // 此方法会在连续点击按钮时取消之前的点击事件，从而只执行最后一次点击事件</span><br><span class="line">    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(buttonClickedAction:) object:btn];</span><br><span class="line">    // 多长时间后做某件事情</span><br><span class="line">    [self performSelector:@selector(buttonClickedAction:) withObject:btn afterDelay:2.0];</span><br><span class="line">&#125;</span><br><span class="line">- (void)buttonClickedAction:(UIButton *)btn &#123;</span><br><span class="line">    NSLog(@&quot;真正开始执行业务 - 比如网络请求...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过打印结果可知，如果连续点击多次，只会响应最后一次点击事件，并且是在设定的时间间隔后执行，这边设置的时间间隔是 2S。<br>缺点：会出现延时现象，并且需要对大量的UIButton做处理，工作量大，不方便。</p>
+<h2 id="通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。"><a href="#通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。" class="headerlink" title="通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。"></a>通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。</h2><ul>
+<li>1 创建一个UIButton的分类，使用runtime增加public属性cs_eventInterval和private属性cs_eventInvalid。</li>
+<li>在+load方法中使用runtime将UIButton的-sendAction:to:forEvent:方法与自定义的cs_sendAction:to:forEvent:方法进行交换</li>
+<li>使用cs_eventInterval作为控制cs_eventInvalid的计时因子，用cs_eventInvalid控制UIButton的event事件是否有效果</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@interface UIButton (Extension)</span><br><span class="line"> </span><br><span class="line">/** 时间间隔 */</span><br><span class="line">@property(nonatomic, assign)NSTimeInterval cs_eventInterval;</span><br><span class="line"> </span><br><span class="line">@en</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#import &quot;UIButton+Extension.h&quot;</span><br><span class="line">#import &lt;objc/runtime.h&gt;</span><br><span class="line"> </span><br><span class="line">static char *const kEventIntervalKey = &quot;kEventIntervalKey&quot;; // 时间间隔</span><br><span class="line">static char *const kEventInvalidKey = &quot;kEventInvalidKey&quot;;   // 是否失效</span><br><span class="line"> </span><br><span class="line">@interface UIButton()</span><br><span class="line"> </span><br><span class="line">/** 是否失效 - 即不可以点击 */</span><br><span class="line">@property(nonatomic, assign)BOOL cs_eventInvalid;</span><br><span class="line"> </span><br><span class="line">@end</span><br><span class="line"> </span><br><span class="line">@implementation UIButton (Extension)</span><br><span class="line"> </span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    // 交换方法</span><br><span class="line">    Method clickMethod = class_getInstanceMethod(self, @selector(sendAction:to:forEvent:));</span><br><span class="line">    Method cs_clickMethod = class_getInstanceMethod(self, @selector(cs_sendAction:to:forEvent:));</span><br><span class="line">    method_exchangeImplementations(clickMethod, cs_clickMethod);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">#pragma mark - click</span><br><span class="line"> </span><br><span class="line">- (void)cs_sendAction:(SEL)action to:(id)target forEvent:(UIEvent *)event &#123;</span><br><span class="line">    if (!self.cs_eventInvalid) &#123;</span><br><span class="line">        self.cs_eventInvalid = YES;</span><br><span class="line">        [self cs_sendAction:action to:target forEvent:event];</span><br><span class="line">        [self performSelector:@selector(setCs_eventInvalid:) withObject:@(NO) afterDelay:self.cs_eventInterval];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">#pragma mark - set | get</span><br><span class="line"> </span><br><span class="line">- (NSTimeInterval)cs_eventInterval &#123;</span><br><span class="line">    return [objc_getAssociatedObject(self, kEventIntervalKey) doubleValue];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (void)setCs_eventInterval:(NSTimeInterval)cs_eventInterval &#123;</span><br><span class="line">    objc_setAssociatedObject(self, kEventIntervalKey, @(cs_eventInterval), OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (BOOL)cs_eventInvalid &#123;</span><br><span class="line">    return [objc_getAssociatedObject(self, kEventInvalidKey) boolValue];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (void)setCs_eventInvalid:(BOOL)cs_eventInvalid &#123;</span><br><span class="line">    objc_setAssociatedObject(self, kEventInvalidKey, @(cs_eventInvalid), OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)drawExpecialBtn&#123;</span><br><span class="line">    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 200, 100)];</span><br><span class="line">    [btn setTitle:@&quot;按钮点击&quot; forState:UIControlStateNormal];</span><br><span class="line">    [btn setTitleColor:[UIColor redColor] forState:UIControlStateNormal];</span><br><span class="line">    [btn setTitleColor:[UIColor grayColor] forState:UIControlStateDisabled];</span><br><span class="line">    [btn setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];</span><br><span class="line">    btn.center = self.view.center;</span><br><span class="line">    [btn addTarget:self action:@selector(tapBtn:) forControlEvents:UIControlEventTouchUpInside];</span><br><span class="line">    btn.cs_eventInterval = 2.0;</span><br><span class="line">    [self.view addSubview:btn];</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">- (void)tapBtn:(UIButton *)btn &#123;</span><br><span class="line">    NSLog(@&quot;按钮点击...&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>UIButton的sendAction:to:forEvent:方法,实际上交互的是UIControl的sendAction:to:forEvent:方法，所以在使用·UIControl·或其·子类（比如UISlider）·的·sendAction:to:forEvent:·方法时会引起参数缺失的崩溃。</p>
+</li>
+<li><p>因为在UIButton+Extension.m中的+load方法中交换了UIControl的sendAction:to:forEvent:方法，所以在使用UIControl或其子类（比如UISlider）的sendAction:to:forEvent:方法时会引起参数缺失的崩溃。可以将UIButton+Extension改成UIControl+Extension以避免此问题。</p>
+</li>
+</ul>
+<p>关于键盘弹出的通知细节以及cell的复用动画后面再补充，待续</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2020/04/10/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E7%9A%84%E6%80%BB%E7%BB%93/" rel="next" title="设计模式的总结">
+                <i class="fa fa-chevron-left"></i> 设计模式的总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+    </div>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1151319619@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/319433100" target="_blank" title="BiliBili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>BiliBili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=463352828&auto=0&height=66"></iframe>
+
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。"><span class="nav-number">1.</span> <span class="nav-text">人生三重境界。第一重境界，看山是山，看水是水；第二重境界，看山不是山，看水不是水；第三重境界，看山还是山，看水还是水。</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#我们如果从UI交互入手"><span class="nav-number">1.1.</span> <span class="nav-text">我们如果从UI交互入手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链"><span class="nav-number">1.1.1.</span> <span class="nav-text">通过UIButton的enabled属性和userInteractionEnabled属性控制按钮是否可点击。以及用GCD进行延迟交互响应链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-NSObject"><span class="nav-number">1.1.2.</span> <span class="nav-text">通过 NSObject</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。"><span class="nav-number">1.2.</span> <span class="nav-text">通过Runtime交换UIButton的响应事件方法，从而控制响应事件的时间间隔。</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+    
+  </span>
+</div>
+  
+</div>
+
+
+ <!-- <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>-->
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/zhy.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
