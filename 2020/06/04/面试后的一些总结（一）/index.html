@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="dfyDRH-VZf7Cl3WPIoll-q-IrZFVd-MfYFLK5ZBdoUU" />
+
+
+  
+  
+    
+    
+  <script src="/zhy.github.io/start/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/zhy.github.io/start/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/zhy.github.io/start/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/zhy.github.io/start/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/zhy.github.io/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/zhy.github.io/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/zhy.github.io/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/zhy.github.io/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/zhy.github.io/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="心得," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="以前从来没考虑数据安全和加密方面，因为所接触的香港政府项目唯一性很强，要么是指定的小组护士长在用，要么是领导层的查看，以及审核登录，因为打的是企业内部包，所以token和用户名是用NSUserDefaults储存的，当时就没在安全性上深入研究。如果换做银行金融，区块链类App，起码在登录上，还有一些数据处理上就是不合格的。今天就仔细总结归纳一些安全问题： NSUserDefaults不安全的点 简">
+<meta name="keywords" content="心得">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试后的一些总结（一）">
+<meta property="og:url" content="https:&#x2F;&#x2F;orochichris.github.io&#x2F;zhy.github.io&#x2F;2020&#x2F;06&#x2F;04&#x2F;%E9%9D%A2%E8%AF%95%E5%90%8E%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89&#x2F;index.html">
+<meta property="og:site_name" content="Populus Euphratica Blog">
+<meta property="og:description" content="以前从来没考虑数据安全和加密方面，因为所接触的香港政府项目唯一性很强，要么是指定的小组护士长在用，要么是领导层的查看，以及审核登录，因为打的是企业内部包，所以token和用户名是用NSUserDefaults储存的，当时就没在安全性上深入研究。如果换做银行金融，区块链类App，起码在登录上，还有一些数据处理上就是不合格的。今天就仔细总结归纳一些安全问题： NSUserDefaults不安全的点 简">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-04T14:47:29.207Z">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/zhy.github.io/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://orochichris.github.io/zhy.github.io/2020/06/04/面试后的一些总结（一）/"/>
+
+
+
+
+
+  <title>面试后的一些总结（一） | Populus Euphratica Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?87e9c0021346d794d9f01a46649b7487";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/zhy.github.io/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Populus Euphratica Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">一位[ 唱 (rap) 跳 (popping) 打 (KOF) ]的 iOS原生开发工程师</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/zhy.github.io/" rel="section">
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/zhy.github.io/archives" rel="section">
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/zhy.github.io/categories" rel="section">
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/zhy.github.io/tags" rel="section">
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://orochichris.github.io/zhy.github.io/zhy.github.io/2020/06/04/%E9%9D%A2%E8%AF%95%E5%90%8E%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%BB%E7%BB%93%EF%BC%88%E4%B8%80%EF%BC%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="张湖扬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/zhy.github.io/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Populus Euphratica Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">面试后的一些总结（一）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-04T21:48:54+08:00">
+                2020-06-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/zhy.github.io/categories/%E5%AD%A6%E4%B9%A0%E5%BF%83%E5%BE%97/" itemprop="url" rel="index">
+                    <span itemprop="name">学习心得</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>以前从来没考虑数据安全和加密方面，因为所接触的香港政府项目唯一性很强，要么是指定的小组护士长在用，要么是领导层的查看，以及审核登录，因为打的是企业内部包，所以token和用户名是用NSUserDefaults储存的，当时就没在安全性上深入研究。如果换做银行金融，区块链类App，起码在登录上，还有一些数据处理上就是不合格的。今天就仔细总结归纳一些安全问题：</p>
+<h1 id="NSUserDefaults不安全的点"><a href="#NSUserDefaults不安全的点" class="headerlink" title="NSUserDefaults不安全的点"></a>NSUserDefaults不安全的点</h1><ul>
+<li><p>简介： 数据自动保存在沙盒的Libarary/Preferences目录下.</p>
+</li>
+<li><p>安全隐患：NSUserDefaults其实是plist文件中键值存储，并且最大的问题是存在与沙盒中，这就对安全性埋下了隐患。如果攻击者破解App，拿到了沙盒中的数据，就会造成数据泄漏。当然，一般也不会有把密码直接使用NSUserDefaults存储的，（我token就是这样，年少无知啊）都会进行加密、或者是多重加密后再进行NSUserDefaults存储。这么做其实是可行的，前提是加密算法不能泄漏。</p>
+</li>
+<li><p>体验上：如果用户删掉App重装的话，之前所有存储的敏感信息都会消失。比如，一个用户误删了使用NSUserDefaults存储密码的App，当重新安装之后，由于以前是记住密码免登录，只因为自己操作不当，接下来要进入找回密码功能，重新修改密码才能再次使用App。这对用户来说是一种相当不友好的体验。</p>
+</li>
+<li><p>能存储的数据类型为:NSNumber（NSInteger、float、double），NSString，NSDate，NSArray，NSDictionary，BOOL.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">NSUserDefaults *userDefault = [NSUserDefaults standardUserDefaults];</span><br><span class="line">[userDefault setInteger:1 forKey:@&quot;integer&quot;];</span><br><span class="line">[userDefault setBool:YES forKey:@&quot;BOOl&quot;];</span><br><span class="line">[userDefault setFloat:6.5 forKey:@&quot;float&quot;];</span><br><span class="line">[userDefault setObject:@&quot;123&quot; forKey:@&quot;numberString&quot;];</span><br><span class="line">NSString *numberString = [userDefault objectForKey:@&quot;numberString&quot;];</span><br><span class="line">BOOL myBool = [userDefault boolForKey:@&quot;BOOl&quot;];</span><br><span class="line">[userDefault removeObjectForKey:@&quot;float&quot;];</span><br><span class="line">[userDefault synchronize];</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h2 id="NSUserDefaults需要注意的："><a href="#NSUserDefaults需要注意的：" class="headerlink" title="NSUserDefaults需要注意的："></a>NSUserDefaults需要注意的：</h2><ul>
+<li>NSUserDefaults存储的数据都是不可变的,想将可变数据存入需要先转为不可变才可以存储.</li>
+<li>NSUserDefaults是定时把缓存中的数据写入磁盘的，而不是即时写入，为了防止在写完NSUserDefaults后程序退出导致的数据丢失，可</li>
+<li>在写入数据后使用synchronize强制立即将数据写入磁盘.</li>
+</ul>
+<p>推荐储存：偏好设置和用户信息,如用户名,是否自动登录,字体大小等.</p>
+<h1 id="Plist不安全的点"><a href="#Plist不安全的点" class="headerlink" title="Plist不安全的点"></a>Plist不安全的点</h1><ul>
+<li><p>简介： 属性列表（Plist,Property List）是一种结构化的二进制格式文件，包含了内嵌键值对的可执行bundle的基本配置信息。Plist文件主要用于存储App的用户设置及配置信息，例如，游戏类App经常会在Plist文件中存储游戏等级和分数信息。一般来说，App会将存储用户数据的Plist文件保存在“[App home目录]/documents/”目录下。Plist文件可以是XML格式或二进制格式。</p>
+</li>
+<li><p>安全风险： Plist文件主要用于存储用户设置及App的配置信息，但App可能使用Plist文件存储明文的用户名、密码或其它一些个人敏感信息。而保存在Plist文件中的二进制格式文件数据则可以使用Plist文件编辑器（如plutil）进行查看或修改，即使在一个没有越狱的设备上，plist文件也可以通过工具iExplorer获取。对于以编码、未加密或弱加密形式存储的敏感信息就可能会导致敏感信息泄露了。</p>
+</li>
+</ul>
+<p>读取:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSString *plistPath = [[NSBundle mainBundle]pathForResource:@&quot;myTest&quot; ofType:@&quot;plist&quot;];</span><br><span class="line">    NSMutableDictionary *dataDic = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];</span><br><span class="line">    /**如果为数组时*/</span><br><span class="line">//    NSMutableArray *dataArray = [NSMutableArray arrayWithContentsOfFile:plistPath];</span><br><span class="line">    NSLog(@&quot;%@&quot;,dataDic);</span><br></pre></td></tr></table></figure>
+<p>修改：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[dataDic setObject:@&quot;Man&quot; forKey:@&quot;sex&quot;];</span><br><span class="line">[dataDic setObject:@22 forKey:@&quot;age&quot;];</span><br><span class="line">[dataDic writeToFile:plistPath atomically:YES];</span><br><span class="line">NSLog(@&quot;----%@&quot;,dataDic);</span><br></pre></td></tr></table></figure>
+
+<h1 id="推荐相对安全的Keychain"><a href="#推荐相对安全的Keychain" class="headerlink" title="推荐相对安全的Keychain"></a>推荐相对安全的Keychain</h1><h2 id="Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中"><a href="#Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中" class="headerlink" title="Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中"></a>Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中</h2><p>优点：</p>
+<ul>
+<li><p>数据并不是放在App的Sanbox，即使删除了App，资料依然保存在keychain中，如果重新安装了App，还可以从keychain中获取数据</p>
+</li>
+<li><p>keychain的数据可以用group的方式，让程序可以在App间共享，不过需要相同的TeamD</p>
+</li>
+<li><p>keychain的数据是经过加密的</p>
+<p>使用keychain时苹果官方已经为我们封装好了文件KeychainItemWrApper,引入即可使用.当然也可是使用其他优秀的第三方的封装,比如ssKeychain,使用方法如下:<br><a href="https://www.cnblogs.com/m4abcd/p/5242254.html" target="_blank" rel="noopener">使用方法</a></p>
+</li>
+</ul>
+<h1 id="沙盒写入"><a href="#沙盒写入" class="headerlink" title="沙盒写入"></a>沙盒写入</h1><p>持久化在Document目录下，一般存储非机密数据。<br>在解决南莲园池项目的多音频文件下载到本地这个需求时我就是采用的沙盒存储。因为这可以极大的节约用户流量，而且也增强了App的体验效果（如果采用在线音频播放，是达不到弱网环境不卡顿且熄屏导航继续播放的目的）</p>
+<ul>
+<li>Application：存放程序源文件，上架前经过数字签名，上架后不可修改。</li>
+<li>Documents: 保存应⽤运行时生成的需要持久化的数据,iTunes同步设备时会备份该目录。例如,游戏应用可将游戏存档保存在该目录。</li>
+<li>tmp:保存应⽤运行时所需的临时数据,使⽤完毕后再将相应的文件从该目录删除。应用没有运行时,系统也可能会清除该目录下的文件。iTunes同步设备时不会备份该目录。</li>
+<li>Library/Caches:保存应用运行时⽣成的需要持久化的数据，iTunes同步设备时不会备份该目录。⼀一般存储体积大、不需要备份的非重要数据，比如网络数据缓存存储到Caches下</li>
+<li>Library/Preference: 保存应用的所有偏好设置，如iOS的Settings(设置)应⽤会在该目录中查找应⽤的设置信息。iTunes同步设备时会备份该目录。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// 获取程序的Home目录       </span><br><span class="line">NSString  *path = NSHomeDirectory();     </span><br><span class="line"></span><br><span class="line">// 获取Document目录       </span><br><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES).firstObject;  </span><br><span class="line">     </span><br><span class="line">// 获取Cache目录       </span><br><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;   </span><br><span class="line">     </span><br><span class="line">// 获取Library目录       </span><br><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line"></span><br><span class="line">// 获取Tmp目录       </span><br><span class="line">NSString *path = NSTemporaryDirectory();</span><br></pre></td></tr></table></figure>
+
+<p>写入</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line">NSString *filePath = [path stringByAppendingPathComponent:@&quot;test.txt&quot;];</span><br><span class="line">NSLog(@&quot;%@&quot;,filePath);</span><br><span class="line">NSArray *array = @[@&quot;z&quot;,@&quot;h&quot;,@&quot;y&quot;];</span><br><span class="line">    BOOL isSuccess = [array writeToFile:filePath atomically:YES];</span><br><span class="line">    if (isSuccess) &#123;</span><br><span class="line">        NSLog(@&quot;成功&quot;);</span><br><span class="line">    &#125; else &#123;</span><br><span class="line">        NSLog(@&quot;失败&quot;);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>读取:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">NSString *path = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;</span><br><span class="line">    NSString *filePath = [path stringByAppendingPathComponent:@&quot;test.txt&quot;];</span><br><span class="line">    NSLog(@&quot;%@&quot;,filePath);</span><br><span class="line">NSArray *tmpArray = [NSArray arrayWithContentsOfFile:filePath];</span><br><span class="line">    NSLog(@&quot;%@&quot;,tmpArray);</span><br></pre></td></tr></table></figure>
+
+<h1 id="FMDB"><a href="#FMDB" class="headerlink" title="FMDB"></a>FMDB</h1><p>FMDB是iOS平台的SQLite数据库框架，FMDB以OC的方式封装了SQLite的C语言API，使用起来更加面向对象，省去了很多麻烦、冗余的C语言代码，对比苹果自带的Core Data框架，更加轻量级和灵活，提供了多线程安全的数据库操作方法，有效地防止数据混乱。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/zhy.github.io/tags/%E5%BF%83%E5%BE%97/" rel="tag"># 心得</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/zhy.github.io/2020/05/27/%E5%85%B3%E4%BA%8E%E4%BA%A4%E4%BA%92%E7%9A%84%E4%B8%80%E4%BA%9B%E7%BB%86%E8%8A%82%E4%BB%A5%E5%8F%8AGCD%E7%9A%84%E6%B4%BB%E7%94%A8/" rel="next" title="关于交互的一些细节以及GCD的活用">
+                <i class="fa fa-chevron-left"></i> 关于交互的一些细节以及GCD的活用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+    </div>
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/zhy.github.io/images/avatar.jpg"
+                alt="张湖扬" />
+            
+              <p class="site-author-name" itemprop="name">张湖扬</p>
+              <p class="site-description motion-element" itemprop="description">oc,swift,iOS,core Animation,2D动画,Mapkit，ARKit ，交流</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/zhy.github.io/archives">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/zhy.github.io/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/zhy.github.io/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:1151319619@qq.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://space.bilibili.com/319433100" target="_blank" title="BiliBili">
+                      
+                        <i class="fa fa-fw fa-youtube"></i>BiliBili</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=463352828&auto=0&height=66"></iframe>
+
+
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#NSUserDefaults不安全的点"><span class="nav-number">1.</span> <span class="nav-text">NSUserDefaults不安全的点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#NSUserDefaults需要注意的："><span class="nav-number">1.1.</span> <span class="nav-text">NSUserDefaults需要注意的：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Plist不安全的点"><span class="nav-number">2.</span> <span class="nav-text">Plist不安全的点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#推荐相对安全的Keychain"><span class="nav-number">3.</span> <span class="nav-text">推荐相对安全的Keychain</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中"><span class="nav-number">3.1.</span> <span class="nav-text">Keychain是iOS所提供的一种安全存储参数的方式，最常用来存储账号，密码，用户信息，银行卡资料等信息，Keychain会以加密的方式存储在设备中</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#沙盒写入"><span class="nav-number">4.</span> <span class="nav-text">沙盒写入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#FMDB"><span class="nav-number">5.</span> <span class="nav-text">FMDB</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">张湖扬</span>
+<div class="powered-by">
+<i class="fa fa-user-md"></i><span id="busuanzi_container_site_pv">
+  <span id="busuanzi_container_site_pv">
+    
+  </span>
+</div>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/zhy.github.io/start/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/zhy.github.io/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/zhy.github.io/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/zhy.github.io/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/zhy.github.io/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
