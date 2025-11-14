@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>多语言JSON可视化编辑器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .control-panel {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #eaeaea;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+        }
+        
+        .control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .control-group label {
+            font-weight: 600;
+            color: #2c3e50;
+            white-space: nowrap;
+        }
+        
+        .control-group input, .control-group select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 120px;
+        }
+        
+        .btn {
+            background: #4a6491;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            background: #2c3e50;
+        }
+        
+        .btn-success {
+            background: #27ae60;
+        }
+        
+        .btn-success:hover {
+            background: #219653;
+        }
+        
+        .btn-danger {
+            background: #e74c3c;
+        }
+        
+        .btn-danger:hover {
+            background: #c0392b;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 600px;
+        }
+        
+        .editor-section {
+            flex: 2;
+            min-width: 800px;
+            padding: 30px;
+            background: white;
+            overflow-x: auto;
+        }
+        
+        .preview-section {
+            flex: 1;
+            min-width: 400px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-left: 1px solid #eaeaea;
+        }
+        
+        .language-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .language-table th {
+            background: #4a6491;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+        
+        .language-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .language-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .language-table tr:hover {
+            background: #e8eff7;
+        }
+        
+        .key-cell {
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: #2c3e50;
+            min-width: 200px;
+        }
+        
+        .language-cell {
+            min-width: 250px;
+        }
+        
+        .language-cell textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 60px;
+            font-family: inherit;
+        }
+        
+        .action-cell {
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .action-btn {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .action-btn:hover {
+            background: #c0392b;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+        
+        .preview-header h2 {
+            color: #2c3e50;
+            font-size: 22px;
+        }
+        
+        .code-preview {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            height: 500px;
+            overflow: auto;
+            white-space: pre;
+            margin-bottom: 20px;
+        }
+        
+        .status-info {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .status-info.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .status-info.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4a6491;
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+        }
+        
+        .page-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .page-selector select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            min-width: 150px;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .editor-section {
+                border-right: none;
+                border-bottom: 1px solid #eaeaea;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>多语言JSON可视化编辑器</h1>
+            <p class="subtitle">支持功能名.页面名.key格式的可视化编辑</p>
+        </header>
+        
+        <div class="control-panel">
+            <div class="control-group">
+                <label for="functionName">功能名：</label>
+                <input type="text" id="functionName" placeholder="例如：romXXXX" >
+            </div>
+            
+            <div class="control-group">
+                <label for="pageNameInput">新页面名：</label>
+                <input type="text" id="pageNameInput" placeholder="例如：main">
+            </div>
+            
+            <button class="btn" id="addPageBtn">
+                <span>📄</span> 添加新页面
+            </button>
+            
+            <button class="btn" id="addRowBtn">
+                <span>➕</span> 添加新条目
+            </button>
+            
+            <button class="btn btn-success" id="generateJsonBtn">
+                <span>📥</span> 生成JSON文件
+            </button>
+            
+            <button class="btn" id="importJsonBtn">
+                <span>📁</span> 导入JSON
+            </button>
+            
+            <input type="file" id="fileInput" accept=".json" style="display: none;">
+        </div>
+        
+        <div class="main-content">
+            <div class="editor-section">
+                <div class="page-selector">
+                    <label for="currentPage">当前页面：</label>
+                    <select id="currentPage">
+                        <option value="main">默认页面</option>
+                    </select>
+                </div>
+                
+                <div class="empty-state" id="emptyState">
+                    <h3>暂无数据</h3>
+                    <p>请点击"添加新条目"按钮开始编辑，或导入现有的JSON文件</p>
+                </div>
+                
+                <table class="language-table" id="languageTable" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th>键名后缀 (Key Suffix)</th>
+                            <th>繁体中文 (zh_HK)</th>
+                            <th>简体中文 (zh_CN)</th>
+                            <th>英文 (en_US)</th>
+                            <th>操作</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- 动态生成的行将在这里 -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h2>JSON 预览</h2>
+                    <button class="btn btn-success" id="copyJsonBtn">
+                        <span>📋</span> 复制JSON
+                    </button>
+                </div>
+                
+                <div class="code-preview" id="codePreview">
+{
+  "bankId": "012",
+  "result": {
+    "zh_HK": {},
+    "zh_CN": {},
+    "en_US": {}
+  }
+}
+                </div>
+                
+                <div class="instructions">
+                    <h3>使用说明</h3>
+                    <ul>
+                        <li>在左侧表格中输入键名后缀和三种语言的文本内容</li>
+                        <li>系统会自动根据功能名和页面名生成完整键名</li>
+                        <li>支持多个页面，点击"添加新页面"按钮创建新页面</li>
+                        <li>点击"添加新条目"按钮新增翻译条目</li>
+                        <li>点击"生成JSON文件"按钮下载JSON文件</li>
+                        <li>点击"导入JSON"按钮可以导入现有的JSON文件进行编辑</li>
+                        <li>右侧预览区域实时显示生成的JSON格式</li>
+                    </ul>
+                </div>
+                
+                <div class="status-info" id="statusInfo"></div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>多页面JSON可视化编辑器 | 支持功能名.页面名.key格式</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const addRowBtn = document.getElementById('addRowBtn');
+            const addPageBtn = document.getElementById('addPageBtn');
+            const generateJsonBtn = document.getElementById('generateJsonBtn');
+            const importJsonBtn = document.getElementById('importJsonBtn');
+            const fileInput = document.getElementById('fileInput');
+            const copyJsonBtn = document.getElementById('copyJsonBtn');
+            const tableBody = document.getElementById('tableBody');
+            const languageTable = document.getElementById('languageTable');
+            const emptyState = document.getElementById('emptyState');
+            const codePreview = document.getElementById('codePreview');
+            const statusInfo = document.getElementById('statusInfo');
+            const functionName = document.getElementById('functionName');
+            const pageNameInput = document.getElementById('pageNameInput');
+            const currentPage = document.getElementById('currentPage');
+            
+            let tableData = {};
+            let rowCounter = 0;
+            let currentPageName = 'main';
+            
+            // 初始化默认页面
+            tableData[currentPageName] = [];
+            
+            // 添加新行
+            addRowBtn.addEventListener('click', () => {
+                addNewRow();
+                updatePreview();
+            });
+            
+            // 添加新页面
+            addPageBtn.addEventListener('click', () => {
+                const newPageName = pageNameInput.value.trim();
+                if (!newPageName) {
+                    showStatus('请输入页面名称', 'error');
+                    return;
+                }
+                addNewPage(newPageName);
+                pageNameInput.value = ''; // 清空输入框
+            });
+            
+            // 页面切换
+            currentPage.addEventListener('change', () => {
+                currentPageName = currentPage.value;
+                renderTable();
+                updatePreview();
+            });
+            
+            // 导入JSON
+            importJsonBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    handleFile(this.files[0]);
+                }
+            });
+            
+            // 生成JSON文件
+            generateJsonBtn.addEventListener('click', () => {
+                const jsonData = generateJsonData();
+                downloadJson(jsonData);
+            });
+            
+            // 复制JSON
+            copyJsonBtn.addEventListener('click', () => {
+                const jsonData = generateJsonData();
+                navigator.clipboard.writeText(JSON.stringify(jsonData, null, 2))
+                    .then(() => {
+                        showStatus('JSON已复制到剪贴板', 'success');
+                    })
+                    .catch(err => {
+                        showStatus('复制失败: ' + err, 'error');
+                    });
+            });
+            
+            // 处理上传的文件
+            function handleFile(file) {
+                if (file.type !== 'application/json') {
+                    showStatus('请上传JSON格式的文件', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        parseJsonToTable(jsonData);
+                        showStatus('JSON导入成功！', 'success');
+                    } catch (error) {
+                        showStatus('JSON解析错误：' + error.message, 'error');
+                    }
+                };
+                
+                reader.onerror = function() {
+                    showStatus('文件读取失败', 'error');
+                };
+                
+                reader.readAsText(file);
+            }
+            
+            // 解析JSON到表格
+            function parseJsonToTable(jsonData) {
+                tableData = {};
+                rowCounter = 0;
+                
+                // 检查JSON结构
+                if (!jsonData.result || !jsonData.result.zh_HK || !jsonData.result.zh_CN || !jsonData.result.en_US) {
+                    showStatus('JSON格式不正确，缺少必要的语言字段', 'error');
+                    return;
+                }
+                
+                // 获取所有键并按页面分组
+                const keys = Object.keys(jsonData.result.zh_HK);
+                const pages = {};
+                
+                keys.forEach(key => {
+                    const parts = key.split('.');
+                    if (parts.length >= 3) {
+                        // 第一部分是功能名，第二部分是页面名
+                        const func = parts[0];
+                        const page = parts[1];
+                        
+                        if (!pages[page]) {
+                            pages[page] = [];
+                        }
+                        
+                        const suffix = parts.slice(2).join('.');
+                        
+                        pages[page].push({
+                            id: rowCounter++,
+                            keySuffix: suffix,
+                            zh_HK: jsonData.result.zh_HK[key]?.text || '',
+                            zh_CN: jsonData.result.zh_CN[key]?.text || '',
+                            en_US: jsonData.result.en_US[key]?.text || ''
+                        });
+                    }
+                });
+                
+                // 更新页面选择器
+                currentPage.innerHTML = '';
+                Object.keys(pages).forEach(page => {
+                    const option = document.createElement('option');
+                    option.value = page;
+                    option.textContent = page;
+                    currentPage.appendChild(option);
+                });
+                
+                // 设置表格数据
+                tableData = pages;
+                currentPageName = Object.keys(pages)[0] || 'main';
+                currentPage.value = currentPageName;
+                
+                // 设置功能名
+                if (keys.length > 0) {
+                    const firstKey = keys[0];
+                    const parts = firstKey.split('.');
+                    if (parts.length >= 3) {
+                        functionName.value = parts[0];
+                    }
+                }
+                
+                renderTable();
+                updatePreview();
+            }
+            
+            // 添加新页面
+            function addNewPage(pageName) {
+                if (tableData[pageName]) {
+                    showStatus('页面已存在', 'error');
+                    return;
+                }
+                
+                tableData[pageName] = [];
+                
+                // 更新页面选择器
+                const option = document.createElement('option');
+                option.value = pageName;
+                option.textContent = pageName;
+                currentPage.appendChild(option);
+                
+                // 切换到新页面
+                currentPage.value = pageName;
+                currentPageName = pageName;
+                
+                renderTable();
+                updatePreview();
+                showStatus(`页面 "${pageName}" 创建成功`, 'success');
+            }
+            
+            // 添加新行
+            function addNewRow() {
+                if (!tableData[currentPageName]) {
+                    tableData[currentPageName] = [];
+                }
+                
+                const row = {
+                    id: rowCounter++,
+                    keySuffix: ``,
+                    zh_HK: '',
+                    zh_CN: '',
+                    en_US: ''
+                };
+                
+                tableData[currentPageName].push(row);
+                renderTable();
+            }
+            
+            // 渲染表格
+            function renderTable() {
+                tableBody.innerHTML = '';
+                
+                const currentData = tableData[currentPageName] || [];
+                
+                if (currentData.length === 0) {
+                    languageTable.style.display = 'none';
+                    emptyState.style.display = 'block';
+                    return;
+                }
+                
+                languageTable.style.display = 'table';
+                emptyState.style.display = 'none';
+                
+                currentData.forEach(row => {
+                    const tr = document.createElement('tr');
+                    
+                    // 键名后缀单元格
+                    const keyTd = document.createElement('td');
+                    keyTd.className = 'key-cell';
+                    const keyInput = document.createElement('input');
+                    keyInput.type = 'text';
+                    keyInput.value = row.keySuffix;
+                    keyInput.addEventListener('change', (e) => {
+                        row.keySuffix = e.target.value;
+                        updatePreview();
+                    });
+                    keyTd.appendChild(keyInput);
+                    tr.appendChild(keyTd);
+                    
+                    // 繁体中文单元格
+                    const zhHkTd = document.createElement('td');
+                    zhHkTd.className = 'language-cell';
+                    const zhHkTextarea = document.createElement('textarea');
+                    zhHkTextarea.value = row.zh_HK;
+                    zhHkTextarea.placeholder = '输入繁体中文';
+                    zhHkTextarea.addEventListener('change', (e) => {
+                        row.zh_HK = e.target.value;
+                        updatePreview();
+                    });
+                    zhHkTd.appendChild(zhHkTextarea);
+                    tr.appendChild(zhHkTd);
+                    
+                    // 简体中文单元格
+                    const zhCnTd = document.createElement('td');
+                    zhCnTd.className = 'language-cell';
+                    const zhCnTextarea = document.createElement('textarea');
+                    zhCnTextarea.value = row.zh_CN;
+                    zhCnTextarea.placeholder = '输入简体中文';
+                    zhCnTextarea.addEventListener('change', (e) => {
+                        row.zh_CN = e.target.value;
+                        updatePreview();
+                    });
+                    zhCnTd.appendChild(zhCnTextarea);
+                    tr.appendChild(zhCnTd);
+                    
+                    // 英文单元格
+                    const enUsTd = document.createElement('td');
+                    enUsTd.className = 'language-cell';
+                    const enUsTextarea = document.createElement('textarea');
+                    enUsTextarea.value = row.en_US;
+                    enUsTextarea.placeholder = '输入英文';
+                    enUsTextarea.addEventListener('change', (e) => {
+                        row.en_US = e.target.value;
+                        updatePreview();
+                    });
+                    enUsTd.appendChild(enUsTextarea);
+                    tr.appendChild(enUsTd);
+                    
+                    // 操作单元格
+                    const actionTd = document.createElement('td');
+                    actionTd.className = 'action-cell';
+                    const deleteBtn = document.createElement('button');
+                    deleteBtn.className = 'action-btn';
+                    deleteBtn.textContent = '删除';
+                    deleteBtn.addEventListener('click', () => {
+                        tableData[currentPageName] = tableData[currentPageName].filter(r => r.id !== row.id);
+                        renderTable();
+                        updatePreview();
+                    });
+                    actionTd.appendChild(deleteBtn);
+                    tr.appendChild(actionTd);
+                    
+                    tableBody.appendChild(tr);
+                });
+            }
+            
+            // 生成完整键名
+            function generateFullKey(suffix) {
+                const funcName = functionName.value.trim();
+                const pgName = currentPageName;
+                
+                if (!funcName || !pgName) {
+                    return suffix;
+                }
+                
+                // 格式：功能名.页面名.key后缀
+                return `${funcName}.${pgName}.${suffix}`;
+            }
+            
+            // 生成JSON数据
+            function generateJsonData() {
+                const result = {
+                    bankId: "012",
+                    result: {
+                        zh_HK: {},
+                        zh_CN: {},
+                        en_US: {}
+                    }
+                };
+                
+                Object.keys(tableData).forEach(page => {
+                    tableData[page].forEach(row => {
+                        if (row.keySuffix.trim() !== '') {
+                            const fullKey = generateFullKey(row.keySuffix);
+                            
+                            result.result.zh_HK[fullKey] = {
+                                text: row.zh_HK,
+                                color: "",
+                                regex: "",
+                                regexTips: ""
+                            };
+                            
+                            result.result.zh_CN[fullKey] = {
+                                text: row.zh_CN,
+                                color: "",
+                                regex: "",
+                                regexTips: ""
+                            };
+                            
+                            result.result.en_US[fullKey] = {
+                                text: row.en_US,
+                                color: "",
+                                regex: "",
+                                regexTips: ""
+                            };
+                        }
+                    });
+                });
+                
+                return result;
+            }
+            
+            // 更新预览
+            function updatePreview() {
+                const jsonData = generateJsonData();
+                codePreview.textContent = JSON.stringify(jsonData, null, 2);
+            }
+            
+            // 下载JSON文件
+            function downloadJson(jsonData) {
+                const content = JSON.stringify(jsonData, null, 2);
+                const blob = new Blob([content], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'multilingual.json';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showStatus('JSON文件生成成功！', 'success');
+            }
+            
+            // 显示状态信息
+            function showStatus(message, type) {
+                statusInfo.textContent = message;
+                statusInfo.className = 'status-info ' + type;
+                
+                // 3秒后自动隐藏
+                setTimeout(() => {
+                    statusInfo.style.display = 'none';
+                }, 3000);
+            }
+            
+            // 监听功能名的变化
+            functionName.addEventListener('input', updatePreview);
+            
+            // 初始化
+            addNewRow();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通用JSON到TypeScript枚举生成器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px 30px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .config-panel {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #eaeaea;
+        }
+        
+        .config-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .config-item {
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .config-item label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .config-item input, .config-item select {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        .main-content {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 500px;
+        }
+        
+        .upload-section {
+            flex: 1;
+            min-width: 300px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-right: 1px solid #eaeaea;
+        }
+        
+        .preview-section {
+            flex: 2;
+            min-width: 500px;
+            padding: 30px;
+            background: white;
+        }
+        
+        .drag-area {
+            border: 2px dashed #4a6491;
+            border-radius: 8px;
+            padding: 40px 20px;
+            text-align: center;
+            transition: all 0.3s;
+            background: #f0f4f8;
+            cursor: pointer;
+        }
+        
+        .drag-area.active {
+            border-color: #2c3e50;
+            background: #e8eff7;
+        }
+        
+        .drag-area i {
+            font-size: 50px;
+            color: #4a6491;
+            margin-bottom: 15px;
+        }
+        
+        .drag-area h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+        
+        .drag-area p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .browse-btn {
+            background: #4a6491;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        
+        .browse-btn:hover {
+            background: #2c3e50;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 15px;
+        }
+        
+        .preview-header h2 {
+            color: #2c3e50;
+            font-size: 22px;
+        }
+        
+        .download-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .download-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+        
+        .download-btn:hover:not(:disabled) {
+            background: #219653;
+        }
+        
+        .code-preview {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+            height: 400px;
+            overflow: auto;
+            white-space: pre;
+            margin-bottom: 20px;
+        }
+        
+        .status-info {
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        .status-info.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            display: block;
+        }
+        
+        .status-info.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            display: block;
+        }
+        
+        .instructions {
+            margin-top: 30px;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4a6491;
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eaeaea;
+        }
+        
+        @media (max-width: 768px) {
+            .main-content {
+                flex-direction: column;
+            }
+            
+            .upload-section {
+                border-right: none;
+                border-bottom: 1px solid #eaeaea;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>通用JSON到TypeScript枚举生成器</h1>
+            <p class="subtitle">支持提取第二段作为枚举名称的转换工具</p>
+        </header>
+        
+        <div class="config-panel">
+            <div class="config-group">
+                <div class="config-item">
+                    <label for="enumSource">枚举名称来源</label>
+                    <select id="enumSource">
+                        <option value="second">路径第二段（第一个点和第二个点之间）</option>
+                        <option value="third">路径第三段（第二个点和第三个点之间）</option>
+                        <option value="first">路径第一段（第一个点之前）</option>
+                        <option value="custom">自定义位置</option>
+                    </select>
+                </div>
+                
+                <div class="config-item">
+                    <label for="enumNameStyle">枚举命名风格</label>
+                    <select id="enumNameStyle">
+                        <option value="pascal">PascalCase（首字母大写）</option>
+                        <option value="camel">camelCase（驼峰式）</option>
+                        <option value="upper">UPPER_CASE（大写加下划线）</option>
+                    </select>
+                </div>
+                
+                <div class="config-item">
+                    <label for="keyNameStyle">键名风格</label>
+                    <select id="keyNameStyle">
+                        <option value="keep">保持原样</option>
+                        <option value="camel">转换为camelCase</option>
+                        <option value="pascal">转换为PascalCase</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="config-group">
+                <div class="config-item">
+                    <label for="customPosition" id="customPositionLabel" style="display: none;">自定义位置（从1开始）</label>
+                    <input type="number" id="customPosition" min="1" max="10" style="display: none;" placeholder="例如：2">
+                </div>
+                
+                <div class="config-item">
+                    <label for="rootPath">根路径过滤（前缀，可为空）</label>
+                    <input type="text" id="rootPath" placeholder="例如：romGbaRemittance（留空则处理所有路径）">
+                </div>
+                
+                <div class="config-item">
+                    <label for="fileStructure">JSON文件结构</label>
+                    <select id="fileStructure">
+                        <option value="auto">自动检测</option>
+                        <option value="flat">扁平结构（直接键值对）</option>
+                        <option value="nested">嵌套结构（含result/language层级）</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="upload-section">
+                <div class="drag-area" id="dragArea">
+                    <i>📁</i>
+                    <h3>拖放JSON文件到此处</h3>
+                    <p>或点击下方按钮选择文件</p>
+                    <span class="browse-btn" id="browseBtn">选择文件</span>
+                    <input type="file" class="file-input" id="fileInput" accept=".json">
+                </div>
+                
+                <div class="instructions">
+                    <h3>使用说明</h3>
+                    <ul>
+                        <li>拖放JSON文件到上方区域，或点击"选择文件"按钮</li>
+                        <li>现在支持提取路径第二段作为枚举名称（如：romGbaRemittance.payeeInput.btnBack → PayeeInputKey）</li>
+                        <li>系统将自动识别不同根路径并生成对应的TypeScript枚举</li>
+                        <li>生成的代码将显示在右侧预览区域</li>
+                        <li>点击"下载TS文件"按钮保存生成的枚举代码</li>
+                    </ul>
+                    <p><strong>枚举名称提取示例:</strong></p>
+                    <ul>
+                        <li>romGbaRemittance.payeeInput.btnBack → PayeeInputKey</li>
+                        <li>anotherApp.userManagement.saveButton → UserManagementKey</li>
+                        <li>myApp.dataProcessing.exportFunction → DataProcessingKey</li>
+                    </ul>
+                </div>
+                
+                <div class="status-info" id="statusInfo"></div>
+            </div>
+            
+            <div class="preview-section">
+                <div class="preview-header">
+                    <h2>TypeScript 枚举预览</h2>
+                    <button class="download-btn" id="downloadBtn" disabled>
+                        <span>📥</span> 下载TS文件
+                    </button>
+                </div>
+                
+                <div class="code-preview" id="codePreview">
+// 生成的枚举将显示在这里
+// 请上传JSON文件开始生成
+                </div>
+                
+                <div class="instructions">
+                    <h3>配置说明</h3>
+                    <ul>
+                        <li><strong>枚举名称来源</strong>: 定义从路径的哪个段提取枚举名称（默认第二段）</li>
+                        <li><strong>枚举命名风格</strong>: 控制生成的枚举名称格式</li>
+                        <li><strong>键名风格</strong>: 控制枚举中键的命名格式</li>
+                        <li><strong>根路径过滤</strong>: 可选的路径前缀，用于过滤特定应用</li>
+                        <li><strong>JSON文件结构</strong>: 根据实际JSON结构选择相应的解析方式</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>通用JSON到TypeScript枚举生成器 | 支持提取第二段作为枚举名称的转换工具</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const dragArea = document.getElementById('dragArea');
+            const fileInput = document.getElementById('fileInput');
+            const browseBtn = document.getElementById('browseBtn');
+            const codePreview = document.getElementById('codePreview');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const statusInfo = document.getElementById('statusInfo');
+            const enumSource = document.getElementById('enumSource');
+            const customPosition = document.getElementById('customPosition');
+            const customPositionLabel = document.getElementById('customPositionLabel');
+            const enumNameStyle = document.getElementById('enumNameStyle');
+            const keyNameStyle = document.getElementById('keyNameStyle');
+            const rootPath = document.getElementById('rootPath');
+            const fileStructure = document.getElementById('fileStructure');
+            
+            // 显示/隐藏自定义位置输入
+            enumSource.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customPosition.style.display = 'block';
+                    customPositionLabel.style.display = 'block';
+                } else {
+                    customPosition.style.display = 'none';
+                    customPositionLabel.style.display = 'none';
+                }
+            });
+            
+            // 点击浏览按钮触发文件选择
+            browseBtn.addEventListener('click', () => {
+                fileInput.click();
+            });
+            
+            // 文件选择变化事件
+            fileInput.addEventListener('change', function() {
+                if (this.files.length > 0) {
+                    handleFile(this.files[0]);
+                }
+            });
+            
+            // 拖放事件处理
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dragArea.addEventListener(eventName, preventDefaults, false);
+            });
+            
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dragArea.addEventListener(eventName, () => {
+                    dragArea.classList.add('active');
+                }, false);
+            });
+            
+            ['dragleave', 'drop'].forEach(eventName => {
+                dragArea.addEventListener(eventName, () => {
+                    dragArea.classList.remove('active');
+                }, false);
+            });
+            
+            dragArea.addEventListener('drop', (e) => {
+                const files = e.dataTransfer.files;
+                if (files.length > 0) {
+                    handleFile(files[0]);
+                }
+            }, false);
+            
+            // 处理上传的文件
+            function handleFile(file) {
+                if (file.type !== 'application/json') {
+                    showStatus('请上传JSON格式的文件', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const jsonData = JSON.parse(e.target.result);
+                        const tsCode = generateTypeScriptEnums(jsonData);
+                        
+                        codePreview.textContent = tsCode;
+                        downloadBtn.disabled = false;
+                        
+                        showStatus('枚举生成成功！', 'success');
+                    } catch (error) {
+                        showStatus('JSON解析错误：' + error.message, 'error');
+                    }
+                };
+                
+                reader.onerror = function() {
+                    showStatus('文件读取失败', 'error');
+                };
+                
+                reader.readAsText(file);
+            }
+            
+            // 字符串转换辅助函数
+            function toPascalCase(str) {
+                if (!str) return '';
+                return str.replace(/(\w)(\w*)/g, function(_, first, rest) {
+                    return first.toUpperCase() + rest.toLowerCase();
+                }).replace(/[^a-zA-Z0-9]/g, '');
+            }
+            
+            function toCamelCase(str) {
+                if (!str) return '';
+                return str.replace(/[^a-zA-Z0-9]+(.)/g, function(match, chr) {
+                    return chr.toUpperCase();
+                });
+            }
+            
+            function toUpperCase(str) {
+                if (!str) return '';
+                return str.replace(/[^a-zA-Z0-9]/g, '_').toUpperCase();
+            }
+            
+            // 检测JSON结构类型
+            function detectStructure(jsonData) {
+                if (jsonData.result && typeof jsonData.result === 'object') {
+                    const firstLang = Object.keys(jsonData.result)[0];
+                    if (jsonData.result[firstLang] && typeof jsonData.result[firstLang] === 'object') {
+                        return 'nested';
+                    }
+                }
+                return 'flat';
+            }
+            
+            // 从路径中提取枚举名称
+            function extractEnumNameFromPath(path) {
+                const parts = path.split('.');
+                
+                // 确定要提取的位置
+                let position;
+                switch (enumSource.value) {
+                    case 'first':
+                        position = 0;
+                        break;
+                    case 'second':
+                        position = 1;
+                        break;
+                    case 'third':
+                        position = 2;
+                        break;
+                    case 'custom':
+                        position = parseInt(customPosition.value) - 1 || 1;
+                        break;
+                    default:
+                        position = 1; // 默认第二段
+                }
+                
+                // 检查位置是否有效
+                if (position < 0 || position >= parts.length) {
+                    // 如果位置无效，使用最后一段
+                    return parts[parts.length - 1] || 'Global';
+                }
+                
+                return parts[position];
+            }
+            
+            // 生成TypeScript枚举代码
+            function generateTypeScriptEnums(jsonData) {
+                // 检测文件结构
+                let structure = fileStructure.value;
+                if (structure === 'auto') {
+                    structure = detectStructure(jsonData);
+                }
+                
+                // 根据文件结构获取数据
+                let data = jsonData;
+                if (structure === 'nested' && jsonData.result) {
+                    // 获取第一个语言的数据
+                    const firstLang = Object.keys(jsonData.result)[0];
+                    data = jsonData.result[firstLang];
+                }
+                
+                // 按枚举名称分组
+                const enums = {};
+                const rootPaths = new Set();
+                
+                Object.keys(data).forEach(key => {
+                    // 检查根路径过滤
+                    const rootPathValue = rootPath.value.trim();
+                    if (rootPathValue && !key.startsWith(rootPathValue + '.')) {
+                        return;
+                    }
+                    
+                    // 记录根路径用于统计
+                    const firstDotIndex = key.indexOf('.');
+                    if (firstDotIndex > 0) {
+                        rootPaths.add(key.substring(0, firstDotIndex));
+                    }
+                    
+                    // 提取枚举名称
+                    const enumName = extractEnumNameFromPath(key);
+                    if (!enumName) return;
+                    
+                    // 提取字段名（最后一段）
+                    const parts = key.split('.');
+                    let fieldName = parts[parts.length - 1];
+                    
+                    if (!enums[enumName]) {
+                        enums[enumName] = [];
+                    }
+                    
+                    // 应用键名风格
+                    let formattedFieldName = fieldName;
+                    switch (keyNameStyle.value) {
+                        case 'camel':
+                            formattedFieldName = toCamelCase(fieldName);
+                            break;
+                        case 'pascal':
+                            formattedFieldName = toPascalCase(fieldName);
+                            break;
+                        default:
+                            // 保持原样
+                            break;
+                    }
+                    
+                    // 检查重复字段名
+                    let finalFieldName = formattedFieldName;
+                    let counter = 1;
+                    while (enums[enumName].some(item => item.field === finalFieldName)) {
+                        finalFieldName = `${formattedFieldName}_${counter}`;
+                        counter++;
+                    }
+                    
+                    enums[enumName].push({
+                        field: finalFieldName,
+                        fullPath: key
+                    });
+                });
+                
+                // 生成枚举代码
+                let tsCode = '// 由JSON自动生成的TypeScript枚举\n';
+                tsCode += '// 生成时间: ' + new Date().toLocaleString() + '\n';
+                tsCode += '// 检测到的根路径: ' + Array.from(rootPaths).join(', ') + '\n';
+                tsCode += '// 配置: 枚举来源=' + enumSource.value + ', 枚举风格=' + enumNameStyle.value + ', 键名风格=' + keyNameStyle.value + '\n\n';
+                
+                Object.keys(enums).forEach(enumBaseName => {
+                    // 应用枚举命名风格
+                    let enumName;
+                    switch (enumNameStyle.value) {
+                        case 'camel':
+                            enumName = toCamelCase(enumBaseName) + 'Key';
+                            break;
+                        case 'upper':
+                            enumName = toUpperCase(enumBaseName) + '_KEY';
+                            break;
+                        case 'pascal':
+                        default:
+                            enumName = toPascalCase(enumBaseName) + 'Key';
+                            break;
+                    }
+                    
+                    tsCode += `export enum ${enumName} {\n`;
+                    
+                    enums[enumBaseName].forEach(item => {
+                        tsCode += `  ${item.field} = '${item.fullPath}',\n`;
+                    });
+                    
+                    tsCode += '}\n\n';
+                });
+                
+                if (Object.keys(enums).length === 0) {
+                    tsCode = '// 未找到匹配的键值对，请检查配置参数和JSON文件结构\n';
+                    tsCode += '// 检测到的所有键: ' + JSON.stringify(Object.keys(data), null, 2);
+                }
+                
+                return tsCode;
+            }
+            
+            // 显示状态信息
+            function showStatus(message, type) {
+                statusInfo.textContent = message;
+                statusInfo.className = 'status-info ' + type;
+            }
+            
+            // 下载TS文件
+            downloadBtn.addEventListener('click', function() {
+                const content = codePreview.textContent;
+                const blob = new Blob([content], { type: 'text/plain' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'generated-enums.ts';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+        });
+    </script>
+</body>
+</html>

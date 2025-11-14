@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON对比工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+        
+        .file-upload-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .file-upload-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .file-upload {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .file-upload:hover {
+            background: #f8f9fa;
+            border-color: #2980b9;
+        }
+        
+        .file-upload.active {
+            border-color: #27ae60;
+            background: #f0fff4;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-name {
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .compare-btn-container {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .compare-btn {
+            background: #e67e22;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background 0.3s;
+        }
+        
+        .compare-btn:hover:not(:disabled) {
+            background: #d35400;
+        }
+        
+        .compare-btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+        }
+        
+        .preview-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .download-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #219a52;
+        }
+        
+        .comparison-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        @media (max-width: 1024px) {
+            .comparison-results {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .result-section {
+            border: 1px solid #eee;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .result-header {
+            background: #34495e;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+        }
+        
+        .result-content {
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .diff-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        .diff-table th {
+            background: #2c3e50;
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .diff-table td {
+            padding: 8px 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .diff-table tr.added {
+            background: #d4edda;
+        }
+        
+        .diff-table tr.removed {
+            background: #f8d7da;
+        }
+        
+        .diff-table tr.modified {
+            background: #fff3cd;
+        }
+        
+        .diff-table tr.unchanged {
+            background: #f8f9fa;
+        }
+        
+        .key-column {
+            width: 40%;
+            font-weight: bold;
+        }
+        
+        .value-column {
+            width: 30%;
+        }
+        
+        .status-column {
+            width: 30%;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .summary-section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        
+        .summary-item {
+            text-align: center;
+            padding: 15px;
+            border-radius: 5px;
+            color: white;
+        }
+        
+        .summary-added {
+            background: #28a745;
+        }
+        
+        .summary-removed {
+            background: #dc3545;
+        }
+        
+        .summary-modified {
+            background: #ffc107;
+            color: #212529;
+        }
+        
+        .summary-unchanged {
+            background: #6c757d;
+        }
+        
+        .summary-count {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .instructions {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JSON对比工具</h1>
+            <p class="subtitle">比较两个JSON文件的差异，生成详细的对比报告Word文档</p>
+        </header>
+        
+        <div class="upload-section">
+            <h2>上传JSON文件</h2>
+            <div class="file-upload-container">
+                <div class="file-upload" id="fileUpload1">
+                    <div class="upload-icon">📁</div>
+                    <p>点击上传第一个JSON文件</p>
+                    <p class="file-name" id="fileName1">未选择文件</p>
+                    <input type="file" id="jsonFile1" class="file-input" accept=".json">
+                </div>
+                
+                <div class="file-upload" id="fileUpload2">
+                    <div class="upload-icon">📁</div>
+                    <p>点击上传第二个JSON文件</p>
+                    <p class="file-name" id="fileName2">未选择文件</p>
+                    <input type="file" id="jsonFile2" class="file-input" accept=".json">
+                </div>
+            </div>
+            
+            <div class="compare-btn-container">
+                <button class="compare-btn" id="compareBtn" disabled>开始对比</button>
+            </div>
+            
+            <p class="error-message" id="errorMessage">请上传两个有效的JSON文件</p>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>正在对比JSON文件...</p>
+        </div>
+        
+        <div class="summary-section" id="summarySection">
+            <h2>对比摘要</h2>
+            <div class="summary-grid" id="summaryGrid">
+                <!-- 摘要内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <div class="preview-section" id="previewSection">
+            <div class="preview-header">
+                <h2 class="preview-title">对比结果预览</h2>
+                <button class="download-btn" id="downloadBtn">下载Word报告</button>
+            </div>
+            
+            <div class="comparison-results">
+                <div class="result-section">
+                    <div class="result-header">文件1独有的Key</div>
+                    <div class="result-content" id="file1Only">
+                        <!-- 文件1独有的Key将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="result-section">
+                    <div class="result-header">文件2独有的Key</div>
+                    <div class="result-content" id="file2Only">
+                        <!-- 文件2独有的Key将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <div class="result-section" style="grid-column: 1 / -1;">
+                    <div class="result-header">值不同的Key</div>
+                    <div class="result-content" id="differentValues">
+                        <!-- 值不同的Key将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>使用说明</h2>
+            <ol>
+                <li>上传两个需要对比的JSON文件</li>
+                <li>点击"开始对比"按钮进行对比分析</li>
+                <li>查看对比摘要和详细差异结果</li>
+                <li>点击"下载Word报告"获取完整的对比文档</li>
+            </ol>
+            <p><strong>对比结果说明：</strong></p>
+            <ul>
+                <li><span style="color: #dc3545;">红色</span>：仅在文件1中存在的Key</li>
+                <li><span style="color: #28a745;">绿色</span>：仅在文件2中存在的Key</li>
+                <li><span style="color: #ffc107;">黄色</span>：两个文件中都存在但值不同的Key</li>
+                <li><span style="color: #6c757d;">灰色</span>：两个文件中都存在且值相同的Key</li>
+            </ul>
+        </div>
+        
+        <footer>
+            <p>JSON对比工具 &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const fileUpload1 = document.getElementById('fileUpload1');
+            const fileUpload2 = document.getElementById('fileUpload2');
+            const fileInput1 = document.getElementById('jsonFile1');
+            const fileInput2 = document.getElementById('jsonFile2');
+            const fileName1 = document.getElementById('fileName1');
+            const fileName2 = document.getElementById('fileName2');
+            const compareBtn = document.getElementById('compareBtn');
+            const previewSection = document.getElementById('previewSection');
+            const summarySection = document.getElementById('summarySection');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            
+            const file1OnlyDiv = document.getElementById('file1Only');
+            const file2OnlyDiv = document.getElementById('file2Only');
+            const differentValuesDiv = document.getElementById('differentValues');
+            const summaryGrid = document.getElementById('summaryGrid');
+            
+            let jsonData1 = null;
+            let jsonData2 = null;
+            let comparisonResults = null;
+            
+            // 文件上传事件
+            fileUpload1.addEventListener('click', function() {
+                fileInput1.click();
+            });
+            
+            fileUpload2.addEventListener('click', function() {
+                fileInput2.click();
+            });
+            
+            fileInput1.addEventListener('change', function() {
+                handleFileSelect(this, fileName1, fileUpload1, 1);
+            });
+            
+            fileInput2.addEventListener('change', function() {
+                handleFileSelect(this, fileName2, fileUpload2, 2);
+            });
+            
+            function handleFileSelect(input, fileNameElement, uploadElement, fileNumber) {
+                const file = input.files[0];
+                if (!file) return;
+                
+                if (!file.name.endsWith('.json')) {
+                    errorMessage.textContent = '请上传有效的JSON文件';
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                errorMessage.style.display = 'none';
+                fileNameElement.textContent = file.name;
+                uploadElement.classList.add('active');
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        if (fileNumber === 1) {
+                            jsonData1 = data;
+                        } else {
+                            jsonData2 = data;
+                        }
+                        
+                        // 检查是否两个文件都已上传
+                        if (jsonData1 && jsonData2) {
+                            compareBtn.disabled = false;
+                        }
+                    } catch (error) {
+                        errorMessage.textContent = `文件${fileNumber}解析错误：${error.message}`;
+                        errorMessage.style.display = 'block';
+                    }
+                };
+                
+                reader.onerror = function() {
+                    errorMessage.textContent = `文件${fileNumber}读取错误`;
+                    errorMessage.style.display = 'block';
+                };
+                
+                reader.readAsText(file);
+            }
+            
+            // 对比按钮点击事件
+            compareBtn.addEventListener('click', function() {
+                if (!jsonData1 || !jsonData2) return;
+                
+                loading.style.display = 'block';
+                previewSection.style.display = 'none';
+                summarySection.style.display = 'none';
+                
+                // 使用setTimeout让UI有机会更新
+                setTimeout(function() {
+                    compareJsonFiles();
+                }, 100);
+            });
+            
+            function compareJsonFiles() {
+                // 提取繁体中文数据
+                const data1 = extractChineseData(jsonData1);
+                const data2 = extractChineseData(jsonData2);
+                
+                // 对比结果
+                comparisonResults = {
+                    file1Only: [],
+                    file2Only: [],
+                    differentValues: [],
+                    sameValues: []
+                };
+                
+                // 获取所有唯一的key
+                const allKeys = new Set([...Object.keys(data1), ...Object.keys(data2)]);
+                
+                // 对比每个key
+                allKeys.forEach(key => {
+                    const value1 = data1[key];
+                    const value2 = data2[key];
+                    
+                    if (value1 === undefined) {
+                        // 只在文件2中存在
+                        comparisonResults.file2Only.push({
+                            key: key,
+                            value: value2
+                        });
+                    } else if (value2 === undefined) {
+                        // 只在文件1中存在
+                        comparisonResults.file1Only.push({
+                            key: key,
+                            value: value1
+                        });
+                    } else if (JSON.stringify(value1) !== JSON.stringify(value2)) {
+                        // 两个文件中都存在但值不同
+                        comparisonResults.differentValues.push({
+                            key: key,
+                            value1: value1,
+                            value2: value2
+                        });
+                    } else {
+                        // 两个文件中都存在且值相同
+                        comparisonResults.sameValues.push({
+                            key: key,
+                            value: value1
+                        });
+                    }
+                });
+                
+                // 生成预览
+                generateComparisonPreview();
+                
+                loading.style.display = 'none';
+                previewSection.style.display = 'block';
+                summarySection.style.display = 'block';
+            }
+            
+            function extractChineseData(jsonData) {
+                let chineseData = {};
+                
+                // 尝试不同的数据结构
+                if (jsonData.result && jsonData.result.zh_HK) {
+                    chineseData = jsonData.result.zh_HK;
+                } else if (jsonData.zh_HK) {
+                    chineseData = jsonData.zh_HK;
+                } else if (jsonData.result && jsonData.result.zh_TW) {
+                    chineseData = jsonData.result.zh_TW;
+                } else if (jsonData.zh_TW) {
+                    chineseData = jsonData.zh_TW;
+                } else {
+                    // 如果没有找到特定结构，返回整个JSON
+                    chineseData = jsonData;
+                }
+                
+                // 提取text字段的值
+                const result = {};
+                for (const key in chineseData) {
+                    if (chineseData[key] && typeof chineseData[key] === 'object' && chineseData[key].text !== undefined) {
+                        result[key] = chineseData[key].text;
+                    } else {
+                        result[key] = chineseData[key];
+                    }
+                }
+                
+                return result;
+            }
+            
+            function generateComparisonPreview() {
+                // 清空现有内容
+                file1OnlyDiv.innerHTML = '';
+                file2OnlyDiv.innerHTML = '';
+                differentValuesDiv.innerHTML = '';
+                summaryGrid.innerHTML = '';
+                
+                // 生成摘要
+                generateSummary();
+                
+                // 生成文件1独有的Key表格
+                if (comparisonResults.file1Only.length > 0) {
+                    const table = createTable(['Key', 'Value'], 'removed');
+                    comparisonResults.file1Only.forEach(item => {
+                        addTableRow(table, [item.key, item.value], 'removed');
+                    });
+                    file1OnlyDiv.appendChild(table);
+                } else {
+                    file1OnlyDiv.innerHTML = '<p>没有找到文件1独有的Key</p>';
+                }
+                
+                // 生成文件2独有的Key表格
+                if (comparisonResults.file2Only.length > 0) {
+                    const table = createTable(['Key', 'Value'], 'added');
+                    comparisonResults.file2Only.forEach(item => {
+                        addTableRow(table, [item.key, item.value], 'added');
+                    });
+                    file2OnlyDiv.appendChild(table);
+                } else {
+                    file2OnlyDiv.innerHTML = '<p>没有找到文件2独有的Key</p>';
+                }
+                
+                // 生成值不同的Key表格
+                if (comparisonResults.differentValues.length > 0) {
+                    const table = createTable(['Key', '文件1值', '文件2值'], 'modified');
+                    comparisonResults.differentValues.forEach(item => {
+                        addTableRow(table, [item.key, item.value1, item.value2], 'modified');
+                    });
+                    differentValuesDiv.appendChild(table);
+                } else {
+                    differentValuesDiv.innerHTML = '<p>没有找到值不同的Key</p>';
+                }
+            }
+            
+            function generateSummary() {
+                const summaryItems = [
+                    {
+                        type: 'added',
+                        title: '新增Key',
+                        count: comparisonResults.file2Only.length,
+                        color: 'summary-added'
+                    },
+                    {
+                        type: 'removed',
+                        title: '删除Key',
+                        count: comparisonResults.file1Only.length,
+                        color: 'summary-removed'
+                    },
+                    {
+                        type: 'modified',
+                        title: '修改Key',
+                        count: comparisonResults.differentValues.length,
+                        color: 'summary-modified'
+                    },
+                    {
+                        type: 'unchanged',
+                        title: '未变化Key',
+                        count: comparisonResults.sameValues.length,
+                        color: 'summary-unchanged'
+                    }
+                ];
+                
+                summaryItems.forEach(item => {
+                    const summaryItem = document.createElement('div');
+                    summaryItem.className = `summary-item ${item.color}`;
+                    summaryItem.innerHTML = `
+                        <div class="summary-count">${item.count}</div>
+                        <div>${item.title}</div>
+                    `;
+                    summaryGrid.appendChild(summaryItem);
+                });
+            }
+            
+            function createTable(headers, className) {
+                const table = document.createElement('table');
+                table.className = `diff-table ${className}`;
+                
+                const thead = document.createElement('thead');
+                const headerRow = document.createElement('tr');
+                
+                headers.forEach(header => {
+                    const th = document.createElement('th');
+                    th.textContent = header;
+                    headerRow.appendChild(th);
+                });
+                
+                thead.appendChild(headerRow);
+                table.appendChild(thead);
+                
+                const tbody = document.createElement('tbody');
+                table.appendChild(tbody);
+                
+                return table;
+            }
+            
+            function addTableRow(table, values, className) {
+                const tbody = table.querySelector('tbody');
+                const row = document.createElement('tr');
+                row.className = className;
+                
+                values.forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = value;
+                    row.appendChild(td);
+                });
+                
+                tbody.appendChild(row);
+            }
+            
+            // 下载Word报告
+            downloadBtn.addEventListener('click', function() {
+                if (!comparisonResults) return;
+                
+                // 创建Word文档内容
+                let wordContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+                      xmlns:w="urn:schemas-microsoft-com:office:word" 
+                      xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>JSON对比报告</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; margin: 20px; }
+                        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+                        h2 { color: #3498db; margin-top: 30px; }
+                        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                        th { background-color: #3498db; color: white; }
+                        .added { background-color: #d4edda; }
+                        .removed { background-color: #f8d7da; }
+                        .modified { background-color: #fff3cd; }
+                        .summary-table { width: 80%; margin: 20px auto; }
+                        .summary-cell { text-align: center; padding: 10px; color: white; font-weight: bold; }
+                        .summary-added { background-color: #28a745; }
+                        .summary-removed { background-color: #dc3545; }
+                        .summary-modified { background-color: #ffc107; color: #212529; }
+                        .summary-unchanged { background-color: #6c757d; }
+                    </style>
+                </head>
+                <body>
+                    <h1>JSON文件对比报告</h1>
+                    <p>生成时间: ${new Date().toLocaleString()}</p>
+                    
+                    <h2>对比摘要</h2>
+                    <table class="summary-table">
+                        <tr>
+                            <td class="summary-cell summary-added">新增Key: ${comparisonResults.file2Only.length}</td>
+                            <td class="summary-cell summary-removed">删除Key: ${comparisonResults.file1Only.length}</td>
+                            <td class="summary-cell summary-modified">修改Key: ${comparisonResults.differentValues.length}</td>
+                            <td class="summary-cell summary-unchanged">未变化Key: ${comparisonResults.sameValues.length}</td>
+                        </tr>
+                    </table>
+                `;
+                
+                // 添加文件1独有的Key
+                if (comparisonResults.file1Only.length > 0) {
+                    wordContent += `<h2>文件1独有的Key (${comparisonResults.file1Only.length}个)</h2>`;
+                    wordContent += `<table class="removed"><tr><th>Key</th><th>Value</th></tr>`;
+                    
+                    comparisonResults.file1Only.forEach(item => {
+                        wordContent += `<tr class="removed"><td>${item.key}</td><td>${item.value}</td></tr>`;
+                    });
+                    
+                    wordContent += `</table>`;
+                }
+                
+                // 添加文件2独有的Key
+                if (comparisonResults.file2Only.length > 0) {
+                    wordContent += `<h2>文件2独有的Key (${comparisonResults.file2Only.length}个)</h2>`;
+                    wordContent += `<table class="added"><tr><th>Key</th><th>Value</th></tr>`;
+                    
+                    comparisonResults.file2Only.forEach(item => {
+                        wordContent += `<tr class="added"><td>${item.key}</td><td>${item.value}</td></tr>`;
+                    });
+                    
+                    wordContent += `</table>`;
+                }
+                
+                // 添加值不同的Key
+                if (comparisonResults.differentValues.length > 0) {
+                    wordContent += `<h2>值不同的Key (${comparisonResults.differentValues.length}个)</h2>`;
+                    wordContent += `<table class="modified"><tr><th>Key</th><th>文件1值</th><th>文件2值</th></tr>`;
+                    
+                    comparisonResults.differentValues.forEach(item => {
+                        wordContent += `<tr class="modified"><td>${item.key}</td><td>${item.value1}</td><td>${item.value2}</td></tr>`;
+                    });
+                    
+                    wordContent += `</table>`;
+                }
+                
+                wordContent += `</body></html>`;
+                
+                // 创建Blob并下载
+                const blob = new Blob([wordContent], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'json_comparison_report.doc';
+                document.body.appendChild(a);
+                a.click();
+                
+                // 清理
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
