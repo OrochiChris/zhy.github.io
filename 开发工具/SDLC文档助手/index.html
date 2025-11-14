@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON二级分组转Word工具</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2rem;
+        }
+        
+        .upload-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 2px dashed #3498db;
+            border-radius: 10px;
+            padding: 40px 20px;
+            margin: 20px 0;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .upload-area:hover {
+            background: #f8f9fa;
+            border-color: #2980b9;
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: #3498db;
+            margin-bottom: 15px;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .preview-section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            display: none;
+        }
+        
+        .preview-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .preview-title {
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        .download-btn {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .download-btn:hover {
+            background: #219a52;
+        }
+        
+        .preview-content {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 15px;
+            background: #f8f9fa;
+        }
+        
+        .group-section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .group-header {
+            background: #3498db;
+            color: white;
+            padding: 12px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .group-content {
+            display: none;
+            padding: 0;
+        }
+        
+        .group-content.expanded {
+            display: block;
+        }
+        
+        .subgroup-section {
+            margin: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .subgroup-header {
+            background: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .subgroup-content {
+            display: none;
+            padding: 0;
+        }
+        
+        .subgroup-content.expanded {
+            display: block;
+        }
+        
+        .word-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        
+        .word-table th {
+            background: #34495e;
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+        
+        .word-table td {
+            padding: 10px 15px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .word-table tr:nth-child(even) {
+            background: #f2f2f2;
+        }
+        
+        .word-table tr:hover {
+            background: #e9f7fe;
+        }
+        
+        .key-column {
+            width: 40%;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .value-column {
+            width: 60%;
+        }
+        
+        .instructions {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .instructions ol {
+            margin-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            margin-top: 10px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .toggle-icon {
+            font-size: 1.2rem;
+        }
+        
+        .stats {
+            font-size: 0.8rem;
+            color: #bdc3c7;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>JSON二级分组转Word工具</h1>
+            <p class="subtitle">将JSON文件内容按前两个点进行二级分组，生成Word文档</p>
+        </header>
+        
+        <div class="upload-section">
+            <h2>上传JSON文件</h2>
+            <div class="upload-area" id="uploadArea">
+                <div class="upload-icon">📁</div>
+                <p>点击或拖拽JSON文件到此区域</p>
+                <p class="file-types">支持 .json 文件</p>
+                <input type="file" id="jsonFile" class="file-input" accept=".json">
+            </div>
+            <p class="error-message" id="errorMessage">文件格式不正确，请上传有效的JSON文件</p>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>正在处理JSON文件...</p>
+        </div>
+        
+        <div class="preview-section" id="previewSection">
+            <div class="preview-header">
+                <h2 class="preview-title">Word文档预览（二级分组）</h2>
+                <button class="download-btn" id="downloadBtn">下载Word文档</button>
+            </div>
+            <div class="preview-content" id="previewContent">
+                <!-- 分组内容将通过JavaScript动态生成 -->
+            </div>
+        </div>
+        
+        <div class="instructions">
+            <h2>使用说明</h2>
+            <ol>
+                <li>上传包含繁体中文数据的JSON文件</li>
+                <li>系统将自动解析JSON内容并按前两个点进行二级分组</li>
+                <li>预览生成的Word文档格式（可展开/折叠分组）</li>
+                <li>点击"下载Word文档"按钮获取最终文档</li>
+            </ol>
+            <p><strong>二级分组规则：</strong></p>
+            <ul>
+                <li>第一级分组：key中第一个点(.)之前的部分</li>
+                <li>第二级分组：key中第二个点(.)之前的部分</li>
+                <li>例如：romGbaRemittance.amountInput.tvTitle → 第一级：romGbaRemittance，第二级：romGbaRemittance.amountInput</li>
+            </ul>
+            <p><strong>JSON文件示例结构：</strong></p>
+            <pre>{
+  "result": {
+    "zh_HK": {
+      "romGbaRemittance.amountInput.tvTitle": {"text": "輸入金額"},
+      "romGbaRemittance.amountInput.tvBackTitle": {"text": "確認離開？"},
+      "romGbaRemittance.payeeInput.tvTitle": {"text": "收款人資料"},
+      "romGbaRemittance.confirm.tvTitle": {"text": "請確認以下資料"}
+    }
+  }
+}</pre>
+        </div>
+        
+        <footer>
+            <p>JSON二级分组转Word工具 &copy; 2023</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('uploadArea');
+            const fileInput = document.getElementById('jsonFile');
+            const previewSection = document.getElementById('previewSection');
+            const previewContent = document.getElementById('previewContent');
+            const downloadBtn = document.getElementById('downloadBtn');
+            const errorMessage = document.getElementById('errorMessage');
+            const loading = document.getElementById('loading');
+            
+            let jsonData = null;
+            let groupedData = {};
+            
+            // 点击上传区域触发文件选择
+            uploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            // 拖拽功能
+            uploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#2980b9';
+                uploadArea.style.background = '#f0f8ff';
+            });
+            
+            uploadArea.addEventListener('dragleave', function() {
+                uploadArea.style.borderColor = '#3498db';
+                uploadArea.style.background = '';
+            });
+            
+            uploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#3498db';
+                uploadArea.style.background = '';
+                
+                if (e.dataTransfer.files.length) {
+                    fileInput.files = e.dataTransfer.files;
+                    handleFileSelect();
+                }
+            });
+            
+            // 文件选择变化
+            fileInput.addEventListener('change', handleFileSelect);
+            
+            function handleFileSelect() {
+                const file = fileInput.files[0];
+                if (!file) return;
+                
+                // 检查文件类型
+                if (!file.name.endsWith('.json')) {
+                    errorMessage.style.display = 'block';
+                    return;
+                }
+                
+                errorMessage.style.display = 'none';
+                loading.style.display = 'block';
+                previewSection.style.display = 'none';
+                
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    try {
+                        jsonData = JSON.parse(e.target.result);
+                        processJsonData();
+                    } catch (error) {
+                        errorMessage.textContent = 'JSON解析错误：' + error.message;
+                        errorMessage.style.display = 'block';
+                        loading.style.display = 'none';
+                    }
+                };
+                
+                reader.onerror = function() {
+                    errorMessage.textContent = '文件读取错误';
+                    errorMessage.style.display = 'block';
+                    loading.style.display = 'none';
+                };
+                
+                reader.readAsText(file);
+            }
+            
+            function processJsonData() {
+                // 清空预览内容
+                previewContent.innerHTML = '';
+                groupedData = {};
+                
+                // 提取繁体中文数据
+                let zhHkData = {};
+                
+                if (jsonData.result && jsonData.result.zh_HK) {
+                    zhHkData = jsonData.result.zh_HK;
+                } else if (jsonData.zh_HK) {
+                    zhHkData = jsonData.zh_HK;
+                } else {
+                    // 如果没有找到繁体中文数据，尝试查找其他可能的结构
+                    for (const key in jsonData) {
+                        if (typeof jsonData[key] === 'object' && jsonData[key] !== null) {
+                            for (const subKey in jsonData[key]) {
+                                if (subKey.toLowerCase().includes('zh') || 
+                                    subKey.toLowerCase().includes('hk') || 
+                                    subKey.toLowerCase().includes('tw')) {
+                                    zhHkData = jsonData[key][subKey];
+                                    break;
+                                }
+                            }
+                        }
+                        if (Object.keys(zhHkData).length > 0) break;
+                    }
+                }
+                
+                // 按前两个点进行二级分组
+                if (Object.keys(zhHkData).length > 0) {
+                    for (const key in zhHkData) {
+                        const value = zhHkData[key].text || zhHkData[key] || '';
+                        
+                        // 提取第一级前缀（第一个点之前的部分）
+                        const firstDotIndex = key.indexOf('.');
+                        const firstPrefix = firstDotIndex !== -1 ? key.substring(0, firstDotIndex) : '其他';
+                        
+                        // 提取第二级前缀（第二个点之前的部分）
+                        const secondDotIndex = key.indexOf('.', firstDotIndex + 1);
+                        const secondPrefix = secondDotIndex !== -1 ? key.substring(0, secondDotIndex) : firstPrefix;
+                        
+                        if (!groupedData[firstPrefix]) {
+                            groupedData[firstPrefix] = {};
+                        }
+                        
+                        if (!groupedData[firstPrefix][secondPrefix]) {
+                            groupedData[firstPrefix][secondPrefix] = [];
+                        }
+                        
+                        groupedData[firstPrefix][secondPrefix].push({
+                            key: key,
+                            value: value
+                        });
+                    }
+                    
+                    // 生成二级分组预览
+                    generateTwoLevelPreview();
+                    
+                    loading.style.display = 'none';
+                    previewSection.style.display = 'block';
+                } else {
+                    errorMessage.textContent = '未找到繁体中文数据';
+                    errorMessage.style.display = 'block';
+                    loading.style.display = 'none';
+                }
+            }
+            
+            function generateTwoLevelPreview() {
+                for (const firstPrefix in groupedData) {
+                    const firstGroupSection = document.createElement('div');
+                    firstGroupSection.className = 'group-section';
+                    
+                    const firstGroupHeader = document.createElement('div');
+                    firstGroupHeader.className = 'group-header';
+                    
+                    // 计算第一级分组的总项目数
+                    let firstLevelTotal = 0;
+                    for (const secondPrefix in groupedData[firstPrefix]) {
+                        firstLevelTotal += groupedData[firstPrefix][secondPrefix].length;
+                    }
+                    
+                    firstGroupHeader.innerHTML = `
+                        <span>${firstPrefix} (${firstLevelTotal} 个项目)</span>
+                        <span class="toggle-icon">▼</span>
+                    `;
+                    
+                    const firstGroupContent = document.createElement('div');
+                    firstGroupContent.className = 'group-content';
+                    
+                    // 添加第二级分组
+                    for (const secondPrefix in groupedData[firstPrefix]) {
+                        const secondGroupSection = document.createElement('div');
+                        secondGroupSection.className = 'subgroup-section';
+                        
+                        const secondGroupHeader = document.createElement('div');
+                        secondGroupHeader.className = 'subgroup-header';
+                        secondGroupHeader.innerHTML = `
+                            <span>${secondPrefix} (${groupedData[firstPrefix][secondPrefix].length} 个项目)</span>
+                            <span class="toggle-icon">▼</span>
+                        `;
+                        
+                        const secondGroupContent = document.createElement('div');
+                        secondGroupContent.className = 'subgroup-content';
+                        
+                        const table = document.createElement('table');
+                        table.className = 'word-table';
+                        
+                        const thead = document.createElement('thead');
+                        thead.innerHTML = `
+                            <tr>
+                                <th class="key-column">Key名</th>
+                                <th class="value-column">繁体中文 Value</th>
+                            </tr>
+                        `;
+                        
+                        const tbody = document.createElement('tbody');
+                        
+                        groupedData[firstPrefix][secondPrefix].forEach(item => {
+                            const row = document.createElement('tr');
+                            
+                            const keyCell = document.createElement('td');
+                            keyCell.className = 'key-column';
+                            keyCell.textContent = item.key;
+                            
+                            const valueCell = document.createElement('td');
+                            valueCell.className = 'value-column';
+                            valueCell.textContent = item.value;
+                            
+                            row.appendChild(keyCell);
+                            row.appendChild(valueCell);
+                            tbody.appendChild(row);
+                        });
+                        
+                        table.appendChild(thead);
+                        table.appendChild(tbody);
+                        secondGroupContent.appendChild(table);
+                        
+                        secondGroupSection.appendChild(secondGroupHeader);
+                        secondGroupSection.appendChild(secondGroupContent);
+                        firstGroupContent.appendChild(secondGroupSection);
+                        
+                        // 添加第二级分组的点击事件
+                        secondGroupHeader.addEventListener('click', function() {
+                            const isExpanded = secondGroupContent.classList.contains('expanded');
+                            secondGroupContent.classList.toggle('expanded', !isExpanded);
+                            this.querySelector('.toggle-icon').textContent = isExpanded ? '▼' : '▲';
+                        });
+                    }
+                    
+                    firstGroupSection.appendChild(firstGroupHeader);
+                    firstGroupSection.appendChild(firstGroupContent);
+                    previewContent.appendChild(firstGroupSection);
+                    
+                    // 添加第一级分组的点击事件
+                    firstGroupHeader.addEventListener('click', function() {
+                        const isExpanded = firstGroupContent.classList.contains('expanded');
+                        firstGroupContent.classList.toggle('expanded', !isExpanded);
+                        this.querySelector('.toggle-icon').textContent = isExpanded ? '▼' : '▲';
+                    });
+                    
+                    // 默认展开第一个第一级分组
+                    if (Object.keys(groupedData)[0] === firstPrefix) {
+                        firstGroupContent.classList.add('expanded');
+                        firstGroupHeader.querySelector('.toggle-icon').textContent = '▲';
+                        
+                        // 默认展开第一个第二级分组
+                        const firstSecondPrefix = Object.keys(groupedData[firstPrefix])[0];
+                        const firstSecondGroup = firstGroupContent.querySelector('.subgroup-section');
+                        if (firstSecondGroup) {
+                            firstSecondGroup.querySelector('.subgroup-content').classList.add('expanded');
+                            firstSecondGroup.querySelector('.toggle-icon').textContent = '▲';
+                        }
+                    }
+                }
+            }
+            
+            // 下载Word文档
+            downloadBtn.addEventListener('click', function() {
+                if (!jsonData || Object.keys(groupedData).length === 0) return;
+                
+                // 创建Word文档内容
+                let wordContent = `
+                <html xmlns:o="urn:schemas-microsoft-com:office:office" 
+                      xmlns:w="urn:schemas-microsoft-com:office:word" 
+                      xmlns="http://www.w3.org/TR/REC-html40">
+                <head>
+                    <meta charset="UTF-8">
+                    <title>JSON二级分组转Word文档</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; }
+                        h1 { color: #2c3e50; }
+                        h2 { color: #3498db; margin-top: 30px; padding-bottom: 10px; border-bottom: 2px solid #3498db; }
+                        h3 { color: #2c3e50; margin-top: 20px; padding-left: 10px; background-color: #f0f0f0; padding: 8px; }
+                        table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+                        th, td { border: 1px solid #000; padding: 8px; text-align: left; }
+                        th { background-color: #3498db; color: white; }
+                        tr:nth-child(even) { background-color: #f2f2f2; }
+                    </style>
+                </head>
+                <body>
+                    <h1>JSON数据表格（二级分组）</h1>
+                    <p>生成时间: ${new Date().toLocaleString()}</p>
+                `;
+                
+                // 添加每个第一级分组的内容
+                for (const firstPrefix in groupedData) {
+                    wordContent += `<h2>${firstPrefix}</h2>`;
+                    
+                    // 添加每个第二级分组的内容
+                    for (const secondPrefix in groupedData[firstPrefix]) {
+                        wordContent += `<h3>${secondPrefix}</h3>`;
+                        wordContent += `<table><tr><th>Key名</th><th>繁体中文 Value</th></tr>`;
+                        
+                        groupedData[firstPrefix][secondPrefix].forEach(item => {
+                            wordContent += `<tr><td>${item.key}</td><td>${item.value}</td></tr>`;
+                        });
+                        
+                        wordContent += `</table>`;
+                    }
+                }
+                
+                wordContent += `</body></html>`;
+                
+                // 创建Blob并下载
+                const blob = new Blob([wordContent], { type: 'application/msword' });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'json_two_level_grouped.doc';
+                document.body.appendChild(a);
+                a.click();
+                
+                // 清理
+                setTimeout(() => {
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                }, 100);
+            });
+        });
+    </script>
+</body>
+</html>
