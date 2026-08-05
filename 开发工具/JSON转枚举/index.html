@@ -310,7 +310,7 @@
                 
                 <div class="config-item">
                     <label for="rootPath">根路径过滤（前缀，可为空）</label>
-                    <input type="text" id="rootPath" placeholder="例如：romGbaRemittance（留空则处理所有路径）">
+                    <input type="text" id="rootPath" placeholder="例如：xxxxx（留空则处理所有路径）">
                 </div>
                 
                 <div class="config-item">
@@ -332,23 +332,6 @@
                     <p>或点击下方按钮选择文件</p>
                     <span class="browse-btn" id="browseBtn">选择文件</span>
                     <input type="file" class="file-input" id="fileInput" accept=".json">
-                </div>
-                
-                <div class="instructions">
-                    <h3>使用说明</h3>
-                    <ul>
-                        <li>拖放JSON文件到上方区域，或点击"选择文件"按钮</li>
-                        <li>现在支持提取路径第二段作为枚举名称（如：romGbaRemittance.payeeInput.btnBack → PayeeInputKey）</li>
-                        <li>系统将自动识别不同根路径并生成对应的TypeScript枚举</li>
-                        <li>生成的代码将显示在右侧预览区域</li>
-                        <li>点击"下载TS文件"按钮保存生成的枚举代码</li>
-                    </ul>
-                    <p><strong>枚举名称提取示例:</strong></p>
-                    <ul>
-                        <li>romGbaRemittance.payeeInput.btnBack → PayeeInputKey</li>
-                        <li>anotherApp.userManagement.saveButton → UserManagementKey</li>
-                        <li>myApp.dataProcessing.exportFunction → DataProcessingKey</li>
-                    </ul>
                 </div>
                 
                 <div class="status-info" id="statusInfo"></div>
