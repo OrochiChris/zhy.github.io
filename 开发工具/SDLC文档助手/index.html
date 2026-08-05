@@ -313,33 +313,6 @@
             </div>
         </div>
         
-        <div class="instructions">
-            <h2>使用说明</h2>
-            <ol>
-                <li>上传包含繁体中文数据的JSON文件</li>
-                <li>系统将自动解析JSON内容并按前两个点进行二级分组</li>
-                <li>预览生成的Word文档格式（可展开/折叠分组）</li>
-                <li>点击"下载Word文档"按钮获取最终文档</li>
-            </ol>
-            <p><strong>二级分组规则：</strong></p>
-            <ul>
-                <li>第一级分组：key中第一个点(.)之前的部分</li>
-                <li>第二级分组：key中第二个点(.)之前的部分</li>
-                <li>例如：romGbaRemittance.amountInput.tvTitle → 第一级：romGbaRemittance，第二级：romGbaRemittance.amountInput</li>
-            </ul>
-            <p><strong>JSON文件示例结构：</strong></p>
-            <pre>{
-  "result": {
-    "zh_HK": {
-      "romGbaRemittance.amountInput.tvTitle": {"text": "輸入金額"},
-      "romGbaRemittance.amountInput.tvBackTitle": {"text": "確認離開？"},
-      "romGbaRemittance.payeeInput.tvTitle": {"text": "收款人資料"},
-      "romGbaRemittance.confirm.tvTitle": {"text": "請確認以下資料"}
-    }
-  }
-}</pre>
-        </div>
-        
         <footer>
             <p>JSON二级分组转Word工具 &copy; 2023</p>
         </footer>
