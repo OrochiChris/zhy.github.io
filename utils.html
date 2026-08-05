@@ -5,75 +5,163 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>开发工具集 - 主页</title>
     <style>
+        /* ========== 密码弹窗样式 ========== */
+        #pwd-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        #pwd-box {
+            background: #1a1a2e;
+            padding: 40px 35px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: popIn 0.5s ease;
+            min-width: 320px;
+        }
+        @keyframes popIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to   { transform: scale(1);   opacity: 1; }
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25%      { transform: translateX(-10px); }
+            75%      { transform: translateX(10px); }
+        }
+        #pwd-box h2 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+        }
+        #pwd-box .subtitle {
+            color: #888;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+        }
+        #pwd-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #0f0f1a;
+            color: #eee;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        #pwd-input:focus {
+            border-color: #667eea;
+        }
+        #pwd-submit {
+            margin-top: 20px;
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        #pwd-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        #pwd-error {
+            color: #ff6b6b;
+            height: 20px;
+            margin-top: 15px;
+            font-size: 0.9rem;
+        }
+        #pwd-lockout {
+            color: #ffa500;
+            font-size: 0.85rem;
+            margin-top: 10px;
+        }
+
+        /* ========== 主页面样式（初始隐藏） ========== */
+        #main-content {
+            display: none;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
         }
-        
+
         .header {
             text-align: center;
             color: white;
             margin-bottom: 40px;
             padding: 40px 0;
         }
-        
+
         .header h1 {
             font-size: 3rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
         }
-        
+
         .header p {
             font-size: 1.2rem;
             opacity: 0.9;
         }
-        
+
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 20px;
             margin-bottom: 40px;
         }
-        
+
         .tool-card {
             background: white;
             border-radius: 15px;
             padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-decoration: none;
             color: #333;
         }
-        
+
         .tool-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
-        
+
         .tool-card h3 {
             color: #4a5568;
             margin-bottom: 15px;
             font-size: 1.5rem;
         }
-        
+
         .tool-card p {
             color: #718096;
             line-height: 1.6;
         }
-        
+
         .path-info {
             background: #f7fafc;
             border-left: 4px solid #667eea;
@@ -83,7 +171,7 @@
             font-size: 0.9rem;
             border-radius: 0 5px 5px 0;
         }
-        
+
         .footer {
             text-align: center;
             color: white;
@@ -91,12 +179,31 @@
             margin-top: 40px;
             padding: 20px;
         }
-        
+
+        /* 退出按钮 */
+        #logout-btn {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            z-index: 1000;
+            padding: 8px 15px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            backdrop-filter: blur(5px);
+            transition: background 0.3s;
+        }
+        #logout-btn:hover {
+            background: rgba(255, 255, 255, 0.35);
+        }
+
         @media (max-width: 768px) {
             .tools-grid {
                 grid-template-columns: 1fr;
             }
-            
             .header h1 {
                 font-size: 2rem;
             }
@@ -104,65 +211,243 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🔧 开发工具集</h1>
-            <p>精选实用的在线开发工具</p>
+    <!-- ===== 密码弹窗 ===== -->
+    <div id="pwd-overlay">
+        <div id="pwd-box">
+            <h2>🔒 访问受限</h2>
+            <p class="subtitle">请输入访问密码</p>
+            <input type="password" id="pwd-input" placeholder="请输入密码" autofocus>
+            <button id="pwd-submit">确 定</button>
+            <div id="pwd-error"></div>
+            <div id="pwd-lockout"></div>
         </div>
-        
-        <div class="tools-grid">
-            <a href="开发工具/JSON差异化对比/" class="tool-card">
-                <h3>🔄 JSON 差异化对比工具</h3>
-            </a>
-            
-            <a href="开发工具/JSON转枚举/" class="tool-card">
-                <h3>⚡ JSON 转枚举工具</h3>
-            </a>
+    </div>
 
-            <a href="开发工具/多语言可视化编辑/" class="tool-card">
-                <h3>⚡ 多语言可视化编辑</h3>
-            </a>
+    <!-- ===== 主页面内容（验证通过后显示） ===== -->
+    <div id="main-content">
+        <button id="logout-btn" title="退出登录">🔓 退出</button>
+        <div class="container">
+            <div class="header">
+                <h1>🔧 开发工具集</h1>
+                <p>精选实用的在线开发工具</p>
+            </div>
 
-            <a href="开发工具/SDLC文档助手/" class="tool-card">
-                <h3>⚡ SDLC文档助手</h3>
-            </a>
-        </div>
-        
-        <div class="footer">
-            <p>最后更新: 2020-08-05 | 更多工具持续开发中...</p>
+            <div class="tools-grid">
+                <a href="开发工具/JSON差异化对比/" class="tool-card">
+                    <h3>🔄 JSON 差异化对比工具</h3>
+                </a>
+
+                <a href="开发工具/JSON转枚举/" class="tool-card">
+                    <h3>⚡ JSON 转枚举工具</h3>
+                </a>
+
+                <a href="开发工具/多语言可视化编辑/" class="tool-card">
+                    <h3>⚡ 多语言可视化编辑</h3>
+                </a>
+
+                <a href="开发工具/SDLC文档助手/" class="tool-card">
+                    <h3>⚡ SDLC文档助手</h3>
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>最后更新: 2020-08-05 | 更多工具持续开发中...</p>
+            </div>
         </div>
     </div>
 
     <script>
-        // 添加页面加载动画
-        document.addEventListener('DOMContentLoaded', function() {
+    (function () {
+        'use strict';
+
+        // ====== 配置区 ======
+        const PASS_HASH = "45b3161183025f120dc468119cfa89593f00dccf648c22ee9115dbbaf30ddcc2";
+
+        const MAX_ATTEMPTS   = 5;       // 最大尝试次数
+        const LOCKOUT_MIN    = 5;       // 锁定时间（分钟）
+        const SESSION_KEY    = "devtools_unlocked_v1";
+        const ATTEMPTS_KEY   = "devtools_attempts_v1";
+        const LOCKOUT_KEY    = "devtools_lockout_v1";
+
+        // ====== DOM 元素 ======
+        const overlay    = document.getElementById('pwd-overlay');
+        const pwdInput   = document.getElementById('pwd-input');
+        const pwdSubmit  = document.getElementById('pwd-submit');
+        const pwdError   = document.getElementById('pwd-error');
+        const pwdLockout = document.getElementById('pwd-lockout');
+        const mainContent = document.getElementById('main-content');
+        const logoutBtn  = document.getElementById('logout-btn');
+
+        // ====== 反调试（轻量版） ======
+        setInterval(() => {
+            const start = performance.now();
+            debugger;
+            if (performance.now() - start > 100) {
+                document.body.innerHTML = '<h1 style="color:white;text-align:center;margin-top:20vh;">⚠️ 检测到调试行为，已锁定。</h1>';
+            }
+        }, 2000);
+
+        // ====== 工具函数 ======
+        function getRemainingLockout() {
+            const lockoutUntil = localStorage.getItem(LOCKOUT_KEY);
+            if (!lockoutUntil) return 0;
+            const remain = Math.ceil((parseInt(lockoutUntil) - Date.now()) / 1000);
+            return remain > 0 ? remain : 0;
+        }
+
+        function setLockout() {
+            const until = Date.now() + LOCKOUT_MIN * 60 * 1000;
+            localStorage.setItem(LOCKOUT_KEY, String(until));
+            localStorage.setItem(ATTEMPTS_KEY, String(MAX_ATTEMPTS));
+        }
+
+        function formatTime(secs) {
+            const m = Math.floor(secs / 60);
+            const s = secs % 60;
+            return `${m}分${s.toString().padStart(2, '0')}秒`;
+        }
+
+        function shakeBox() {
+            const box = document.getElementById('pwd-box');
+            box.style.animation = 'none';
+            void box.offsetWidth; // reflow
+            box.style.animation = 'shake 0.5s';
+        }
+
+        // ====== 密码验证 ======
+        async function checkPassword() {
+            const remain = getRemainingLockout();
+            if (remain > 0) {
+                pwdLockout.textContent = `⏳ 已锁定，请 ${formatTime(remain)} 后重试`;
+                return;
+            }
+
+            const input = pwdInput.value.trim();
+            if (!input) {
+                pwdError.textContent = '请输入密码';
+                shakeBox();
+                return;
+            }
+
+            // 计算 SHA-256 哈希
+            const hashBuffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(input));
+            const hashHex = Array.from(new Uint8Array(hashBuffer))
+                .map(b => b.toString(16).padStart(2, '0')).join('');
+
+            if (hashHex === PASS_HASH) {
+                // ✅ 验证成功
+                sessionStorage.setItem(SESSION_KEY, 'true');
+                localStorage.removeItem(ATTEMPTS_KEY);
+                localStorage.removeItem(LOCKOUT_KEY);
+                unlockPage();
+            } else {
+                // ❌ 验证失败
+                let attempts = parseInt(localStorage.getItem(ATTEMPTS_KEY) || '0') + 1;
+                localStorage.setItem(ATTEMPTS_KEY, String(attempts));
+
+                const left = MAX_ATTEMPTS - attempts;
+                pwdInput.value = '';
+                shakeBox();
+
+                if (left <= 0) {
+                    setLockout();
+                    pwdError.textContent = '';
+                    pwdLockout.textContent = `🔒 尝试次数过多，已锁定 ${LOCKOUT_MIN} 分钟`;
+                    pwdInput.disabled = true;
+                    pwdSubmit.disabled = true;
+                } else {
+                    pwdError.textContent = `密码错误，还剩 ${left} 次机会`;
+                }
+            }
+        }
+
+        // ====== 解锁页面 ======
+        function unlockPage() {
+            overlay.style.display = 'none';
+            mainContent.style.display = 'block';
+            pwdInput.disabled = false;
+            pwdSubmit.disabled = false;
+            pwdError.textContent = '';
+            pwdLockout.textContent = '';
+            initPageAnimations();
+        }
+
+        // ====== 锁定页面 ======
+        function lockPage() {
+            sessionStorage.removeItem(SESSION_KEY);
+            pwdInput.value = '';
+            pwdInput.disabled = false;
+            pwdSubmit.disabled = false;
+            pwdError.textContent = '';
+            pwdLockout.textContent = '';
+            overlay.style.display = 'flex';
+            mainContent.style.display = 'none';
+            setTimeout(() => pwdInput.focus(), 100);
+        }
+
+        // ====== 页面动画初始化 ======
+        function initPageAnimations() {
             const cards = document.querySelectorAll('.tool-card');
             cards.forEach((card, index) => {
                 card.style.animationDelay = `${index * 0.1}s`;
                 card.classList.add('fade-in');
             });
-        });
-        
-        // 添加CSS动画
-        const style = document.createElement('style');
-        style.textContent = `
-            .fade-in {
-                animation: fadeInUp 0.6s ease-out forwards;
-                opacity: 0;
-            }
-            
-            @keyframes fadeInUp {
-                from {
+
+            const style = document.createElement('style');
+            style.textContent = `
+                .fade-in {
+                    animation: fadeInUp 0.6s ease-out forwards;
                     opacity: 0;
-                    transform: translateY(30px);
                 }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
+                @keyframes fadeInUp {
+                    from { opacity: 0; transform: translateY(30px); }
+                    to   { opacity: 1; transform: translateY(0); }
                 }
+            `;
+            document.head.appendChild(style);
+        }
+
+        // ====== 锁定倒计时刷新 ======
+        function tickLockout() {
+            const remain = getRemainingLockout();
+            if (remain > 0) {
+                pwdLockout.textContent = `⏳ 已锁定，请 ${formatTime(remain)} 后重试`;
+                pwdInput.disabled = true;
+                pwdSubmit.disabled = true;
+            } else if (pwdInput.disabled) {
+                pwdLockout.textContent = '';
+                pwdInput.disabled = false;
+                pwdSubmit.disabled = false;
+                pwdInput.focus();
             }
-        `;
-        document.head.appendChild(style);
+        }
+
+        // ====== 初始化 ======
+        function init() {
+            // 检查是否已解锁（同一会话）
+            if (sessionStorage.getItem(SESSION_KEY) === 'true') {
+                unlockPage();
+                return;
+            }
+
+            // 检查是否处于锁定状态
+            tickLockout();
+            setInterval(tickLockout, 1000);
+
+            // 绑定事件
+            pwdSubmit.addEventListener('click', checkPassword);
+            pwdInput.addEventListener('keydown', e => {
+                if (e.key === 'Enter') checkPassword();
+            });
+            logoutBtn.addEventListener('click', lockPage);
+
+            // 自动聚焦
+            pwdInput.focus();
+        }
+
+        // 启动
+        init();
+    })();
     </script>
 </body>
 </html>
